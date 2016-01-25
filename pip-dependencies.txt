@@ -1,0 +1,10 @@
+Django>=1.8
+mysql-python
+django-admin-bootstrapped
+django-import-export
+django-tinymce
+django-admin-sortable
+
+#partial dates
+git+git://github.com/dracos/django-date-extensions.git
+six
