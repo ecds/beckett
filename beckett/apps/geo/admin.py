@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from beckett.apps.geo.models import Place
+from beckett.apps.geo.models import Place, Repository
 
 class PlaceAdmin(admin.ModelAdmin):
     class Media:
@@ -18,3 +18,4 @@ class PlaceAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Place, PlaceAdmin)
+admin.site.register(Repository)

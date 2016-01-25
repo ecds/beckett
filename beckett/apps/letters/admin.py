@@ -22,6 +22,9 @@ class LetterAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {
             'fields': ('year', 'month', 'day')}),
+        ('Physical Description', {
+            'classes': ('collapse',),
+            'fields': ('physical_description', 'leaves_sides', 'envelope', 'postmark')}),
         ('Recipients', {
             'classes': ('collapse',),
             'fields': ('recipients_input', 'recipients')}),
