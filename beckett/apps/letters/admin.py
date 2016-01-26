@@ -52,7 +52,7 @@ class LetterAdmin(admin.ModelAdmin):
             'fields': ('sb_publications_input', 'sb_publications', 'edition_notes', 'sb_productions_input', 'sb_productions', 'edition_notes2')}),
         ('Translations', {
             'classes': ('collapse',),
-            'fields': ('self_translations_input','self_translations','translations_input','translations')}),
+            'fields': ('self_translations_input','self_translations','edition_notes3', 'translations_input','translations', 'edition_notes4')}),
         ('Censorship', {
             'classes': ('collapse',),
             'fields': ('censorship',)}),
