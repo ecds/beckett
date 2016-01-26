@@ -18,16 +18,17 @@ class LetterAdmin(admin.ModelAdmin):
                          'sb_productions', 
                          'self_translations',
                          'translations',
-                         'sb_reading']
+                         'sb_reading',
+                         'repository']
     fieldsets = (
         (None, {
-            'fields': ('year', 'month', 'day')}),
-        ('Physical Description', {
-            'classes': ('collapse',),
-            'fields': ('physical_description', 'leaves_sides', 'envelope', 'postmark')}),
+            'fields': ('year', 'month', 'day', 'primary_language')}),
         ('Recipients', {
             'classes': ('collapse',),
             'fields': ('recipients_input', 'recipients')}),
+        ('Physical Description', {
+            'classes': ('collapse',),
+            'fields': ('physical_description', 'leaves_sides', 'envelope', 'postmark')}),
         ('Key Terms', {
             'classes': ('collapse',),
             'fields': ('key_terms',)}),
@@ -37,9 +38,12 @@ class LetterAdmin(admin.ModelAdmin):
         ('Publishers/Agents/Producers', {
             'classes': ('collapse',),
             'fields': ('publishers_input', 'publishers')}),
+        ('Repository Information', {
+            'classes': ('collapse',),
+            'fields': ('repository_input', 'repository', 'owner_input')}),
         ('Places', {
             'classes': ('collapse',),
-            'fields': ('places_input', 'places')}),
+            'fields': ('places_input', 'places', 'place_written_input', 'place_written', 'place_sent_input', 'place_sent')}),
         ('SB Writing', {
             'classes': ('collapse',),
             'fields': ('sb_writing_input', 'sb_writing')}),
@@ -49,27 +53,24 @@ class LetterAdmin(admin.ModelAdmin):
         ('SB Productions', {
             'classes': ('collapse',),
             'fields': ('sb_productions_input', 'sb_productions')}),
-        ('Self-Translations', {
-            'classes': ('collapse',),
-            'fields': ('self_translations_input','self_translations')}),
         ('Translations', {
             'classes': ('collapse',),
-            'fields': ('translations_input','translations')}),
-        ('SB Reading', {
-            'classes': ('collapse',),
-            'fields': ('sb_reading_input', 'sb_reading')}),
-        ('Events Attended', {
-            'classes': ('collapse',),
-            'fields': ('events_attended',)}),
-        ('Sports', {
-            'classes': ('collapse',),
-            'fields': ('sports',)}),
+            'fields': ('self_translations_input','self_translations','translations_input','translations')}),
         ('Censorship', {
             'classes': ('collapse',),
             'fields': ('censorship',)}),
-        ('SB Health', {
+        ('Publication Information', {
             'classes': ('collapse',),
-            'fields': ('sb_health',)}),
+            'fields': ('publication', 'volume','previous_publication', 'place_of_previous_publication',)}),
+        ('SB Reading', {
+            'classes': ('collapse',),
+            'fields': ('sb_reading_input', 'sb_reading')}),
+        ('SB Activities', {
+            'classes': ('collapse',),
+            'fields': ('events_attended','sports','sb_health')}),
+        ('Additional Information', {
+            'classes': ('collapse',),
+            'fields': ('additional_information',)}),
     )
 
 
