@@ -8,7 +8,7 @@ class LetterAdmin(admin.ModelAdmin):
     class Media:
         js = ('js/admin/collapseTabularInlines.js',)
         css = { 'all' : ('css/admin/admin_styles.css',) }
-    list_display = ['year', 'month', 'day', 'recipient_list']
+    list_display = ['year', 'month', 'day', 'recipient_list', 'primary_language']
     filter_horizontal = ['recipients', 
                          'people', 
                          'publishers', 
