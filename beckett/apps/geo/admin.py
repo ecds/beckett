@@ -9,13 +9,20 @@ class PlaceAdmin(admin.ModelAdmin):
 
     list_display = ['street_address', 'city', 'state', 'zipcode', 'country']
     list_display_links = ['street_address', 'city', 'state', 'zipcode', 'country']
-    search_fields = ['street_address', 'city', 'state__name', 'state__code',
-                     'zipcode', 'country__name', 'country__code',
-                     'placename__name', 'placename__item__title']
+    search_fields = ['street_address', 'city', 'state',
+                     'zipcode', 'country',
+                     'Latitude', 'Longitude']
     inlines = [
         
     ]
 
+class RepositoryAdmin(admin.ModelAdmin):
+    list_display = ['name', 'descriptive_information', 'storage_information', 'street_address', 'city', 'country']
+    search_fields = ['name', 'descriptive_information', 'storage_information', 
+                     'street_address', 'city', 'state',
+                     'zipcode', 'country',
+                     'Latitude', 'Longitude']
+
 
 admin.site.register(Place, PlaceAdmin)
-admin.site.register(Repository)
+admin.site.register(Repository, RepositoryAdmin)

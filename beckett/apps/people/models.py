@@ -44,6 +44,10 @@ class Person(models.Model):
     first_name = models.CharField(max_length=100, blank=True)
     last_name = models.CharField(max_length=100)
     gender = models.CharField(max_length=1, blank=True, choices=GENDER_CHOICES)
+    date_of_birth = models.CharField(max_length=255, blank=True, null=True)
+    date_of_death = models.CharField(max_length=255, blank=True, null=True)
+    VIAF_reference = models.URLField(blank=True, null=True, help_text="VIAF Permalink")
+    ODNB_reference = models.CharField(max_length=500, blank=True, null=True, help_text="ODNB reference citation including permalink")
     uri = models.URLField(blank=True)
     notes = models.TextField(blank=True)
 
@@ -58,7 +62,10 @@ class Person(models.Model):
         unique_together = ('first_name', 'last_name')
         ordering = ['last_name', 'first_name']
 
-
+class PersonResource(models.Model):
+    Description = models.CharField(max_length=500, blank=True, null=True)
+    Link = models.URLField(blank=True, null=True)
+    person = models.ForeignKey(Person, blank=True, null=True, related_name='resources')
 
 class NameManager(models.Manager):
     def get_by_natural_key(self, first_name, last_name, person):

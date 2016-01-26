@@ -9,11 +9,19 @@ class Chronology(models.Model):
 
     sequence = models.DecimalField(max_digits=7, decimal_places=3)
     year = models.IntegerField()
-    label = models.CharField(max_length=255)
+    label = models.CharField(max_length=255, verbose_name="Date range")
     description = tinymce_models.HTMLField()
     # add date fields
 
     class Meta:
         verbose_name_plural = 'Published Chronologies'
         ordering = ['sequence']
-        
+
+class EventResource(models.Model):
+
+    Type = models.CharField(max_length=500, blank=True, null=True)
+    Description = models.CharField(max_length=500, blank=True, null=True)
+    URL_Content = models.URLField(max_length=1000, blank=True, null=True, verbose_name="URL or other resource content")
+    Permissions = models.CharField(max_length=500, blank=True, null=True)
+    Date_Accessed = models.CharField(max_length=255, blank=True, null=True)
+    Chronology_Item = models.ForeignKey(Chronology)

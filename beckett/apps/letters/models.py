@@ -44,9 +44,10 @@ class Letter(models.Model):
 
     sb_publications_input = tinymce_models.HTMLField(blank=True, verbose_name="SB publications input", help_text="Input from Excel database")
     sb_publications = models.ManyToManyField(Work, blank=True, verbose_name="SB publications", related_name='sb_publications', help_text="Publications of SB's work referenced in letter")
-
+    edition_notes = models.CharField(max_length=255, blank=True, null=True, verbose_name="Publication edition notes")
     sb_productions_input = tinymce_models.HTMLField(blank=True, verbose_name="SB productions input", help_text="Input from Excel database")
     sb_productions = models.ManyToManyField(Work, blank=True, verbose_name="SB productions", related_name='sb_productions', help_text="Productions of SB's work referenced in letter")
+    edition_notes2 = models.CharField(max_length=255, blank=True, null=True, verbose_name="Production version notes")
 
     self_translations_input = tinymce_models.HTMLField(blank=True, help_text="Input from Excel database")
     self_translations = models.ManyToManyField(Work, blank=True, related_name='self_translations', help_text="Self-translation and translation by SB referenced in letter")

@@ -47,12 +47,9 @@ class LetterAdmin(admin.ModelAdmin):
         ('SB Writing', {
             'classes': ('collapse',),
             'fields': ('sb_writing_input', 'sb_writing')}),
-        ('SB Publications', {
+        ('SB Publications and Productions', {
             'classes': ('collapse',),
-            'fields': ('sb_publications_input', 'sb_publications')}),
-        ('SB Productions', {
-            'classes': ('collapse',),
-            'fields': ('sb_productions_input', 'sb_productions')}),
+            'fields': ('sb_publications_input', 'sb_publications', 'edition_notes', 'sb_productions_input', 'sb_productions', 'edition_notes2')}),
         ('Translations', {
             'classes': ('collapse',),
             'fields': ('self_translations_input','self_translations','translations_input','translations')}),
@@ -72,6 +69,6 @@ class LetterAdmin(admin.ModelAdmin):
             'classes': ('collapse',),
             'fields': ('additional_information',)}),
     )
-
+    search_fields = ('year', 'primary_language', 'recipients_input', 'physical_description', 'leaves_sides', 'envelope', 'postmark', 'places_input', 'place_written_input', 'place_sent_input', 'additional_information', 'events_attended','sports','sb_health','self_translations_input','translations_input', 'sb_publications_input', 'sb_writing_input', 'sb_productions_input')
 
 admin.site.register(Letter, LetterAdmin)

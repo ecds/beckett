@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.utils.html import format_html
 
 # from beckett.apps.letters.models import Letter
-from beckett.apps.people.models import Person, Name, PenName
+from beckett.apps.people.models import Person, Name, PenName, PersonResource
 
 
 class AltNamesInline(admin.TabularInline):
@@ -13,6 +13,11 @@ class AltNamesInline(admin.TabularInline):
 class PenNamesInline(admin.TabularInline):
     model = PenName
     verbose_name_plural = 'Pen Names'
+    extra = 1
+
+class PersonResourceInline(admin.TabularInline):
+    model = PersonResource
+    verbose_name_plural = 'Resources about this person'
     extra = 1
 
 # class LetterInline(admin.TabularInline):
@@ -68,6 +73,7 @@ class PersonAdmin(admin.ModelAdmin):
     inlines = [
         AltNamesInline,
         PenNamesInline,
+        PersonResourceInline,
         # LetterInline,
         # ItemCreatorsInline,
     ]
