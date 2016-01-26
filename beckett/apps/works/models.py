@@ -14,9 +14,9 @@ class Work(models.Model):
     objects = WorkManager()
     # django requires list of tuple for field choices
 
-    title = models.CharField(max_length=255)
-    authors = models.ManyToManyField(Person)
-    notes = models.TextField(blank=True, verbose_name = "Description or Notes")
+    title = models.CharField(max_length=255, blank=True, null=True)
+    authors = models.ManyToManyField(Person, blank=True)
+    notes = models.TextField(blank=True, null=True, verbose_name = "Description or Notes")
 
     def natural_key(self):
         return (self.title,)

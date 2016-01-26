@@ -7,10 +7,10 @@ class Chronology(models.Model):
 
     objects = models.Manager()
 
-    sequence = models.DecimalField(max_digits=7, decimal_places=3)
-    year = models.IntegerField()
-    label = models.CharField(max_length=255, verbose_name="Date range")
-    description = tinymce_models.HTMLField()
+    sequence = models.DecimalField(null=True, max_digits=7, decimal_places=3)
+    year = models.IntegerField(null=True)
+    label = models.CharField(max_length=255, null=True, verbose_name="Date range")
+    description = tinymce_models.HTMLField(null=True)
     # add date fields
 
     class Meta:

@@ -14,15 +14,15 @@ class Place(models.Model):
     objects = PlaceManager()
 
     #: Street name and number
-    street_address = models.CharField(max_length=255, blank=True, help_text='Street name and number')
+    street_address = models.CharField(max_length=255, blank=True, null=True, help_text='Street name and number')
     #: City name
-    city = models.CharField(max_length=255, help_text='City name')
+    city = models.CharField(max_length=255, null=True, help_text='City name')
     #: state - :class:`StateCode`
     state = models.CharField(max_length=255, blank=True, null=True, help_text='State name')
     #: zipcode
-    zipcode = models.CharField(max_length=10, blank=True)
+    zipcode = models.CharField(max_length=10, blank=True, null=True)
     #: country - :class:`GeonamesCountry`
-    country = models.CharField(max_length=255, help_text='Country name')
+    country = models.CharField(max_length=255, blank=True, null=True, help_text='Country name')
 
     Latitude = models.DecimalField(max_digits=8, decimal_places=6, blank=True, null=True)
     Longitude = models.DecimalField(max_digits=8, decimal_places=6, blank=True, null=True)
@@ -44,15 +44,15 @@ class Repository(models.Model):
 
 
     #: Street name and number
-    street_address = models.CharField(max_length=255, blank=True, help_text='Street name and number')
+    street_address = models.CharField(max_length=255, blank=True, null=True, help_text='Street name and number')
     #: City name
-    city = models.CharField(max_length=255, help_text='City name')
+    city = models.CharField(max_length=255, blank=True, null=True, help_text='City name')
     #: state - :class:`StateCode`
     state = models.CharField(max_length=255, blank=True, null=True, help_text='State name')
     #: zipcode
-    zipcode = models.CharField(max_length=10, blank=True)
+    zipcode = models.CharField(max_length=10, blank=True, null=True)
     #: country - :class:`GeonamesCountry`
-    country = models.CharField(max_length=255, help_text='Country name')
+    country = models.CharField(max_length=255, blank=True, null=True, help_text='Country name')
 
     Latitude = models.DecimalField(max_digits=8, decimal_places=6, blank=True, null=True)
     Longitude = models.DecimalField(max_digits=8, decimal_places=6, blank=True, null=True)

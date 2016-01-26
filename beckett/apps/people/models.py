@@ -41,15 +41,15 @@ class Person(models.Model):
         ('M', 'Male')
     )
 
-    first_name = models.CharField(max_length=100, blank=True)
+    first_name = models.CharField(max_length=100, blank=True, null=True)
     last_name = models.CharField(max_length=100)
-    gender = models.CharField(max_length=1, blank=True, choices=GENDER_CHOICES)
+    gender = models.CharField(max_length=1, blank=True, null=True, choices=GENDER_CHOICES)
     date_of_birth = models.CharField(max_length=255, blank=True, null=True)
     date_of_death = models.CharField(max_length=255, blank=True, null=True)
     VIAF_reference = models.URLField(blank=True, null=True, help_text="VIAF Permalink")
     ODNB_reference = models.CharField(max_length=500, blank=True, null=True, help_text="ODNB reference citation including permalink")
-    uri = models.URLField(blank=True)
-    notes = models.TextField(blank=True)
+    uri = models.URLField(blank=True, null=True)
+    notes = models.TextField(blank=True, null=True)
 
     def natural_key(self):
         return (self.first_name, self.last_name)
@@ -80,8 +80,8 @@ class Name(models.Model):
 
     objects = NameManager()
 
-    first_name = models.CharField(max_length=100, blank=True)
-    last_name = models.CharField(max_length=100)
+    first_name = models.CharField(max_length=100, blank=True, null=True)
+    last_name = models.CharField(max_length=100, blank=True, null=True)
     person = models.ForeignKey('Person')
 
     def natural_key(self):
@@ -102,7 +102,7 @@ class PenName(models.Model):
 
     objects = PenNameManager()
 
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, blank=True, null=True)
     person = models.ForeignKey('Person')
 
     def natural_key(self):
