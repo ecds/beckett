@@ -39,14 +39,14 @@ class Letter(models.Model):
     place_sent_input = tinymce_models.HTMLField(blank=True, help_text="Input from Excel database")
     place_sent = models.ForeignKey(Place, blank=True, null=True, related_name='sent', help_text="Place to which the letter was sent")
 
-    sb_writing_input = tinymce_models.HTMLField(blank=True, help_text="Input from Excel database")
-    sb_writing = models.ManyToManyField(Work, blank=True, related_name='sb_writing', help_text="SB writing referenced in letter")
+    sb_writing_input = tinymce_models.HTMLField(blank=True, verbose_name="SB writing input", help_text="Input from Excel database")
+    sb_writing = models.ManyToManyField(Work, blank=True, verbose_name="SB writing", related_name='sb_writing', help_text="SB writing referenced in letter")
 
-    sb_publications_input = tinymce_models.HTMLField(blank=True, help_text="Input from Excel database")
-    sb_publications = models.ManyToManyField(Work, blank=True, related_name='sb_publications', help_text="Publications of SB's work referenced in letter")
+    sb_publications_input = tinymce_models.HTMLField(blank=True, verbose_name="SB publications input", help_text="Input from Excel database")
+    sb_publications = models.ManyToManyField(Work, blank=True, verbose_name="SB publications", related_name='sb_publications', help_text="Publications of SB's work referenced in letter")
 
-    sb_productions_input = tinymce_models.HTMLField(blank=True, help_text="Input from Excel database")
-    sb_productions = models.ManyToManyField(Work, blank=True, related_name='sb_productions', help_text="Productions of SB's work referenced in letter")
+    sb_productions_input = tinymce_models.HTMLField(blank=True, verbose_name="SB productions input", help_text="Input from Excel database")
+    sb_productions = models.ManyToManyField(Work, blank=True, verbose_name="SB productions", related_name='sb_productions', help_text="Productions of SB's work referenced in letter")
 
     self_translations_input = tinymce_models.HTMLField(blank=True, help_text="Input from Excel database")
     self_translations = models.ManyToManyField(Work, blank=True, related_name='self_translations', help_text="Self-translation and translation by SB referenced in letter")
@@ -59,14 +59,14 @@ class Letter(models.Model):
     previous_publication = models.NullBooleanField(blank=True, null=True, help_text="Was there a previous publication?")
     place_of_previous_publication = models.ForeignKey(Place, blank=True, null=True, related_name='publication', help_text="Place of Previous Publication")
 
-    sb_reading_input = tinymce_models.HTMLField(blank=True, help_text="Input from Excel database")
-    sb_reading = models.ManyToManyField(Work, blank=True, related_name='sb_reading', help_text="SB's reading referenced in letter")
+    sb_reading_input = tinymce_models.HTMLField(blank=True, verbose_name="SB reading input", help_text="Input from Excel database")
+    sb_reading = models.ManyToManyField(Work, blank=True, verbose_name="SB reading", related_name='sb_reading', help_text="SB's reading referenced in letter")
 
     key_terms = tinymce_models.HTMLField(blank=True)
     events_attended = tinymce_models.HTMLField(blank=True)
     sports = tinymce_models.HTMLField(blank=True)
     censorship = tinymce_models.HTMLField(blank=True)
-    sb_health = tinymce_models.HTMLField(blank=True)
+    sb_health = tinymce_models.HTMLField(blank=True, verbose_name="SB health mentioned")
     additional_information = tinymce_models.HTMLField(blank=True)
     
     def recipient_list(self):
