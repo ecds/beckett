@@ -13,12 +13,10 @@ Including another URLconf
     1. Add an import:  from blog import urls as blog_urls
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
 from django.contrib import admin
-from django.views.generic import ListView
+from beckett.apps.people import views
 
-urlpatterns = patterns('',
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'^people/', include('beckett.apps.people.urls', namespace="persons")),
-    url(r'^letters/', include('beckett.apps.letters.urls', namespace="lettering")),
-)
+urlpatterns = [
+    url(r'^$', views.PeopleList.as_view(), name="people"),
+]

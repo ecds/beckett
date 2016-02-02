@@ -68,7 +68,7 @@ class PersonAdmin(admin.ModelAdmin):
         js = ('js/admin/collapseTabularInlines.js',)
         css = { 'all' : ('css/admin/admin_styles.css',) }
     list_display = ['first_name', 'last_name', 'gender', 'uri']
-    search_fields = ['first_name', 'last_name', 'gender', 'notes', 'uri']
+    search_fields = ['first_name', 'last_name', 'gender', 'notes', 'uri', 'description']
     list_display_links = ['first_name', 'last_name']
     inlines = [
         AltNamesInline,

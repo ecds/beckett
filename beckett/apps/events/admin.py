@@ -8,7 +8,7 @@ class EventResourceInline(admin.TabularInline):
     extra = 1
 
 class ChronologyAdmin(admin.ModelAdmin):
-    list_display = ['year', 'label', 'description']
+    list_display = ['year', 'label']
     search_fields = ['year', 'label', 'description']
     inlines = [
         EventResourceInline,

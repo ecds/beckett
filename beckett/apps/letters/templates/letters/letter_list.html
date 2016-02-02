@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Letters</h2>
+    <ul>
+        {% for letter in object_list %}
+            <li>{{ letter.year }} to {{ letter.recipients_input}}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

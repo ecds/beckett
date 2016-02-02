@@ -33,6 +33,10 @@ INSTALLED_APPS = (
     'beckett.apps.works',
     'tinymce',
     'adminsortable',
+    'django.contrib.humanize',
+    'eultheme',
+    'widget_tweaks',
+    'downtime',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -67,6 +71,10 @@ TEMPLATES = [
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+	'eultheme.context_processors.template_settings',
 )
 
 WSGI_APPLICATION = 'beckett.wsgi.application'
