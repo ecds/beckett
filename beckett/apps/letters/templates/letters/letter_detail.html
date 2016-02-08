@@ -11,19 +11,12 @@
 <div class="container">
 <div class="centering text-center">
 
-    <h2>Letters from S. Beckett</h2>
-    <ul>
-        {% for Letter in letter_list %}
+    <h2>Letter from S. Beckett</h2>
 
+        <h1>{{ object.month }}-{{ object.day }}-{{ object.year }}</h1>
 
-  <p>
-    <div class="col-md-4">
-      <a href="{% url 'lettering:lettersdetail' pk=Letter.id %}" class="thumbnail" style="width:300px;height:90px">Letter sent on {{ Letter.month }}-{{ Letter.day }}-{{ Letter.year }} to<br/>{% for recipients in Letter.recipients.all %}{{ recipients }}{% endfor %}  <br/>({{ Letter.recipients_input }})
-      </a>
-  </div>
+<p>Physical Description: {{ object.physical_description }}<br/>Recipient(s): {{ object.recipients_input }}<br/>Leaves or Sides: {{ object.leaves_sides }}</p>
 
-      {% endfor %}
-    </ul>
 
 </div>
 </div>

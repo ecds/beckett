@@ -58,6 +58,8 @@ class Repository(models.Model):
     Latitude = models.DecimalField(max_digits=8, decimal_places=6, blank=True, null=True)
     Longitude = models.DecimalField(max_digits=8, decimal_places=6, blank=True, null=True)
 
+    URL = models.CharField(max_length=255, blank=True, null=True)
+
     def __unicode__(self):
         # only include fields that are not empty
         fields = [self.name, self.descriptive_information, self.street_address, self.city, self.state, self.zipcode, self.country]

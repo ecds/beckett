@@ -10,9 +10,9 @@
 
 <p><b>Search results for texts where:</b></p>
  <ul class='searchopts'><li>document contains keywords</li></ul><?xml version="1.0"?>
-<table class="searchnav"><tr><td/><td/><td><a href="{% url "lettering:searchbox" %}?keyword=Letter&amp;recipients_input=&amp;year=&amp;month=&amp;day=&amp;&amp;position=21&amp;max=20">
+<table class="searchnav"><tr><td/><td/><td><a href="{% url 'lettering:searchbox' %}?keyword=Letter&amp;recipients_input=&amp;year=&amp;month=&amp;day=&amp;&amp;position=21&amp;max=20">
             Next&gt;
-          </a></td><td><a href="{% url "lettering:searchbox" %}?keyword=Letter&amp;recipients_input=&amp;year=&amp;month=&amp;day=&amp;&amp;position=77&amp;max=20">
+          </a></td><td><a href="{% url 'lettering:searchbox' %}?keyword=Letter&amp;recipients_input=&amp;year=&amp;month=&amp;day=&amp;&amp;position=77&amp;max=20">
               Last&gt;&gt;
             </a></td></tr></table>
 
@@ -22,7 +22,7 @@
 <p>{{ letters_paginated.paginator.count }} matches found</p>
 {% for Letter in letters %}
 <ul>
-	<li>{{ Letter.year }}, {{ Letter.month }}, {{ Letter.day }}</li>
+	<li>{{ Letter.year }}, {{ Letter.month }}, {{ Letter.day }} to {{ Letter.recipients_input }}</li>
 	</ul>
 	{% endfor %}
 <form align="right" id="jumpnav" action="{% url 'lettering:searchbox' %}">
@@ -40,7 +40,7 @@
     <tr>
       <th class="num">#</th>
       <th>Letter </th>
-      <th>year </th>
+      <th>Year </th>
       <th>Date</th>
     </tr>
   </thead>

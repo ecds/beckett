@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from beckett.apps.letters.models import Letter
 from django.template import RequestContext
 from beckett.apps.letters.forms import LetterSearchForm
@@ -9,9 +9,15 @@ from django.shortcuts import render, render_to_response
 class LettersList(ListView):
     model = Letter
 
+class LettersDetail(DetailView):
+    model = Letter
+    queryset = Letter.objects.all()
+    template_name = 'letters/letter_detail.html'
+
+
 
 def searchbox(request):
-    "Search letters by title/author/keyword"
+    "Search letters"
     form = LetterSearchForm(request.GET)
     response_code = None
     context = {'searchbox': form}
@@ -22,7 +28,7 @@ def searchbox(request):
         if 'keyword' in form.cleaned_data and form.cleaned_data['keyword']:
             search_opts['primary_language'] = '%s' % form.cleaned_data['keyword']
                 
-        letters = Letter.objects.only('id', 'primary_language', 'year', 'month', 'day').filter(**search_opts)
+        letters = Letter.objects.only("id", "physical_description", "primary_language", "year", "month", "day").filter(**search_opts)
 
         searchbox_paginator = Paginator(letters, number_of_results)
         
@@ -52,19 +58,19 @@ def searchbox(request):
 
 
 
-def letter_display(request, doc_id):
-    "Display the contents of a single letter."
-    if 'keyword' in request.GET:
-        search_terms = request.GET['keyword']
-        url_params = '?' + urlencode({'keyword': search_terms})
-        filter = {'highlight': search_terms}    
-    else:
-        url_params = ''
-        filter = {}
-        search_terms = None
-    try:              
-        letter = Letter.objects.filter(**filter).get(id__exact=doc_id)
-        format = letter.xsl_transform(filename=os.path.join(settings.BASE_DIR, '..', 'yjallen_app', 'xslt', 'form.xsl'))
-        return render_to_response('letter_display.html', {'letter': letter, 'format': format.serialize(), 'search_terms': search_terms}, context_instance=RequestContext(request))
-    except DoesNotExist:
-        raise Http404
+#def letter_display(request, doc_id):
+#    "Display the contents of a single letter."
+#    if 'keyword' in request.GET:
+#        search_terms = request.GET['keyword']
+#        url_params = '?' + urlencode({'keyword': search_terms})
+#        filter = {'highlight': search_terms}    
+#    else:
+#        url_params = ''
+#        filter = {}
+#        search_terms = None
+#    try:              
+#        letter = Letter.objects.filter(**filter).get(id__exact=doc_id)
+#        format = letter.xsl_transform(filename=os.path.join(settings.BASE_DIR, '..', 'yjallen_app', 'xslt', 'form.xsl'))
+#        return render_to_response('letter_display.html', {'letter': letter, 'format': format.serialize(), 'search_terms': search_terms}, context_instance=RequestContext(request))
+#    except DoesNotExist:
+#        raise Http404
