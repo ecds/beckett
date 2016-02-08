@@ -15,10 +15,8 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from beckett.apps.letters import views
+from beckett.apps.geo import views
 
 urlpatterns = [
-    url(r'^$', views.LettersList.as_view(), name="letters"),
-    url(r'^search/$', views.searchbox, name='searchbox'),
-    url(r'^(?P<id>[^/]+)$', views.letter_display, name="letter_display"),
+    url(r'^$', views.RepositoryList.as_view(), name="repository"),
 ]

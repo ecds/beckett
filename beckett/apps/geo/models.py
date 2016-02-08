@@ -39,6 +39,7 @@ class Place(models.Model):
 
 class Repository(models.Model):
     name = models.CharField(max_length=255, blank=True, null=True, help_text='Collection name or Descriptive name')
+    abb = models.CharField(max_length=255, blank=True, null=True)
     descriptive_information = models.CharField(max_length=500, blank=True, null=True, help_text='Additional collection data or Foundation name')
     storage_information = models.CharField(max_length=255, blank=True, null=True, help_text='Box number or ID number')
 

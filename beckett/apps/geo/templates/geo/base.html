@@ -4,7 +4,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
   {% block meta%}{% endblock %}
-   <title>{% block pagetitle %} PAGE TITLE - {% endblock %} Beckett Letters </title>
+   <title>{% block pagetitle %} PAGE TITLE - {% endblock %} The Oxford Experience </title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     {% block metadata %}{% endblock %}
@@ -17,6 +17,8 @@
     <link href="{% static 'eultheme/css/font-awesome.min.css' %}" rel="stylesheet"/>
     <link href="{% static 'eultheme/css/selectize.css' %}" rel="stylesheet"/>
     <link href="{% static 'eultheme/css/eultheme.css' %}" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/oxfexp.css"/>
+   <!--<link rel="stylesheet" type="text/css" href="http://beck.library.emory.edu/oxfordexperience/web/css/oxfexp.css"/>-->
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
@@ -43,6 +45,13 @@
             <img src="{% static 'eultheme/img/EmoryHz_EUVt_hero_white.png' %}"/>
           </div>
 
+          {# the following is the title that appears on the top nav for XS screen sizes. it uses the xs-nav-title block #}
+          <div class="visible-xs">
+            <h1 class="The Oxford Exprience"><a href="{% url 'overview' %}">
+              {% block xs-nav-title %}The Oxford Experience{% endblock %}
+            </a></h1>
+          </div>
+          {# end xs-title markup #}
 
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
             <span class="sr-only">Toggle navigation</span>
@@ -50,25 +59,23 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-
         </div>
         <div class="container">
           <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-              <li><a class="site-title" href="{% url 'lettering:letters' %}">{% block nav-title %}Beckett's Letters{% endblock %}</a></li>
-                        <li><a href="{% url "persons:people" %}"><span id="ov">People</span></a></li>
-                        <li><a href="{% url "lettering:letters" %}"><span id="br">Letters</span></a></li>
-                        <li><a href="{% url "geo:repository" %}"><span id="se">Repositories</span></a></li>
-                        <li><a href="{% url "lettering:searchbox" %}"><span id="se">Search</span></a></li>
+              <li><a class="site-title" href="{% url 'overview' %}">{% block nav-title %}The Oxford Experience{% endblock %}</a></li>
+                        <li><a href="{% url "overview" %}"><span id="ov">Overview</span></a></li>
+                        <li><a href="{% url "docs" %}"><span id="br">Browse</span></a></li>
+                        <li><a href="{% url "search" %}"><span id="se">Search</span></a></li>
             </ul>
 
             {% block navbar-extra %}
-                        <div class="navbar-right">
-<form name="keywordsearch" class="form-inline navbar-form" role="form" method="GET" action="{% url 'lettering:searchbox' %}">
+            <div class="navbar-right">
+<form name="keyword" class="form-inline navbar-form" role="form" method="GET" action="{% url 'search' %}">
    <div class="form-group">
       <div class="input-group">
-	<label class="sr-only" for="keywordsearch">Keyword</label>
-      <input class="form-control" id="key" type="text" name="keyword" placeholder="Search Language"/>
+	<label class="sr-only" for="keyword">Keyword</label>
+      <input class="form-control" id="key" type="text" name="keyword" placeholder="Search Keywords"/>
       {# TODO: help text #}
       <span class="input-group-btn">
         <button type="submit" class="btn btn-default">
@@ -76,7 +83,6 @@
         </button>
       </span>
     </div>
-
   </div>
 </form>
 </div>{% endblock %}
@@ -84,7 +90,12 @@
         </div>
       </div>
 
-
+ <div class="page-header">
+    <!--img class="headimage" src="http://beck.library.emory.edu/oxfordexperience/web/images/oxexhead.jpg" alt="Oxford
+ College" width='473' height='288'/-->
+   <img class="img-responsive" src="{{ STATIC_URL }}images/oxexhead.jpg" alt="Oxford
+ College" width='473' height='288'/>
+</div>
 
 <div class="container">
 
@@ -99,6 +110,7 @@
 <div class="externalnav">
 <p class="links" id="beck">
 <a href="http://beck.library.emory.edu/"><span id="bc">The Beck Center</span></a>
+<a href="http://oxford.emory.edu/"><span id="src">Oxford College</span></a>
 </p>
 </div>
 

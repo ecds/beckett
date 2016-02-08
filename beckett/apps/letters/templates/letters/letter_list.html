@@ -3,7 +3,7 @@
 {% block content %}
     <h2>Letters</h2>
     <ul>
-        {% for letter in object_list %}
+        {% for letter in letter_list %}
             <li>{{ letter.year }} to {{ letter.recipients_input}}</li>
         {% endfor %}
     </ul>

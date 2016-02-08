@@ -1,3 +1,6 @@
 from django.shortcuts import render
+from django.views.generic import ListView
+from beckett.apps.geo.models import Repository
 
-# Create your views here.
+class RepositoryList(ListView):
+    model = Repository

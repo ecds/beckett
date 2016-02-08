@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+
+{% block title %}Searched Letter{% endblock %}
+{% block content %}
+
+<div class="content">
+
+<div class="title"><a href="{% url "lettering:letters" %}">Letters</a></div>
+
+<p><b>Search results for texts where:</b></p>
+ <ul class='searchopts'><li>document contains keywords</li></ul><?xml version="1.0"?>
+<table class="searchnav"><tr><td/><td/><td><a href="{% url "lettering:searchbox" %}?keyword=Letter&amp;recipients_input=&amp;year=&amp;month=&amp;day=&amp;&amp;position=21&amp;max=20">
+            Next&gt;
+          </a></td><td><a href="{% url "lettering:searchbox" %}?keyword=Letter&amp;recipients_input=&amp;year=&amp;month=&amp;day=&amp;&amp;position=77&amp;max=20">
+              Last&gt;&gt;
+            </a></td></tr></table>
+
+{% if server_error %}{{ server_error }}{% endif %}
+
+{% if searchbox.is_valid %}
+<p>{{ letters_paginated.paginator.count }} matches found</p>
+{% for Letter in letters %}
+<ul>
+	<li>{{ Letter.year }}, {{ Letter.month }}, {{ Letter.day }}</li>
+	</ul>
+	{% endfor %}
+<form align="right" id="jumpnav" action="{% url 'lettering:searchbox' %}">
+<select name="page" onchange="submit();">
+  {% for page in letters_paginated.paginator.page_range %}
+  <option value="{{page}}" selected="selected">{{ letters_paginated.start_index }} - {{letters_paginated.end_index }}</option>
+    {% endfor %}
+</select>
+<input name="keyword" type="hidden" value="{{keyword}}">
+<input name="max" type="hidden" value="20">
+</form>
+
+<table class="browse">
+  <thead style="font-size:small;">
+    <tr>
+      <th class="num">#</th>
+      <th>Letter </th>
+      <th>year </th>
+      <th>Date</th>
+    </tr>
+  </thead>
+ 
+</table>
+
+{% endif %}
+
+{% endblock %}
