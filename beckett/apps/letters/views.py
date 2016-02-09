@@ -14,8 +14,6 @@ class LettersDetail(DetailView):
     queryset = Letter.objects.all()
     template_name = 'letters/letter_detail.html'
 
-
-
 def searchbox(request):
     "Search letters"
     form = LetterSearchForm(request.GET)
@@ -28,7 +26,7 @@ def searchbox(request):
         if 'keyword' in form.cleaned_data and form.cleaned_data['keyword']:
             search_opts['primary_language'] = '%s' % form.cleaned_data['keyword']
                 
-        letters = Letter.objects.only("id", "physical_description", "primary_language", "year", "month", "day").filter(**search_opts)
+        letters = Letter.objects.only("id", "primary_language", "year", "month", "day", "key_terms").filter(**search_opts)
 
         searchbox_paginator = Paginator(letters, number_of_results)
         

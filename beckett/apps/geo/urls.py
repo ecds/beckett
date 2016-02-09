@@ -19,4 +19,5 @@ from beckett.apps.geo import views
 
 urlpatterns = [
     url(r'^$', views.RepositoryList.as_view(), name="repository"),
+    url(r'^(?P<pk>[^/]+)/$', views.RepositoryDetail.as_view(template_name='geo/repository_detail.html'), name="repodetail"),
 ]

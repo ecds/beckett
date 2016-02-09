@@ -18,5 +18,6 @@ from django.contrib import admin
 from beckett.apps.people import views
 
 urlpatterns = [
-    url(r'^$', views.PeopleList.as_view(), name="people"),
+    url(r'^$', views.PeopleList.as_view(template_name='people/person_list.html'), name="people"),
+    url(r'^Detail/(?P<pk>[^/]+)/$', views.PersonDetail.as_view(template_name='people/person_detail.html'), name="detailperson"),
 ]

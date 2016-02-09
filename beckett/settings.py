@@ -63,6 +63,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'eultheme.context_processors.template_settings',
             ],
         },
     },
@@ -73,9 +74,6 @@ TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.Loader',
 )
 
-TEMPLATE_CONTEXT_PROCESSORS = (
-	'eultheme.context_processors.template_settings',
-)
 
 WSGI_APPLICATION = 'beckett.wsgi.application'
 

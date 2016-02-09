@@ -19,7 +19,7 @@
 
   <p>
     <div class="col-md-4">
-      <a href="{{ Repository.URL }}" class="thumbnail" style="width:300px;height:70px">{{ Repository.name }}
+      <a href="{% url 'geo:repodetail' pk=Repository.id %}" class="thumbnail" style="width:300px;height:70px">{{ Repository.name }}
       </a>
   </div>
 

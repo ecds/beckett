@@ -19,7 +19,7 @@ from beckett.apps.letters import views
 
 urlpatterns = [
     url(r'^$', views.LettersList.as_view(), name="letters"),
-    url(r'^(?P<pk>[^/]+)/$', views.LettersDetail.as_view(template_name='letters/letter_detail.html'), name="lettersdetail"),
     url(r'^search/$', views.searchbox, name='searchbox'),
+    url(r'^(?P<pk>[^/]+)/$', views.LettersDetail.as_view(template_name='letters/letter_detail.html'), name="lettersdetail"),
 #    url(r'^(?P<id>[^/]+)$', views.letter_display, name="letter_display"),
 ]

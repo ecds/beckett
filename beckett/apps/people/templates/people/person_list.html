@@ -1,10 +1,32 @@
 {% extends "base.html" %}
-
 {% block content %}
+ <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<div class="container">
+<div class="centering text-center">
+
     <h2>People</h2>
+
+
     <ul>
         {% for person in object_list %}
-            <li>{{ person.first_name }} {{ person.last_name}}</li>
-        {% endfor %}
+
+
+
+    <div class="col-md-4">
+      <a href="{% url 'persons:detailperson' pk=person.id %}" class="thumbnail" style="width:300px;height:90px">{{ person.first_name }} {{ person.last_name }} -{% for item in person.recipients.all %} {{ item.year }} | {% endfor %}
+      </a>
+  </div>
+
+      {% endfor %}
     </ul>
+
+</div>
+</div>
 {% endblock %}

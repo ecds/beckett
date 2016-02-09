@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+ <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<div class="container">
+<div class="centering text-center">
+
+    <h2>Person Data</h2>
+
+        <h1>{{ object.first_name }}-{{ object.last_name }}-{{ object.gender }}</h1>
+
+<p>Birth: {{ object.date_of_birth }}<br/>Death: {{ object.date_of_death }}<br/>Description: {{ object.description }}
+         <br/>Related Letters as Recipient: 
+            {% for item in object.recipients.all %} 
+            <a href="{% url 'lettering:lettersdetail' item.id %}">{{ item.month }}-{{ item.day }}-{{ item.year }}
+            </a> |   
+            {% endfor %}
+         <br/>Related Letters - Mentioned: 
+            {% for item2 in object.manypeople.all %} 
+            <a href="{% url 'lettering:lettersdetail' item2.id %}">{{ item2.month }}-{{ item2.day }}-{{ item2.year }}
+            </a> |   
+            {% endfor %}
+            </p>
+
+
+</div>
+</div>
+{% endblock %}

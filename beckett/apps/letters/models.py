@@ -21,16 +21,16 @@ class Letter(models.Model):
     postmark = models.CharField(max_length=255, blank=True, null=True)
 
     recipients_input = tinymce_models.HTMLField(blank=True, null=True, help_text="Input from Excel database")
-    recipients = models.ManyToManyField(Person, blank=True)
+    recipients = models.ManyToManyField(Person, blank=True, related_name='recipients')
 
     people_input = tinymce_models.HTMLField(blank=True, null=True, verbose_name="People mentioned input", help_text="Input from Excel database")
-    people = models.ManyToManyField(Person, verbose_name="People mentioned", blank=True, related_name='+', help_text="People mentioned in letter")
+    people = models.ManyToManyField(Person, verbose_name="People mentioned", blank=True, related_name='manypeople', help_text="People mentioned in letter")
 
     publishers_input = tinymce_models.HTMLField(blank=True, null=True, help_text="Input from Excel database")
     publishers = models.ManyToManyField(Organization, blank=True, help_text="Publishers/agents/producers mentioned in letter")
 
     repository_input = tinymce_models.HTMLField(blank=True, null=True, help_text="Input from Excel database")
-    repository = models.ManyToManyField(Repository, blank=True, help_text="Repository")
+    repository = models.ManyToManyField(Repository, blank=True, related_name="placeofkeeping", help_text="Repository")
     owner_input =  tinymce_models.HTMLField(blank=True, null=True, help_text="Input OwnerProp from Excel database")
     places_input = tinymce_models.HTMLField(blank=True, null=True, verbose_name="Places mentioned input", help_text="Input from Excel database")
     places = models.ManyToManyField(Place, blank=True, verbose_name="Places mentioned", related_name='mentioned', help_text="Places mentioned in letter")
@@ -40,7 +40,7 @@ class Letter(models.Model):
     place_sent = models.ForeignKey(Place, blank=True, null=True, related_name='sent', help_text="Place to which the letter was sent")
 
     sb_writing_input = tinymce_models.HTMLField(blank=True, null=True, verbose_name="SB writing input", help_text="Input from Excel database")
-    sb_writing = models.ManyToManyField(Work, blank=True, null=True, verbose_name="SB writing", related_name='sb_writing', help_text="SB writing referenced in letter")
+    sb_writing = models.ManyToManyField(Work, blank=True, verbose_name="SB writing", related_name='sb_writing', help_text="SB writing referenced in letter")
 
     sb_publications_input = tinymce_models.HTMLField(blank=True, null=True, verbose_name="SB publications input", help_text="Input from Excel database")
     sb_publications = models.ManyToManyField(Work, blank=True, verbose_name="SB publications", related_name='sb_publications', help_text="Publications of SB's work referenced in letter")
