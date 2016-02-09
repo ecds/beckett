@@ -58,7 +58,7 @@ class Repository(models.Model):
     Latitude = models.DecimalField(max_digits=8, decimal_places=6, blank=True, null=True)
     Longitude = models.DecimalField(max_digits=8, decimal_places=6, blank=True, null=True)
 
-    URL = models.CharField(max_length=255, blank=True, null=True)
+    URL = models.CharField(max_length=255, blank=True, null=True, help_text='Finding Aid Link')
 
     def __unicode__(self):
         # only include fields that are not empty
