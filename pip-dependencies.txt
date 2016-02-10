@@ -4,6 +4,9 @@ django-admin-bootstrapped
 django-import-export
 django-tinymce
 django-admin-sortable
+django-widget-tweaks
+django-downtime>=1.0.4
+-e git://github.com/emory-libraries/django-eultheme.git@1.2.1#egg=eultheme
 
 #partial dates
 git+git://github.com/dracos/django-date-extensions.git
