@@ -1,4 +1,5 @@
 from django.db import models
+from tinymce import models as tinymce_models
 
 # Organizations
 class OrganizationManager(models.Manager):
@@ -46,10 +47,9 @@ class Person(models.Model):
     gender = models.CharField(max_length=1, blank=True, null=True, choices=GENDER_CHOICES)
     date_of_birth = models.CharField(max_length=255, blank=True, null=True)
     date_of_death = models.CharField(max_length=255, blank=True, null=True)
-    profile_y_n = models.NullBooleanField(blank=True, null=True)
-    description = models.TextField(blank=True, null=True)
+    description = tinymce_models.HTMLField(blank=True, null=True, verbose_name="Description of relationship with Beckett")
     VIAF_reference = models.URLField(blank=True, null=True, help_text="VIAF Permalink")
-    ODNB_reference = models.CharField(max_length=500, blank=True, null=True, help_text="ODNB reference citation including permalink")
+    ODNB_reference = models.URLField(blank=True, null=True, help_text="ODNB Permalink")
     uri = models.URLField(blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
 
