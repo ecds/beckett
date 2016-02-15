@@ -10,9 +10,9 @@ from beckett.apps.works.models import Work
 class Letter(models.Model):
     'Letters sent by Samuel Beckett'
 
-    year = models.IntegerField(blank=True, null=True, validators=[MinValueValidator(1900),MaxValueValidator(2000)])
-    month = models.IntegerField(blank=True, null=True, validators=[MinValueValidator(1),MaxValueValidator(12)])
-    day = models.IntegerField(blank=True, null=True, validators=[MinValueValidator(1),MaxValueValidator(31)])
+    year = models.IntegerField(blank=True, null=True, validators=[MinValueValidator(0),MaxValueValidator(2000)])
+    month = models.IntegerField(blank=True, null=True, validators=[MinValueValidator(0),MaxValueValidator(12)])
+    day = models.IntegerField(blank=True, null=True, validators=[MinValueValidator(0),MaxValueValidator(31)])
     primary_language = models.CharField(max_length=255, blank=True, null=True)
 
     physical_description = models.CharField(max_length=255, blank=True, null=True)

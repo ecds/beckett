@@ -21,6 +21,7 @@ from django.views.generic import ListView
 
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^tinymce/', include('tinymce.urls')),
     url(r'^people/', include('beckett.apps.people.urls', namespace="persons")),
     url(r'^letters/', include('beckett.apps.letters.urls', namespace="lettering")),
     url(r'^repository/', include('beckett.apps.geo.urls', namespace="geo")),
