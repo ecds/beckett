@@ -14,18 +14,35 @@
     <h2>Repository Data</h2>
 
         <h1>Name: {{ object.name }} <br/>Abbreviation: {{ object.abb }} </h1>
-        <h4>Description and Storage: {{ object.descriptive_information }}-{{ object.storage_information }}</h4>
+        
 
-         <p>
-         <br/><b>Related Letters: </b>
-            {% for item in object.placeofkeeping.all %} 
+<div class="container">
+
+  <table class="table table-bordered">
+     <tbody>
+       <tr>
+        <td class="col-md-3"><b>Field</b></td>
+        <td class="col-md-6"><b>Data</b></td>
+      </tr>
+	<tr>
+		<td><b>Description and Storage: </b></td>
+		<td>{{ object.descriptive_information }}-{{ object.storage_information }}</td>
+	</tr>
+     <tr>
+        <td><b>Related Letters: </b></td>
+        <td>{% for item in object.placeofkeeping.all %} 
             <a href="{% url 'lettering:lettersdetail' item.id %}">{{ item.month }}-{{ item.day }}-{{ item.year }}
             </a> |   {% empty %}  No letters entered yet.
-            {% endfor %}
-<br/><br/><br/>
-                  <a href="{{ object.URL }}">{{ object.name }}
-      </a>
-      </p>
+            {% endfor %}</td>
+    </tr>
+    <tr>
+    	<td><b>Finding Aid:</b></td>
+    	<td>  <a href="{{ object.URL }}">{{ object.name }}
+      </a></td>
+      </tr>
+      </tbody>
+      </table>
+      </div>
 
 
 </div>

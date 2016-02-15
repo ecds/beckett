@@ -14,20 +14,47 @@
     <h2>Letter from S. Beckett</h2>
 
         <h1>{{ object.month }}-{{ object.day }}-{{ object.year }}</h1>
+<div class="container">
 
-<p><b>Physical Description: </b>{{ object.physical_description }}
-<br/><b>Key Terms: </b>{{ object.key_terms|safe }}
-  <br/><b>Recipient(s): </b>{% for name in object.recipients.all %} 
+  <table class="table table-bordered">
+     <tbody>
+       <tr>
+        <td class="col-md-3"><b>Field</b></td>
+        <td class="col-md-6"><b>Data</b></td>
+      </tr>
+     <tr>
+        <td><b>Physical Description: </b></td>
+        <td>{{ object.physical_description }}</td>
+      </tr>
+      <tr>
+      	<td><b>Key Terms: </b></td>
+      	<td>{{ object.key_terms|safe }}</td>
+      </tr>
+      <tr>
+        <td><b>Recipient(s): </b></td>
+        <td>{% for name in object.recipients.all %} 
 <a href="{% url 'persons:detailperson' name.id %}">
-{{ name.first_name }} {{ name.last_name }}</a> |  {% endfor %}
-  <br/><b>Person(s) Mentioned: </b>{% for name2 in object.people.all %} 
+{{ name.first_name }} {{ name.last_name }}</a> |  {% endfor %}</td>
+      </tr>
+      <tr>
+        <td><b>Person(s) Mentioned: </b></td>
+        <td>{% for name2 in object.people.all %} 
 <a href="{% url 'persons:detailperson' name2.id %}">
-{{ name2.first_name }} {{ name2.last_name }}</a> |  {% endfor %}
-<br/><b>Leaves or Sides: </b>{{ object.leaves_sides }}
-  <br/><b>Related Repository: </b> {% for name3 in object.repository.all %} 
+{{ name2.first_name }} {{ name2.last_name }}</a> |  {% endfor %}</td>
+      </tr>
+      <tr>
+        <td><b>Leaves or Sides: </b></td>
+        <td>{{ object.leaves_sides }}</td>
+      </tr>
+      <tr>
+      	<td><b>Related Repository: </b> </td>
+      	<td>{% for name3 in object.repository.all %} 
 <a href="{% url 'geo:repodetail' name3.id %}">
-{{ name3.name }} {{ name3.abb }}</a> |  {% endfor %}
-</p>
+{{ name3.name }} {{ name3.abb }}</a> |  {% endfor %}</td>
+      </tr>
+    </tbody>
+    </table>
+</div>
 
 
 </div>

@@ -22,7 +22,7 @@
 <p>{{ letters_paginated.paginator.count }} matches found</p>
 {% for Letter in letters %}
 <ul>
-	<li><a href="{% url 'lettering:lettersdetail' pk=Letter.id %}">{{ Letter.year }}, {{ Letter.month }}, {{ Letter.day }} to {{ Letter.recipients_input }}</a></li>
+	<li><a href="{% url 'lettering:lettersdetail' pk=Letter.id %}">{{ Letter.year }}-{{ Letter.month }}-{{ Letter.day }} to {{ Letter.recipients_input|safe }}</a></li>
 	</ul>
 	{% endfor %}
 <form align="right" id="jumpnav" action="{% url 'lettering:searchbox' %}">
