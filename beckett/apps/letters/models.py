@@ -5,6 +5,7 @@ from tinymce import models as tinymce_models
 from beckett.apps.people.models import Person, Organization
 from beckett.apps.geo.models import Place, Repository
 from beckett.apps.works.models import Work
+from django.utils.html import format_html
 
 
 class Letter(models.Model):
@@ -75,5 +76,6 @@ class Letter(models.Model):
     def recipient_list(self):
         return "; ".join(['%s %s' % (r.first_name, r.last_name) for r in self.recipients.all()])
 
-
+    def recipients_html(self):
+        return format_html(self.recipients_input)
 
