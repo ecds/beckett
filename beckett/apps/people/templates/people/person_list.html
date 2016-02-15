@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
- <!-- Latest compiled and minified CSS -->
+<!DOCTYPE html>
+<html>
+<head> <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
 <!-- jQuery library -->
@@ -8,26 +10,51 @@
 
 <!-- Latest compiled JavaScript -->
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<div class="container">
+</head>
+<body><div class="container">
 <div class="centering text-center">
 
     <h2>People</h2>
 
+<div class="centering text-left">
+<div class="dropdown">
+  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="menu1">People by Name
+  <span class="caret"></span></button>
+  <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">{% for person in object_list %}
+    <li><a href="{% url 'persons:detailperson' pk=person.id %}">{{ person.last_name }}, {{ person.first_name }}
+    </a></li>{% endfor %}
+    </ul>
+    </div>
+  </div>   
+<br/><br/>
 
-    <ul>
-        {% for person in object_list %}
 
-
-
-    <div class="col-md-4">
-      <a href="{% url 'persons:detailperson' pk=person.id %}" class="thumbnail" style="width:300px;height:90px">{{ person.first_name }} {{ person.last_name }} <br/> Recipient-{% for item in person.recipients.all %} {{ item.year }} |  {% empty %}  No letters linked yet.{% endfor %}
-      <br/>Mentioned-{% for item in person.manypeople.all %} {{ item.year }} |  {% empty %}  No letters linked yet.{% endfor %}
-      </a>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th class="col-md-2">First Name</th>
+        <th class="col-md-2">Last Name</th>
+        <th class="col-md-3">Letters Received</th>
+        <th class="col-md-3">Letters Mentioned</th>
+      </tr>
+    </thead>
+    <tbody> {% for person in object_list %}
+      <tr>
+        <td>  
+      <a href="{% url 'persons:detailperson' pk=person.id %}" class="list-group-item">{{ person.first_name }} </td>
+      <td>{{ person.last_name }}    </td>
+      <td><b>Recipient-</b>{% for item in person.recipients.all %} {{ item.year }} |  {% empty %}  No letters linked yet.{% endfor %} </td>
+      <td><b>Mentioned-</b>{% for item in person.manypeople.all %} {{ item.year }} |  {% empty %}  No letters linked yet.{% endfor %} </td>
+      </a>    </tr> {% endfor %}
+      </tbody>
+      </table>
   </div>
 
-      {% endfor %}
-    </ul>
+ 
+
 
 </div>
-</div>
+</div></body>
+</html>
+
 {% endblock %}
