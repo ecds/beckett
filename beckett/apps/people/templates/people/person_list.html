@@ -20,7 +20,8 @@
 
 
     <div class="col-md-4">
-      <a href="{% url 'persons:detailperson' pk=person.id %}" class="thumbnail" style="width:300px;height:90px">{{ person.first_name }} {{ person.last_name }} -{% for item in person.recipients.all %} {{ item.year }} | {% endfor %}
+      <a href="{% url 'persons:detailperson' pk=person.id %}" class="thumbnail" style="width:300px;height:90px">{{ person.first_name }} {{ person.last_name }} <br/> Recipient-{% for item in person.recipients.all %} {{ item.year }} |  {% empty %}  No letters linked yet.{% endfor %}
+      <br/>Mentioned-{% for item in person.manypeople.all %} {{ item.year }} |  {% empty %}  No letters linked yet.{% endfor %}
       </a>
   </div>
 

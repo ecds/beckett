@@ -15,18 +15,18 @@
 
         <h1>{{ object.month }}-{{ object.day }}-{{ object.year }}</h1>
 
-<p>Physical Description: {{ object.physical_description }}
-  <br/>Recipient(s): {% for name in object.recipients.all %} 
+<p><b>Physical Description: </b>{{ object.physical_description }}
+<br/><b>Key Terms: </b>{{ object.key_terms|safe }}
+  <br/><b>Recipient(s): </b>{% for name in object.recipients.all %} 
 <a href="{% url 'persons:detailperson' name.id %}">
 {{ name.first_name }} {{ name.last_name }}</a> |  {% endfor %}
-  <br/>Person(s) Mentioned: {% for name2 in object.people.all %} 
+  <br/><b>Person(s) Mentioned: </b>{% for name2 in object.people.all %} 
 <a href="{% url 'persons:detailperson' name2.id %}">
 {{ name2.first_name }} {{ name2.last_name }}</a> |  {% endfor %}
-<br/>Leaves or Sides: {{ object.leaves_sides }}
-  <br/>Related Repository:  {% for name3 in object.repository.all %} 
+<br/><b>Leaves or Sides: </b>{{ object.leaves_sides }}
+  <br/><b>Related Repository: </b> {% for name3 in object.repository.all %} 
 <a href="{% url 'geo:repodetail' name3.id %}">
 {{ name3.name }} {{ name3.abb }}</a> |  {% endfor %}
-
 </p>
 
 

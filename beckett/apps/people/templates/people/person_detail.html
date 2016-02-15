@@ -15,16 +15,21 @@
 
         <h1>{{ object.first_name }}-{{ object.last_name }}-{{ object.gender }}</h1>
 
-<p>Birth: {{ object.date_of_birth }}<br/>Death: {{ object.date_of_death }}<br/>Description: {{ object.description }}
-         <br/>Related Letters as Recipient: 
+<p><b>Birth: </b>{{ object.date_of_birth }}<br/><b>Death: </b>{{ object.date_of_death }}<br/><b>Description:</b> {{ object.description }}
+         <br/><b>Related Letters as Recipient: </b>
             {% for item in object.recipients.all %} 
             <a href="{% url 'lettering:lettersdetail' item.id %}">{{ item.month }}-{{ item.day }}-{{ item.year }}
             </a> |   
             {% endfor %}
-         <br/>Related Letters - Mentioned: 
+         <br/><b>Related Letters - Mentioned: </b>
             {% for item2 in object.manypeople.all %} 
             <a href="{% url 'lettering:lettersdetail' item2.id %}">{{ item2.month }}-{{ item2.day }}-{{ item2.year }}
             </a> |   
+            {% endfor %}
+         <br/><b>Related Repositories: </b>
+         	{% for item3 in object.manypeople.all %}{% for name3 in item3.repository.all %} 
+            <a href="{% url 'geo:repodetail' name3.id %}">
+            {{ name3.name }} {{ name3.abb }}</a> |  {% endfor %}
             {% endfor %}
             </p>
 
