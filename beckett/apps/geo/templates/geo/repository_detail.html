@@ -26,7 +26,7 @@
       </tr>
 	<tr>
 		<td><b>Description and Storage: </b></td>
-		<td>{{ object.descriptive_information }}-{{ object.storage_information }}</td>
+		<td>{% if object.descriptive_information %}{{ object.descriptive_information }}{% else %} No description data entered{% endif %}-{% if object.storage_information %}{{ object.storage_information }}{% else %}No storage data entered.{% endif %}</td>
 	</tr>
      <tr>
         <td><b>Related Letters: </b></td>

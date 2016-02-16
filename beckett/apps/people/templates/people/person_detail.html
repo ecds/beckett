@@ -51,6 +51,10 @@
          <td>{% for item3 in object.manypeople.all %}{% for name3 in item3.repository.all %} 
             <a href="{% url 'geo:repodetail' name3.id %}">
             {{ name3.name }} {{ name3.abb }}</a> |  {% endfor %}
+            {% endfor %}<br/>
+            {% for item3 in object.recipients.all %}{% for name3 in item3.repository.all %} 
+            <a href="{% url 'geo:repodetail' name3.id %}">
+            {{ name3.name }} {{ name3.abb }}</a> |  {% endfor %}
             {% endfor %}
             </td>
     </tr>

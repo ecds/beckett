@@ -13,18 +13,17 @@
 <div class="centering text-center">
 
     <h2>Respositories</h2>
-    <ul>
-        {% for Repository in repository_list %}
+
+        
 
 
-  <p>
-    <div class="col-md-4">
-      <a href="{% url 'geo:repodetail' pk=Repository.id %}" class="thumbnail" style="width:300px;height:70px">{{ Repository.name }}
-      </a>
+
+    <div class="list-group">{% for Repository in repository_list %}
+      <a href="{% url 'geo:repodetail' pk=Repository.id %}" class="list-group-item">{{ Repository.name }}
+      </a>{% endfor %}
   </div>
 
-      {% endfor %}
-    </ul>
+      
 
 </div>
 </div>
