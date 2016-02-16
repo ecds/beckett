@@ -31,7 +31,7 @@
         <td>{{ object.date_of_death }}</td>
     <tr>
     	<td><b>Description:</b> </td>
-    	<td>{{ object.description }}</td>
+    	<td>{{ object.description|safe }}</td>
     <tr>
     	<td><b>Related Letters as Recipient: </b></td>
     	<td>{% for item in object.recipients.all %} 

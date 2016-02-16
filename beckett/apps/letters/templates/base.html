@@ -64,11 +64,11 @@
 
             {% block navbar-extra %}
                         <div class="navbar-right">
-<form name="keywordsearch" class="form-inline navbar-form" role="form" method="GET" action="{% url 'lettering:searchbox' %}">
+<form name="keywordsearch" class="form-inline navbar-form" role="form" method="GET" action="/letters/search_result/">
    <div class="form-group">
       <div class="input-group">
 	<label class="sr-only" for="keywordsearch">Keyword</label>
-      <input class="form-control" id="key" type="text" name="keyword" placeholder="Search Language"/>
+      <input class="form-control" id="key" type="text" name="q" placeholder="Search Key Term"/>
       {# TODO: help text #}
       <span class="input-group-btn">
         <button type="submit" class="btn btn-default">
