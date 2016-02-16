@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 
-{% block title %}Search{% endblock %}
+{% block title %}{% endblock %}
 {% block content %}
 <head>
-<title>Search</title>
+<h2>Search</h2>
 </head>
 <body>
+<p> Search for key terms from the Beckett letters.</p> 
     <form action="/letters/search_result/" method="get">
         <input type="text" name="q">
         <input type="submit" value="Searches">
