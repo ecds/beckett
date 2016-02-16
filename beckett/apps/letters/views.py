@@ -55,6 +55,7 @@ class LettersDetail(DetailView):
 #        response.status_code = response_code
 #    return response
 
+
 def searches(request):
     return render_to_response('searches.html')
 
