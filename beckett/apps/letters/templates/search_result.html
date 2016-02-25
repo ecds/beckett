@@ -9,7 +9,7 @@
 <div class="title"><a href="{% url "lettering:letters" %}">Letters</a></div>
 
 <p><b>Search results for texts where:</b></p>
- <ul class='searchopts'><li>document contains keywords</li></ul><?xml version="1.0"?>
+ <ul class='searchopts'><li>document contains keywords: {{ query }}</li></ul><?xml version="1.0"?>
 
 {% if words %} 
 	<p> Found {{ words.key_terms }}.</p>
