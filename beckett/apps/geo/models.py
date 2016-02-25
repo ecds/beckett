@@ -62,7 +62,7 @@ class Repository(models.Model):
 
     def __unicode__(self):
         # only include fields that are not empty
-        fields = [self.name, self.descriptive_information, self.street_address, self.city, self.state, self.zipcode, self.country]
+        fields = [self.abb, self.name]
         return ' '.join([unicode(f) for f in fields if f])
     class Meta:
         verbose_name_plural = 'Repositories'

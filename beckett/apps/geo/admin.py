@@ -17,7 +17,7 @@ class PlaceAdmin(admin.ModelAdmin):
     ]
 
 class RepositoryAdmin(admin.ModelAdmin):
-    list_display = ['name', 'descriptive_information', 'storage_information', 'street_address', 'city', 'country']
+    list_display = ['name', 'abb', 'descriptive_information', 'storage_information', 'street_address', 'city', 'country']
     search_fields = ['name', 'descriptive_information', 'storage_information', 
                      'street_address', 'city', 'state',
                      'zipcode', 'country',
