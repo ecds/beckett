@@ -101,6 +101,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+MEDIA_ROOT = '/sitemedia/'
+
 # import localsettings
 # This will override any previously set value
 try:
