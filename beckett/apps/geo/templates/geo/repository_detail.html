@@ -35,10 +35,10 @@
             </a> |   {% empty %}  No letters entered yet.
             {% endfor %}</td>
     </tr>
-    <tr>
+    <tr>{% if object.URL %}
     	<td><b>Finding Aid:</b></td>
     	<td>  <a href="{{ object.URL }}">{{ object.name }}
-      </a></td>
+      </a></td>{% endif %}
       </tr>
       </tbody>
       </table>
