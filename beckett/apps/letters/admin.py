@@ -6,42 +6,23 @@ from django.utils.html import format_html
   
 
 class LetterAdmin(admin.ModelAdmin):
-    class Media:
-        js = ('js/admin/collapseTabularInlines.js',)
-        css = { 'all' : ('css/admin/admin_styles.css',) }
+#    class Media:
+#        js = ('js/admin/collapseTabularInlines.js',)
+#        css = { 'all' : ('css/admin/admin_styles.css',) }
     list_display = ['year', 'month', 'day', 'recipient_list', 'recipients_html', 'primary_language']
-    filter_horizontal = ['recipients', 
-                         'people', 
-                         'publishers', 
-                         'places', 
-                         'sb_writing', 
-                         'sb_publications', 
-                         'sb_productions', 
-                         'self_translations',
-                         'translations',
-                         'sb_reading',
-                         'repository']
+    filter_horizontal = ('recipients', 'people', 'publishers', 'places', 'sb_writing', 'sb_publications','sb_productions', 'self_translations', 'translations', 'sb_reading', 'repository')
     fieldsets = (
         (None, {
-            'fields': ('year', 'month', 'day', 'primary_language')}),
-        ('Recipients', {
-            'classes': ('collapse',),
-            'fields': ('recipients_input', 'recipients')}),
+            'fields': ('year', 'month', 'day', 'primary_language', 'recipients_input', 'recipients', 'people_input', 'people', 'repository_input', 'repository', 'owner_input')}),
         ('Physical Description', {
             'classes': ('collapse',),
             'fields': ('physical_description', 'leaves_sides', 'envelope', 'postmark')}),
         ('Key Terms', {
             'classes': ('collapse',),
             'fields': ('key_terms',)}),
-        ('People', {
-            'classes': ('collapse',),
-            'fields': ('people_input', 'people')}),
         ('Publishers/Agents/Producers', {
             'classes': ('collapse',),
             'fields': ('publishers_input', 'publishers')}),
-        ('Repository Information', {
-            'classes': ('collapse',),
-            'fields': ('repository_input', 'repository', 'owner_input')}),
         ('Places', {
             'classes': ('collapse',),
             'fields': ('places_input', 'places', 'place_written_input', 'place_written', 'place_sent_input', 'place_sent')}),

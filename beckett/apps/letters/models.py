@@ -24,8 +24,8 @@ class Letter(models.Model):
     recipients_input = tinymce_models.HTMLField(blank=True, null=True, help_text="Input from Excel database")
     recipients = models.ManyToManyField(Person, blank=True, related_name='recipients')
 
-    people_input = tinymce_models.HTMLField(blank=True, null=True, verbose_name="People mentioned input", help_text="Input from Excel database")
-    people = models.ManyToManyField(Person, verbose_name="People mentioned", blank=True, related_name='manypeople', help_text="People mentioned in letter")
+    people_input = tinymce_models.HTMLField(blank=True, null=True, verbose_name=u"People mentioned input", help_text="Input from Excel database")
+    people = models.ManyToManyField(Person, verbose_name=u"People mentioned", blank=True, related_name='manypeople', help_text="People mentioned in letter")
 
     publishers_input = tinymce_models.HTMLField(blank=True, null=True, help_text="Input from Excel database")
     publishers = models.ManyToManyField(Organization, blank=True, help_text="Publishers/agents/producers mentioned in letter")

@@ -15,7 +15,13 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
+try:
+    from localsettings import *
+except ImportError:
+    print >>sys.stderr, '''Settings not defined. Please configure a version
+        of localsettings.py for this site. See localsettings.py.dist for
+        setup details.'''
+        
 # Application definition
 
 INSTALLED_APPS = (

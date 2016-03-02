@@ -4,7 +4,7 @@ from beckett.apps.geo.models import Place, Repository
 
 class PlaceAdmin(admin.ModelAdmin):
     class Media:
-        js = ('js/admin/collapseTabularInlines.js',)
+        js = ('js/admin/collapseTabularInlines.js','js/admin/jquery.min.js')
         css = { 'all' : ('css/admin/admin_styles.css',) }
 
     list_display = ['street_address', 'city', 'state', 'zipcode', 'country']
