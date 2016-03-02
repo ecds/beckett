@@ -58,7 +58,7 @@ class Person(models.Model):
         return (self.first_name, self.last_name)
 
     def __unicode__(self):
-        return '%s, %s' % (self.last_name, self.first_name)
+        return u'%s, %s' % (self.last_name, self.first_name)
 
     class Meta:
         verbose_name_plural = u'People'

@@ -13,28 +13,37 @@ class LetterAdmin(admin.ModelAdmin):
     filter_horizontal = ('recipients', 'people', 'publishers', 'places', 'sb_writing', 'sb_publications','sb_productions', 'self_translations', 'translations', 'sb_reading', 'repository')
     fieldsets = (
         (None, {
-            'fields': ('year', 'month', 'day', 'primary_language', 'recipients_input', 'recipients', 'people_input', 'people', 'repository_input', 'repository', 'owner_input')}),
+            'fields': ('year', 'month', 'day', 'primary_language')}),
+        ('Recipients', {
+            'classes': ('collapse',),
+            'fields': ('recipients', 'recipients_input')}),
         ('Physical Description', {
             'classes': ('collapse',),
             'fields': ('physical_description', 'leaves_sides', 'envelope', 'postmark')}),
         ('Key Terms', {
             'classes': ('collapse',),
             'fields': ('key_terms',)}),
+        ('People Mentioned', {
+            'classes': ('collapse',),
+            'fields': ('people', 'people_input')}),
         ('Publishers/Agents/Producers', {
             'classes': ('collapse',),
-            'fields': ('publishers_input', 'publishers')}),
+            'fields': ('publishers', 'publishers_input')}),
+        ('Repositories', {
+            'classes': ('collapse',),
+            'fields': ('repository', 'repository_input', 'owner_input')}),
         ('Places', {
             'classes': ('collapse',),
-            'fields': ('places_input', 'places', 'place_written_input', 'place_written', 'place_sent_input', 'place_sent')}),
+            'fields': ('places', 'places_input', 'place_written', 'place_written_input', 'place_sent', 'place_sent_input')}),
         ('SB Writing', {
             'classes': ('collapse',),
-            'fields': ('sb_writing_input', 'sb_writing')}),
+            'fields': ('sb_writing', 'sb_writing_input')}),
         ('SB Publications and Productions', {
             'classes': ('collapse',),
-            'fields': ('sb_publications_input', 'sb_publications', 'edition_notes', 'sb_productions_input', 'sb_productions', 'edition_notes2')}),
+            'fields': ('sb_publications', 'sb_publications_input', 'edition_notes', 'sb_productions', 'sb_productions_input', 'edition_notes2')}),
         ('Translations', {
             'classes': ('collapse',),
-            'fields': ('self_translations_input','self_translations','edition_notes3', 'translations_input','translations', 'edition_notes4')}),
+            'fields': ('self_translations','self_translations_input','edition_notes3','translations', 'translations_input', 'edition_notes4')}),
         ('Censorship', {
             'classes': ('collapse',),
             'fields': ('censorship',)}),
@@ -43,7 +52,7 @@ class LetterAdmin(admin.ModelAdmin):
             'fields': ('publication', 'volume','previous_publication', 'place_of_previous_publication',)}),
         ('SB Reading', {
             'classes': ('collapse',),
-            'fields': ('sb_reading_input', 'sb_reading')}),
+            'fields': ('sb_reading', 'sb_reading_input')}),
         ('SB Activities', {
             'classes': ('collapse',),
             'fields': ('events_attended','sports','sb_health')}),
