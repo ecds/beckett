@@ -1,0 +1,24 @@
+div.header h1 { font-family: "Arial", "MS Arial", sans-serif;
+           font-size: 36pt;
+           margin: -1px;
+           line-height:120%;}
+
+div.header h2 { font-family: "Arial", "MS Arial", sans-serif;
+           font-size: 13pt;
+           margin: -4px;
+           line-height:120%;}
+ 
+div.page-header {
+    text-align:center;
+    padding:5px 5px 5px;
+    margin: 0 auto;
+}
+
+div.page-header img{
+    margin: 0 auto;  
+}
+
+div.page-header {
+    /* background-color: #ebf2f7; */
+    background-color: #5c7e8a;
+}
