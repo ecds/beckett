@@ -1,10 +1,10 @@
-div.header h1 { font-family: "Arial", "MS Arial", sans-serif;
-           font-size: 36pt;
+div.header h1 { font-family: "Times", "Times New Roman", "Georgia", serif;
+           font-size: 40pt;
            margin: -1px;
            line-height:120%;}
 
-div.header h2 { font-family: "Arial", "MS Arial", sans-serif;
-           font-size: 13pt;
+div.header h2 { font-family: "Times", "Times New Roman", "Georgia", serif;
+           font-size: 28pt;
            margin: -4px;
            line-height:120%;}
  
@@ -20,5 +20,5 @@ div.page-header img{
 
 div.page-header {
     /* background-color: #ebf2f7; */
-    background-color: #5c7e8a;
+    background-color: #526e7a;
 }
