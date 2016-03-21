@@ -17,7 +17,7 @@
 
 <div class="list-group"> {% for Letter in letter_list %}
 
-      <a href="{% url 'lettering:lettersdetail' pk=Letter.id %}" class="list-group-item">Letter sent on {{ Letter.month }}-{{ Letter.day }}-{{ Letter.year }} to  {% for recipients in Letter.recipients.all %}{{ recipients }}{% if not forloop.last %} and {% endif %}{% empty %} <i>{{ Letter.recipients_input|safe }}</i>{% endfor %}   
+      <a href="{% url 'lettering:lettersdetail' pk=Letter.id %}" class="list-group-item">Letter sent on {{ Letter.month }}-{{ Letter.day }}-{{ Letter.year }} to  {% for recipients in Letter.recipients.all %}{{ recipients }}{% if not forloop.last %} and {% endif %}{% empty %} <i>{{ Letter.recipients_excel|safe }}</i>{% endfor %}   
       </a>{% endfor %}
 
   </div>
