@@ -34,8 +34,8 @@
       <tr>
         <td>  
       <a href="{% url 'persons:detailperson' pk=person.id %}" class="list-group-item">{{ person.first_name }} {{ person.last_name }}</td>
-      <td><b>Recipient-</b>{% for item in person.recipients.all %} {{ item.year }} |  {% empty %}  No letters linked yet.{% endfor %} </td>
-      <td><b>Mentioned-</b>{% for item in person.manypeople.all %} {{ item.year }} |  {% empty %}  No letters linked yet.{% endfor %} </td>
+      <td><b>Recipient-</b>{% for item in person.recipients.all %} {{ item.month }}-{{ item.year }} |  {% empty %}  No letters linked yet.{% endfor %} </td>
+      <td><b>Mentioned-</b>{% for item in person.manypeople.all %} {{ item.month }}-{{ item.year }} |  {% empty %}  No letters linked yet.{% endfor %} </td>
       </a>    </tr> {% endfor %}
       </tbody>
       </table>
