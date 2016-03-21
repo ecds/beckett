@@ -79,3 +79,5 @@ class Letter(models.Model):
     def recipients_html(self):
         return format_html(self.recipients_input)
 
+    class Meta: 
+        ordering = ['year', 'month', 'day']
