@@ -1,14 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
- <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-
-<!-- Latest compiled JavaScript -->
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <div class="container">
 <div class="centering text-center">
 
@@ -17,10 +10,22 @@
         
 
 
-
-    <div class="list-group">{% for Repository in repository_list %}
+  <table class="table table-bordered sortable-theme-bootstrap" data-sortable>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Abbreviation</th>
+        </tr>
+        </thead>
+        <tbody>{% for Repository in repository_list %}
+        <tr>
+        <td>
       <a href="{% url 'geo:repodetail' pk=Repository.id %}" class="list-group-item">{{ Repository.name }}
-      </a>{% endfor %}
+      </a></td>
+      <td>{{ Repository.abb }}</td>
+      </tr>{% endfor %}
+      </tbody>
+      </table>
   </div>
 
       
