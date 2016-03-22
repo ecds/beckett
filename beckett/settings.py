@@ -80,6 +80,9 @@ TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.Loader',
 )
 
+FORMAT_MODULE_PATH = [
+    'beckett.apps.letters.formats',
+]
 
 WSGI_APPLICATION = 'beckett.wsgi.application'
 
