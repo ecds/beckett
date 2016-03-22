@@ -1,24 +1,28 @@
 {% extends "base.html" %}
 {% block content %}
- <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-
-<!-- Latest compiled JavaScript -->
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <div class="container">
 <div class="centering text-center">
 
-    <h2>Letters from S. Beckett</h2>
+    
  
        
+<h2>Letters from S. Beckett</h2>
 
-<div class="list-group"> {% for Letter in letter_list %}
-
-      <a href="{% url 'lettering:lettersdetail' pk=Letter.id %}" class="list-group-item">Letter sent on {{ Letter.month }}-{{ Letter.day }}-{{ Letter.year }} to  {% for recipients in Letter.recipients.all %}{{ recipients }}{% if not forloop.last %} and {% endif %}{% empty %} <i>{{ Letter.recipients_excel|safe }}</i>{% endfor %}   
-      </a>{% endfor %}
+  <table class="table table-bordered sortable-theme-bootstrap" data-sortable>
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Recipient(s)</th>
+        </tr>
+        </thead>
+        <tbody>{% for Letter in letter_list %}
+        <tr>
+        <td>
+      <a href="{% url 'lettering:lettersdetail' pk=Letter.id %}" class="list-group-item">Letter sent on {{ Letter.month }}-{{ Letter.day }}-{{ Letter.year }}   
+      </a></td>
+      <td> to  {% for recipients in Letter.recipients.all %}{{ recipients }}{% if not forloop.last %} and {% endif %}{% empty %} <i>{{ Letter.recipients_excel|safe }}</i>{% endfor %}</td>
+      </tr>{% endfor %}</tbody></table>
 
   </div>
 
