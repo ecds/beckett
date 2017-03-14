@@ -60,10 +60,8 @@
           <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
               <li><a class="site-title" href="{% url 'lettering:letters' %}">{% block nav-title %}Beckett's Letters{% endblock %}</a></li>
-                        <li><a href="{% url "persons:people" %}"><span id="ov">People</span></a></li>
                         <li><a href="{% url "lettering:letters" %}"><span id="br">Letters</span></a></li>
-                        <li><a href="{% url "geo:repository" %}"><span id="se">Repositories</span></a></li>
-                        <li><a href="{% url "lettering:searchbox" %}"><span id="se">Search</span></a></li>
+                        <li><a href="{% url "persons:people" %}"><span id="ov">People</span></a></li>
                         <li><a><span id="se">|</span></a></li>
                         <li><a href="http://www.gs.emory.edu/sites/beckettletters/index.html"><span id="se">Beckett Project Page</span></a></li>
             </ul>
