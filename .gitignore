@@ -1,4 +1,4 @@
 *.pyc
 venv/
 beckett/localsettings.py
-
+.DS_Store
