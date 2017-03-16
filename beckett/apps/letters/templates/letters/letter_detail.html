@@ -18,39 +18,41 @@
 
   <table class="table table-bordered">
      <tbody>
-       <tr>
-        <td class="col-md-3"><b>Field</b></td>
-        <td class="col-md-6"><b>Data</b></td>
+        <td><b>Recipient(s): </b></td>
+        <td><ul style="list-style-type: none">{% for name in object.recipients.all %} 
+<li><a href="{% url 'persons:detailperson' name.id %}">
+{{ name.first_name }} {{ name.last_name }}</a></li> {% endfor %}</ul></td>
       </tr>
-     <tr>
+           <tr>
         <td><b>Physical Description: </b></td>
         <td>{{ object.physical_description }}</td>
-      </tr>
-      <tr>
-      	<td><b>Key Terms: </b></td>
-      	<td>{{ object.key_terms|safe }}</td>
-      </tr>
-      <tr>
-        <td><b>Recipient(s): </b></td>
-        <td>{% for name in object.recipients.all %} 
-<a href="{% url 'persons:detailperson' name.id %}">
-{{ name.first_name }} {{ name.last_name }}</a> |  {% endfor %}</td>
-      </tr>
-      <tr>
-        <td><b>Person(s) Mentioned: </b></td>
-        <td>{% for name2 in object.people.all %} 
-<a href="{% url 'persons:detailperson' name2.id %}">
-{{ name2.first_name }} {{ name2.last_name }}</a> |  {% endfor %}</td>
       </tr>
       <tr>
         <td><b>Leaves or Sides: </b></td>
         <td>{{ object.leaves_sides }}</td>
       </tr>
+            <tr>
+        <td><b>Repositories: </b> </td>
+        <td><ul style="list-style-type: none">
+          {% for name3 in object.repository.all %} 
+<li><a href="{% url 'geo:repodetail' name3.id %}">
+{{ name3.name }}</a>{% endfor %}</li></td>
+      </tr>
       <tr>
-      	<td><b>Related Repository: </b> </td>
-      	<td>{% for name3 in object.repository.all %} 
-<a href="{% url 'geo:repodetail' name3.id %}">
-{{ name3.name }} {{ name3.abb }}</a> |  {% endfor %}</td>
+        <td><b>Person(s) Mentioned: </b></td>
+        <td><ul style="list-style-type: none">
+          {% for name2 in object.people.all %} 
+<li><a href="{% url 'persons:detailperson' name2.id %}">
+{{ name2.first_name }} {{ name2.last_name }}</a></li>{% endfor %}</ul></td>
+      </tr>
+           <tr>
+
+        {% if object.place %}    
+        <td><b>Place(s) Mentioned: </b></td>
+        <td><ul style="list-style-type: none">
+          {% for name2 in object.place.all %} 
+<li>{{ name2.name }}</a></li>{% endfor %}</ul></td>
+{% endif %}
       </tr>
     </tbody>
     </table>

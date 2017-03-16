@@ -1,16 +1,12 @@
-div.header h1 { font-family: "Times", "Times New Roman", "Georgia", serif;
-           font-size: 40pt;
-           margin: -1px;
-           line-height:120%;}
+body {
+  background-color: #FFFFF8 !important;
+}
 
-div.header h2 { font-family: "Times", "Times New Roman", "Georgia", serif;
-           font-size: 28pt;
-           margin: -4px;
-           line-height:120%;}
+
  
 div.page-header {
     text-align:center;
-    padding:5px 5px 5px;
+    padding:0px 0px 0px;
     margin: 0 auto;
 }
 
@@ -20,5 +16,16 @@ div.page-header img{
 
 div.page-header {
     /* background-color: #ebf2f7; */
-    background-color: #526e7a;
+    background-color: #639caf;
 }
+
+div.page-header div.container-fluid {
+      padding:0px 0px 0px;
+}
+
+ul.table-list {
+  list-style-type: none
+  margin:0;
+}
+
+

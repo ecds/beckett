@@ -1,4 +1,8 @@
 /* line 2, ../sass/_sortable.sass */
+body {
+  background-color: #FFFFF8;
+}
+
 table[data-sortable] {
   border-collapse: collapse;
   border-spacing: 0;
@@ -60,7 +64,7 @@ table[data-sortable].sortable-theme-bootstrap {
   font-size: 14px;
   line-height: 20px;
   color: #333333;
-  background: white;
+  background: #FFFFF8;
 }
 /* line 12, ../sass/sortable-theme-bootstrap.sass */
 table[data-sortable].sortable-theme-bootstrap thead th {
@@ -86,5 +90,5 @@ table[data-sortable].sortable-theme-bootstrap th[data-sorted="true"][data-sorted
 }
 /* line 31, ../sass/sortable-theme-bootstrap.sass */
 table[data-sortable].sortable-theme-bootstrap.sortable-theme-bootstrap-striped tbody > tr:nth-child(odd) > td {
-  background-color: #f9f9f9;
+  background-color: #FFFFF8;
 }

@@ -9,38 +9,18 @@
 
     <h2>People</h2>
 
-<div class="centering text-left">
-<div class="dropdown">
-  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="menu1" aria-haspopup="true" aria-expanded="false">People by Name
-  <span class="caret"></span></button>
-  <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">{% for person in object_list %}
-    <li><a href="{% url 'persons:detailperson' pk=person.id %}">{% if person.last_name %}{{ person.last_name }}, {% endif %}{{ person.first_name }}
-    </a></li>{% endfor %}
-    </ul>
-    </div>
-  </div>   
-<br/><br/>
-
-
-  <table class="table table-bordered sortable-theme-bootstrap" data-sortable>
-    <thead>
-      <tr>
-        <th class="col-md-4">Name</th>
-        <th class="col-md-3">Letters Received (YYYY-MM)</th>
-        <th class="col-md-3">Letters Mentioned (YYYY-MM)</th>
-      </tr>
-    </thead>
-    <tbody> {% for person in object_list %}
-      <tr>
-        <td>  
-      <a href="{% url 'persons:detailperson' pk=person.id %}" class="list-group-item">{{ person.first_name }} {{ person.last_name }}</td>
-      <td><b>Recipient-</b>{% for item in person.recipients.all %} {{ item.year }}-{{ item.month }} |  {% empty %}  No letters linked yet.{% endfor %} </td>
-      <td><b>Mentioned-</b>{% for item in person.manypeople.all %} {{ item.year }}-{{ item.month }} |  {% empty %}  No letters linked yet.{% endfor %} </td>
-      </a>    </tr> {% endfor %}
-      </tbody>
-      </table>
-  </div>
-
+<ul style="list-style-type:none;">
+<li><a href="">Avigdor Arikha</a></li>
+<li><a href="">Kay Boyle</a></li>
+<li><a href="">Barbara Bray</a></li>
+<li><a href="">George Devine</a></li>
+<li><a href="">Lawrence Harvey</a></li>
+<li><a href="">Mary Hutchinson</a></li>
+<li><a href="">Goddard Lieberson</a></li>
+<li><a href="">Matti Megged</a></li>
+<li><a href="">Barney Rosset</a><li>
+<li><a href="">Alan Schneider</a><li>
+</ul>
  
 
 
