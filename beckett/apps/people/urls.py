@@ -16,8 +16,19 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from beckett.apps.people import views
+from beckett.apps.people.views import arikha, boyle, bray, devine, harvey, hutchinson, lieberson, megged, rosset, schneider
 
 urlpatterns = [
     url(r'^$', views.PeopleList.as_view(template_name='people/person_list.html'), name="people"),
     url(r'^Detail/(?P<pk>[^/]+)/$', views.PersonDetail.as_view(template_name='people/person_detail.html'), name="detailperson"),
+    url(r'^arikha$', arikha, name="arikha"),
+    url(r'^boyle$', boyle, name="boyle"),
+    url(r'^bray$', bray, name="bray"),
+    url(r'^devine$', devine, name="devine"),
+    url(r'^harvey$', harvey, name="harvey"),
+    url(r'^hutchinson$', hutchinson, name="hutchinson"),
+    url(r'^lieberson$', lieberson, name="lieberson"),
+    url(r'^megged$', megged, name="megged"),
+    url(r'^rosset$', rosset, name="rosset"),
+    url(r'^schneider$', schneider, name="schneider"),
 ]

@@ -11,3 +11,34 @@ class PersonDetail(DetailView):
     queryset = Person.objects.all()
     template_name = 'people/person_detail.html'
 
+
+def arikha(request):
+  return render(request, 'arikha.html')
+
+def boyle(request):
+  return render(request, 'boyle.html')
+
+def bray(request):
+  return render(request, 'bray.html')
+
+def devine(request):
+  return render(request, 'devine.html')
+
+def harvey(request):
+  return render(request, 'harvey.html')
+
+def hutchinson(request):
+  return render(request, 'hutchinson.html')
+
+def lieberson(request):
+  return render(request, 'lieberson.html')
+
+def megged(request):
+  return render(request, 'megged.html')
+
+def rosset(request):
+  return render(request, 'rosset.html')
+
+def schneider(request):
+  return render(request, 'schneider.html')
+
