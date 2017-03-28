@@ -12,7 +12,7 @@ class Letter(models.Model):
     'Letters sent by Samuel Beckett'
 
     'Basic Info'
-    letter_code = models.CharField(max_length=255, primary_key=True)
+    letter_code = models.CharField(max_length=100, primary_key=True)
     year = models.IntegerField(blank=True, null=True, validators=[MinValueValidator(0),MaxValueValidator(2000)])
     month = models.IntegerField(blank=True, null=True, validators=[MinValueValidator(0),MaxValueValidator(12)])
     day = models.IntegerField(blank=True, null=True, validators=[MinValueValidator(0),MaxValueValidator(31)])
