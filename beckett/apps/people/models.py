@@ -13,8 +13,10 @@ class Organization(models.Model):
     objects = OrganizationManager()
     # django requires list of tuple for field choices
 
+    profile_id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=255)
-    notes = models.TextField(blank=True)
+    description = models.TextField(blank=True)
+
 
     def natural_key(self):
         return (self.name,)
@@ -42,14 +44,20 @@ class Person(models.Model):
         ('M', 'Male')
     )
 
+    # Current Fields
+    profile_id = models.IntegerField(primary_key=True)
     first_name = models.CharField(max_length=100, blank=True, null=True)
     last_name = models.CharField(max_length=100)
+    bio_dates = models.CharField(max_length=100, blank=True, null=True)
+    description = models.TextField(blank=True)
+    VIAF_reference = models.URLField(blank=True, null=True, help_text="VIAF Permalink")
+
+    # Other Fields
     gender = models.CharField(max_length=1, blank=True, null=True, choices=GENDER_CHOICES)
-    date_of_birth = models.CharField(max_length=255, blank=True, null=True)
-    date_of_death = models.CharField(max_length=255, blank=True, null=True)
+    # date_of_birth = models.CharField(max_length=255, blank=True, null=True)
+    # date_of_death = models.CharField(max_length=255, blank=True, null=True)
     profile_y_n = models.NullBooleanField(blank=True, null=True)
     description = tinymce_models.HTMLField(blank=True, null=True, verbose_name="Description of relationship with Beckett")
-    VIAF_reference = models.URLField(blank=True, null=True, help_text="VIAF Permalink")
     ODNB_reference = models.URLField(blank=True, null=True, help_text="ODNB Permalink")
     uri = models.URLField(blank=True, null=True)
     notes = models.TextField(blank=True, null=True)

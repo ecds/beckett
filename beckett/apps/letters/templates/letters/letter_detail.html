@@ -20,7 +20,7 @@
      <tbody>
         <td><b>Recipient(s): </b></td>
         <td><ul style="list-style-type: none">{% for name in object.recipients.all %} 
-<li><a href="{% url 'persons:detailperson' name.id %}">
+<li><a href="{% url 'persons:detailperson' name.profile_id %}">
 {{ name.first_name }} {{ name.last_name }}</a></li> {% endfor %}</ul></td>
       </tr>
            <tr>
@@ -30,6 +30,14 @@
       <tr>
         <td><b>Leaves or Sides: </b></td>
         <td>{{ object.leaves_sides }}</td>
+      </tr>
+      <tr>
+        <td><b>Place Written: </b></td>
+        <td>{{ object.place_written }}</td>
+      </tr>
+            <tr>
+        <td><b>Place Sent: </b></td>
+        <td>{{ object.place_sent }}</td>
       </tr>
             <tr>
         <td><b>Repositories: </b> </td>
@@ -42,18 +50,29 @@
         <td><b>Person(s) Mentioned: </b></td>
         <td><ul style="list-style-type: none">
           {% for name2 in object.people.all %} 
-<li><a href="{% url 'persons:detailperson' name2.id %}">
+<li><a href="{% url 'persons:detailperson' name2.profile_id %}">
 {{ name2.first_name }} {{ name2.last_name }}</a></li>{% endfor %}</ul></td>
       </tr>
-           <tr>
 
-        {% if object.place %}    
+    <tr>
+        {% if object.places %}    
         <td><b>Place(s) Mentioned: </b></td>
         <td><ul style="list-style-type: none">
-          {% for name2 in object.place.all %} 
+          {% for name2 in object.places.all %} 
 <li>{{ name2.name }}</a></li>{% endfor %}</ul></td>
 {% endif %}
       </tr>
+
+    <tr>
+        {% if object.organizations %}    
+        <td><b>Organization(s) Mentioned: </b></td>
+        <td><ul style="list-style-type: none">
+          {% for name2 in object.organizations.all %} 
+<li>{{ name2.name }}</a></li>{% endfor %}</ul></td>
+{% endif %}
+      </tr>
+
+
     </tbody>
     </table>
 </div>

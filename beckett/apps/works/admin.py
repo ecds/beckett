@@ -1,20 +1,44 @@
 from django.contrib import admin
 
-from beckett.apps.works.models import Work, Edition
+from beckett.apps.works.models import Production, Publication, Directing, Translating, Writing
 
 
 
-class EditionInline(admin.TabularInline):
-    model = Edition
-    verbose_name_plural = "Editions"
-    extra = 1
-
-class WorkAdmin(admin.ModelAdmin):
-    list_display = ['title']
+class ProductionAdmin(admin.ModelAdmin):
+    list_display = ['profile_id', 'title']
     search_fields = ['title']
     filter_horizontal = ['authors']
-    inlines = [
-        EditionInline,
-    ]
 
-admin.site.register(Work, WorkAdmin)
+admin.site.register(Production, ProductionAdmin)
+
+
+class PublicationAdmin(admin.ModelAdmin):
+    list_display = ['profile_id', 'title']
+    search_fields = ['title']
+    filter_horizontal = ['authors']
+
+admin.site.register(Publication, PublicationAdmin)
+
+
+class WritingAdmin(admin.ModelAdmin):
+    list_display = ['profile_id', 'title']
+    search_fields = ['title']
+    filter_horizontal = ['authors']
+
+admin.site.register(Writing, WritingAdmin)
+
+
+class DirectingAdmin(admin.ModelAdmin):
+    list_display = ['profile_id', 'title']
+    search_fields = ['title']
+    filter_horizontal = ['authors']
+
+admin.site.register(Directing, DirectingAdmin)
+
+
+class TranslatingAdmin(admin.ModelAdmin):
+    list_display = ['profile_id', 'title']
+    search_fields = ['title']
+    filter_horizontal = ['authors']
+
+admin.site.register(Translating, TranslatingAdmin)

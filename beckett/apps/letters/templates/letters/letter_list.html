@@ -7,19 +7,19 @@
     
  
        
-<h2>Letters from S. Beckett</h2>
+<h2>Letters from Samuel Beckett</h2>
 
   <table class="table table-bordered sortable-theme-bootstrap" data-sortable>
     <thead>
       <tr>
-        <th>Date (MM-DD-YYYY)</th>
+        <th>Sent Date (MM-DD-YYYY)</th>
         <th>Recipient(s)</th>
         </tr>
         </thead>
         <tbody>{% for Letter in letter_list %}
         <tr>
         <td>
-      <a href="{% url 'lettering:lettersdetail' pk=Letter.id %}" class="list-group-item">Letter sent on {{ Letter.month }}-{{ Letter.day }}-{{ Letter.year }}   
+      <a href="{% url 'lettering:lettersdetail' pk=Letter.letter_code %}" class="list-group-item">Letter sent on {{ Letter.month }}-{{ Letter.day }}-{{ Letter.year }}   
       </a></td>
       <td> to  {% for recipients in Letter.recipients.all %}{{ recipients }}{% if not forloop.last %} and {% endif %}{% empty %} <i>{{ Letter.recipients_excel|safe }}</i>{% endfor %}</td>
       </tr>{% endfor %}</tbody></table>

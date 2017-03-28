@@ -13,7 +13,11 @@ class Place(models.Model):
 
     objects = PlaceManager()
 
+    profile_id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=255, blank=True, null=True, help_text='Collection name or Descriptive name')
+    description = models.TextField(blank=True)
+
+
     #: Street name and number
     street_address = models.CharField(max_length=255, blank=True, null=True, help_text='Street name and number')
     #: City name
