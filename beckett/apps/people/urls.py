@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from beckett.apps.people import views
-from beckett.apps.people.views import arikha, boyle, bray, devine, harvey, hutchinson, lieberson, megged, rosset, schneider
+from beckett.apps.people.views import arikha, boyle, bray, devine, harvey, hutchinson, lieberson, megged, myron, rosset, schneider
 
 urlpatterns = [
     url(r'^$', views.PeopleList.as_view(template_name='people/person_list.html'), name="people"),
@@ -29,6 +29,7 @@ urlpatterns = [
     url(r'^hutchinson$', hutchinson, name="hutchinson"),
     url(r'^lieberson$', lieberson, name="lieberson"),
     url(r'^megged$', megged, name="megged"),
+    url(r'^myron$', myron, name="myron"),
     url(r'^rosset$', rosset, name="rosset"),
     url(r'^schneider$', schneider, name="schneider"),
 ]

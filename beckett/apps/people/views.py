@@ -36,6 +36,9 @@ def lieberson(request):
 def megged(request):
   return render(request, 'megged.html')
 
+def myron(request):
+  return render(request, 'myron.html')  
+
 def rosset(request):
   return render(request, 'rosset.html')
 
