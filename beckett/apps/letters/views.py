@@ -15,6 +15,9 @@ class LettersDetail(DetailView):
     queryset = Letter.objects.all()
     template_name = 'letters/letter_detail.html'
 
+def about(request):
+  return render(request, 'about.html')
+
 #def searchbox(request):
 #    "Search letters"
 #    form = LetterSearchForm(request.GET)

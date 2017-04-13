@@ -21,7 +21,7 @@ from django.views.generic.base import RedirectView
 #admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^$', RedirectView.as_view(url='/letters', permanent=False)), # temp redirect to admin
+    url(r'^$', RedirectView.as_view(url='/letters', permanent=False)), # temp redirect to letters
     url(r'^admin/', include(admin.site.urls)),
     url(r'^tinymce/', include('tinymce.urls')),
     url(r'^people/', include('beckett.apps.people.urls', namespace="persons")),

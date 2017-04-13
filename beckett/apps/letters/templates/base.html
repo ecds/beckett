@@ -63,6 +63,7 @@
           <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
               <li><a class="site-title" href="{% url 'lettering:letters' %}">{% block nav-title %}Samuel Beckett{% endblock %}</a></li>
+                        <li><a href="{% url "lettering:about" %}"><span id="br">About</span></a></li>
                         <li><a href="{% url "lettering:letters" %}"><span id="br">Letters</span></a></li>
                         <li><a href="{% url "persons:people" %}"><span id="ov">People</span></a></li>
                         <li><a><span id="se">|</span></a></li>
