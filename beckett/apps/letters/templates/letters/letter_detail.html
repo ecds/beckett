@@ -19,9 +19,7 @@
   <table class="table table-bordered">
      <tbody>
         <td><b>Recipient(s): </b></td>
-        <td><ul style="list-style-type: none">{% for name in object.recipients.all %} 
-<li><a href="{% url 'persons:detailperson' name.profile_id %}">
-{{ name.first_name }} {{ name.last_name }}</a></li> {% endfor %}</ul></td>
+        <td>{{object.recipients_excel|safe}}</td>
       </tr>
            <tr>
         <td><b>Physical Description: </b></td>
