@@ -33,3 +33,11 @@ div.person_profile {
   font-family: et-book, Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
 }
 
+.letter-list {
+  background-color: #FFFFF8; 
+}
+
+.list-group-item {
+  background-color: #FFFFF8;
+  border-color: #639caf;
+}
