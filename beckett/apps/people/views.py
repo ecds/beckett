@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
-from beckett.apps.people.models import Person
+from beckett.apps.people.models import Person, Organization
 
 class PeopleList(ListView):
     model = Person
@@ -11,6 +11,10 @@ class PersonDetail(DetailView):
     queryset = Person.objects.all()
     template_name = 'people/person_detail.html'
 
+class OrganizationDetail(DetailView):
+    model = Organization
+    queryset = Organization.objects.all()
+    template_name = 'organization/organization_detail.html'
 
 def arikha(request):
   return render(request, 'arikha.html')

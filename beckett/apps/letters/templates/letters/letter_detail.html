@@ -57,7 +57,7 @@
         <td><b>Place(s) Mentioned: </b></td>
         <td><ul style="list-style-type: none">
           {% for name2 in object.places.all %} 
-<li>{{ name2.name }}</a></li>{% endfor %}</ul></td>
+<li><a href="{% url 'geo:detailplace' name2.profile_id %}">{{ name2.name }}</a></li>{% endfor %}</ul></td>
 {% endif %}
       </tr>
 
@@ -66,7 +66,7 @@
         <td><b>Organization(s) Mentioned: </b></td>
         <td><ul style="list-style-type: none">
           {% for name2 in object.organizations.all %} 
-<li>{{ name2.name }}</a></li>{% endfor %}</ul></td>
+<li><a href="{% url 'persons:detailorganization' name2.profile_id %}">{{ name2.name }}</a></li>{% endfor %}</ul></td>
 {% endif %}
       </tr>
 

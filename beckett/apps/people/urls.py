@@ -21,6 +21,7 @@ from beckett.apps.people.views import arikha, boyle, bray, devine, harvey, hutch
 urlpatterns = [
     url(r'^$', views.PeopleList.as_view(template_name='people/person_list.html'), name="people"),
     url(r'^Detail/(?P<pk>[^/]+)/$', views.PersonDetail.as_view(template_name='people/person_detail.html'), name="detailperson"),
+    url(r'^organizations/Detail/(?P<pk>[^/]+)/$', views.OrganizationDetail.as_view(template_name='people/organization_detail.html'), name="detailorganization"),
     url(r'^arikha$', arikha, name="arikha"),
     url(r'^boyle$', boyle, name="boyle"),
     url(r'^bray$', bray, name="bray"),

@@ -32,8 +32,8 @@ class Letter(models.Model):
  
     'Linked Data Fields'
     people = models.ManyToManyField(Person, blank=True, related_name='manypeople')
-    places = models.ManyToManyField(Place, blank=True)
-    organizations = models.ManyToManyField(Organization, blank=True)
+    places = models.ManyToManyField(Place, blank=True, related_name='manyplaces')
+    organizations = models.ManyToManyField(Organization, blank=True, related_name='manyorganizations')
     productions = models.ManyToManyField(Production, blank=True)
     publications = models.ManyToManyField(Publication, blank=True)
     directing = models.ManyToManyField(Directing, blank=True)
