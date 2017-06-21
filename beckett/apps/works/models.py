@@ -59,7 +59,6 @@ class WritingManager(models.Manager):
 
 
 class Writing(models.Model):
-    '''Publisher or other type of organization'''
 
     objects = WritingManager()
     # django requires list of tuple for field choices
@@ -84,7 +83,6 @@ class DirectingManager(models.Manager):
 
 
 class Directing(models.Model):
-    '''Publisher or other type of organization'''
 
     objects = DirectingManager()
     # django requires list of tuple for field choices
@@ -110,7 +108,6 @@ class TranslatingManager(models.Manager):
 
 
 class Translating(models.Model):
-    '''Publisher or other type of organization'''
 
     objects = TranslatingManager()
     # django requires list of tuple for field choices
@@ -128,4 +125,29 @@ class Translating(models.Model):
 
     class Meta:
         ordering = ['title']
+
+class ReadingManager(models.Manager):
+    def get_by_natural_key(self, title):
+        return self.get(title=title)
+
+
+class Reading(models.Model):
+
+    objects = ReadingManager()
+    # django requires list of tuple for field choices
+
+    profile_id = models.IntegerField(primary_key=True)
+    title = models.CharField(max_length=255, blank=True, null=True)
+    authors = models.ManyToManyField(Person, blank=True)
+    notes = models.TextField(blank=True, null=True, verbose_name = "Description or Notes")
+
+    def natural_key(self):
+        return (self.title,)
+
+    def __unicode__(self):
+        return self.title
+
+    class Meta:
+        ordering = ['title']
+
 

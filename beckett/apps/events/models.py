@@ -1,6 +1,7 @@
 from django.db import models
 from tinymce import models as tinymce_models
 
+from beckett.apps.people.models import Person
 
 class Chronology(models.Model):
     'Events in the published chronologies'
@@ -25,3 +26,51 @@ class EventResource(models.Model):
     Permissions = models.CharField(max_length=500, blank=True, null=True)
     Date_Accessed = models.CharField(max_length=255, blank=True, null=True)
     Chronology_Item = models.ForeignKey(Chronology)
+
+class AttendanceManager(models.Manager):
+    def get_by_natural_key(self, title):
+        return self.get(title=title)
+
+
+class Attendance(models.Model):
+
+    objects = AttendanceManager()
+    # django requires list of tuple for field choices
+
+    profile_id = models.IntegerField(primary_key=True)
+    title = models.CharField(max_length=255, blank=True, null=True)
+    authors = models.ManyToManyField(Person, blank=True)
+    notes = models.TextField(blank=True, null=True, verbose_name = "Description or Notes")
+
+    def natural_key(self):
+        return (self.title,)
+
+    def __unicode__(self):
+        return self.title
+
+    class Meta:
+        ordering = ['title']
+
+class Public_eventManager(models.Manager):
+    def get_by_natural_key(self, title):
+        return self.get(title=title)
+
+
+class Public_event(models.Model):
+
+    objects = Public_eventManager()
+    # django requires list of tuple for field choices
+
+    profile_id = models.IntegerField(primary_key=True)
+    title = models.CharField(max_length=255, blank=True, null=True)
+    authors = models.ManyToManyField(Person, blank=True)
+    notes = models.TextField(blank=True, null=True, verbose_name = "Description or Notes")
+
+    def natural_key(self):
+        return (self.title,)
+
+    def __unicode__(self):
+        return self.title
+
+    class Meta:
+        ordering = ['title']

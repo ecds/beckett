@@ -27,7 +27,7 @@
     </tr>
     <tr>
     	<td><b>Related Letters as Recipient: </b></td>
-    	<td>{% for item in object.recipients.all %} 
+    	<td>{% for item in object.manyrecipients.all %} 
             <a href="{% url 'lettering:lettersdetail' item.letter_code %}">{{ item.day }}-{{ item.month }}-19{{ item.year }}
             </a> |   
             {% endfor %}</td>

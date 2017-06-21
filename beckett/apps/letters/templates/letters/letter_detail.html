@@ -13,7 +13,7 @@
 
     <h1>Letter from Samuel Beckett</h1>
 
-        <h1>{{ object.day }}-{{ object.month }}-19{{ object.year }}</h1>
+        <h1>{{ object.day }} {{ object.month_to_string }} 19{{ object.year }}</h1>
 <div class="container">
 
   <table class="table table-bordered">
@@ -45,15 +45,17 @@
 {{ name3.name }}</a>{% endfor %}</li></td>
       </tr>
       <tr>
+        {% if object.people.count > 0 %}
         <td><b>Person(s) Mentioned: </b></td>
         <td><ul style="list-style-type: none">
           {% for name2 in object.people.all %} 
 <li><a href="{% url 'persons:detailperson' name2.profile_id %}">
 {{ name2.first_name }} {{ name2.last_name }}</a></li>{% endfor %}</ul></td>
+{% endif %}
       </tr>
 
     <tr>
-        {% if object.places %}    
+        {% if object.places.count > 0 %}    
         <td><b>Place(s) Mentioned: </b></td>
         <td><ul style="list-style-type: none">
           {% for name2 in object.places.all %} 
@@ -62,7 +64,7 @@
       </tr>
 
     <tr>
-        {% if object.organizations %}    
+        {% if object.organizations.count > 0 %}    
         <td><b>Organization(s) Mentioned: </b></td>
         <td><ul style="list-style-type: none">
           {% for name2 in object.organizations.all %} 
