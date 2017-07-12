@@ -13,7 +13,8 @@
 
     <h1>Letter from Samuel Beckett</h1>
 
-        <h1>{{ object.day }} {{ object.month_to_string }} 19{{ object.year }}</h1>
+        <h1>{% if object.day != 0 %}{{ object.day }}{% endif %}
+ {% if object.month != 0 %}{{ object.month_to_string }}{% endif %} 19{{ object.year }}</h1>
 <div class="container">
 
   <table class="table table-bordered">

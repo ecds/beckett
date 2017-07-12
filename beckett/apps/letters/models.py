@@ -48,6 +48,7 @@ class Letter(models.Model):
     @property
     def month_to_string(self):
         month_dict = {
+        0: '0',
         1:'January',
         2:'February',
         3:'March',
