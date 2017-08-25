@@ -1,15 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
-<!DOCTYPE html>
-<html>
-<head>  
-</head>
-<body><div class="container">
-<div class="centering text-center">
 
-    <h1>People</h1>
+<h1>People</h1>
 
-<ul style="list-style-type:none;">
+<ul class="list-unstyled">
 <li><a href="{% url 'persons:arikha' %}">Avigdor Arikha</a></li>
 <li><a href="{% url 'persons:boyle' %}">Kay Boyle</a></li>
 <li><a href="{% url 'persons:bray' %}">Barbara Bray</a></li>
@@ -19,14 +13,10 @@
 <li><a href="{% url 'persons:lieberson' %}">Goddard Lieberson</a></li>
 <li><a href="{% url 'persons:megged' %}">Matti Megged</a></li>
 <li><a href="{% url 'persons:myron' %}">Herbert Myron</a></li>
-<li><a href="{% url 'persons:rosset' %}">Barney Rosset</a><li>
-<li><a href="{% url 'persons:schneider' %}">Alan Schneider</a><li>
+<li><a href="{% url 'persons:rosset' %}">Barney Rosset</a></li>
+<li><a href="{% url 'persons:schneider' %}">Alan Schneider</a></li>
 </ul>
- 
 
 
-</div>
-</div></body>
-</html>
 
 {% endblock %}
