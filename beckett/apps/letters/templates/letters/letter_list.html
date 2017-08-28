@@ -1,7 +1,91 @@
 {% extends "base.html" %} {% block content %}
-
+<div class="row">
 <div class="col-md-12">
-  <h1>Letters from Samuel Beckett</h1>
+  <h1 class="page-title">Letters from Samuel Beckett</h1>
+
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" media="all" />
+  <script
+    src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+    integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+    crossorigin="anonymous"></script>
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+
+
+<section class="page-sections">
+  <div class="section-title">Search Filters</div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="search-filter-title">Letter Recipients</div>
+      <select id="select2" style="width: 100%;">
+        <option value="3620194" selected="selected">Filter by letter recipients</option>
+      </select>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+<script>
+$("#select2").select2({
+  ajax: {
+    url: "/api/search/",
+    dataType: 'json',
+    delay: 250,
+    data: function (params) {
+      return {
+        term: params.term, // search term
+        page: params.page
+      };
+    },
+    processResults: function (data, params) {
+      // parse the results into the format expected by Select2
+      // since we are using custom formatting functions we do not need to
+      // alter the remote JSON data, except to indicate that infinite
+      // scrolling can be used
+      params.page = params.page || 1;
+
+      return {
+        results: data,
+        pagination: {
+          more: (params.page * 30) < data.total_count
+        }
+      };
+    },
+    cache: false
+  },
+  escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
+  minimumInputLength: 3,
+  templateResult: formatRepo, // omitted for brevity, see the source of this page
+  templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
+});
+
+function formatRepo (repo) {
+      if (repo.loading) return repo.text;
+
+      var markup = "<div class='select2-result-repository clearfix'>" +
+        "<div class='select2-result-repository__avatar'></div>" +
+        "<div class='select2-result-repository__meta'>" +
+          "<div class='select2-result-repository__title'>" + repo.label + "<span class='badge pull-right'>" + repo.count + "</span> </div>";
+
+      return markup;
+    }
+
+    function formatRepoSelection (repo) {
+      return repo.label || repo.text;
+    }
+
+
+</script>
+
+
+
+<section class="page-sections">
+<div class="section-title">Results</div>
 
   <table id="example-table" class="table">
     <thead>
@@ -21,6 +105,27 @@
       {% endfor %}
     </tbody>
   </table>
+</section>
+
+  <!-- <div class="ui-widget">
+    <label for="searchbox-recipient">Recipients: </label>
+    <input id="searchbox-recipient">
+  </div>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      var location_input = $('input[id="searchbox-recipient"]');
+      location_input.autocomplete({
+        source: "/api/search/",
+        minLength: 2
+      });
+    });
+
+    //   keeps same width as box
+    jQuery.ui.autocomplete.prototype._resizeMenu = function() {
+      var ul = this.menu.element;
+      ul.outerWidth(this.element.outerWidth());
+    }
+  </script> -->
 
   <!-- Initialize datatables -->
   <script>
@@ -29,41 +134,7 @@
     });
   </script>
 
-  <!-- Older template -->
-
-  <!-- <div class="panel-group browse " id="accordion" role="tablist" aria-multiselectable="true">
-    <div class="panel panel-default letter-list">
-      <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-jan_1961" aria-expanded="true" aria-controls="collapse-jan_1961">
-        <div class="panel-heading" role="tab" id="jan_1961">
-          <h2 class="panel-title">
-      January 1961
-      </h2>
-        </div>
-      </a>
-      <div id="collapse-jan_1961" class="panel-collapse collapse" role="tabpanel" aria-labelledby="jan_1961">
-        <div class="panel-body letter-list">
-          <table class="table table-bordered" data-sortable>
-            <thead>
-              <tr>
-                <th>Sent Date (DD-MM-YYYY)</th>
-                <th>Recipient(s)</th>
-              </tr>
-            </thead>
-            <tbody>
-
-              {% for Letter in letter_list %} {% if Letter.month == 1 or Letter.month == 0 %}
-              <tr>
-                <td>
-                  <a href="{% url 'lettering:lettersdetail' pk=Letter.letter_code %}" class="list-group-item">Letter sent on {{ Letter.day }}-{{ Letter.month }}-{{ Letter.year }}
-        </a></td>
-                <td> to <i>{{ Letter.recipients_excel|safe }}</i></td>
-              </tr>{% endif %}{% endfor %}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div> <!--panel-group-browse-->
+</div>
 </div>
 
 {% endblock %}

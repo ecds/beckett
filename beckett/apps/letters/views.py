@@ -6,6 +6,9 @@ from beckett.apps.letters.forms import LetterSearchForm
 from django.core.paginator import Paginator, InvalidPage, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponse
+import json
+from collections import Counter
+
 
 class LettersList(ListView):
     model = Letter
@@ -18,47 +21,6 @@ class LettersDetail(DetailView):
 def about(request):
   return render(request, 'about.html')
 
-#def searchbox(request):
-#    "Search letters"
-#    form = LetterSearchForm(request.GET)
-#    response_code = None
-#    context = {'searchbox': form}
-#    search_opts = {}
-#    number_of_results = 20
-#      
-#    if form.is_valid():
-#        if 'keyword' in form.cleaned_data and form.cleaned_data['keyword']:
-#            search_opts['primary_language'] = '%s' % form.cleaned_data['keyword']
-#                
-#        letters = Letter.objects.only("id", "primary_language", "year", "month", "day", "key_terms").filter(**search_opts)
-#
-#        searchbox_paginator = Paginator(letters, number_of_results)
-#        
-#        try:
-#            page = int(request.GET.get('page', '1'))
-#        except ValueError:
-#            page = 1
-#        # If page request (9999) is out of range, deliver last page of results.
-#        try:
-#            searchbox_page = searchbox_paginator.page(page)
-#        except (EmptyPage, InvalidPage):
-#            searchbox_page = searchbox_paginator.page(paginator.num_pages)
-#
-#        context['letters'] = letters
-#        context['letters_paginated'] = searchbox_page
-#        context['keyword'] = form.cleaned_data['keyword']
-#           
-#        response = render_to_response('search_results.html', context, context_instance=RequestContext(request))
-#    #no search conducted yet, default form
-#        
-#    else:
-#        response = render(request, 'search.html', {"searchbox": form}, context_instance=RequestContext(request))
-#       
-#    if response_code is not None:
-#        response.status_code = response_code
-#    return response
-
-
 def searches(request):
     return render_to_response('searches.html')
 
@@ -70,33 +32,32 @@ def search_result(request):
             {'words': words, 'query': q})
     else:
         return HttpResponse('None Found.')
-    
-    
-    
-#def searchtext(request):
-#    if 'q' in request.GET and request.GET['q']:
-#        q = request.GET['q']
-#        key_terms = Letter.objects.all()
-#        return render(request, 'search_results.html',
-#            {'key_terms': key_terms, 'query': q})
-#    else:
-#        return HttpResponse('Please submit a search term.')
-    
 
+def get_recipients(request):
+    q = request.GET.get('term', '')
+    letters = Letter.objects.filter(recipients_excel__icontains = q)
+    results = []
+    for letter in letters:
+        results.append(letter.recipients_excel)
+    categorized_letters = Counter(results)
 
-#def letter_display(request, doc_id):
-#    "Display the contents of a single letter."
-#    if 'keyword' in request.GET:
-#        search_terms = request.GET['keyword']
-#        url_params = '?' + urlencode({'keyword': search_terms})
-#        filter = {'highlight': search_terms}    
-#    else:
-#        url_params = ''
-#        filter = {}
-#        search_terms = None
-#    try:              
-#        letter = Letter.objects.filter(**filter).get(id__exact=doc_id)
-#        format = letter.xsl_transform(filename=os.path.join(settings.BASE_DIR, '..', 'yjallen_app', 'xslt', 'form.xsl'))
-#        return render_to_response('letter_display.html', {'letter': letter, 'format': format.serialize(), 'search_terms': search_terms}, context_instance=RequestContext(request))
-#    except DoesNotExist:
-#        raise Http404
+    unique_results = []
+    for letter in letters:
+        if letter.recipients_excel not in unique_results:
+            unique_results.append(letter.recipients_excel)
+
+    json_collection = []
+
+    counter = 1
+    for result in unique_results:
+        json_object = {}
+        json_object["id"] = counter
+        json_object["label"] = result
+        json_object["count"] = categorized_letters[result]
+        json_collection.append(json_object)
+        counter += 1
+
+    data = json.dumps(json_collection)
+
+    mimetype = 'application/json'
+    return HttpResponse(data, mimetype)

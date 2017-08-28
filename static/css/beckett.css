@@ -1,8 +1,27 @@
 body {
   background-color: #FFFFF8 !important;
-    font-family: et-book, Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
+    font-family: "Proxima Nova", et-book, Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
 }
 
+.page-sections {
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.search-filter-title {
+  margin-bottom: 1rem;
+}
+
+.page-title {
+  font-size: 4rem;
+  font-weight: 600;
+}
 
 #banner-image {
     width: 20%;
