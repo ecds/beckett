@@ -36,7 +36,7 @@ def search_result(request):
 # An API method that returns a JSON with filtered recipients and corresponding
 # occurrence count. This is consumed by select2 in the search filter to
 # fulfill autocomplete feature requirement
-def get_recipients(request):
+def get_search_autocomplete(request):
     q = request.GET.get('term')
     field = request.GET.get('field')
     letters = []
