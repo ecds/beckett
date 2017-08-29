@@ -20,7 +20,7 @@ from beckett.apps.letters.views import about
 
 urlpatterns = [
     url(r'^$', views.LettersList.as_view(), name="letters"),
-    url(r'^searches/$', views.searches, name='searchbox'),
+    url(r'^search/$', views.search, name='searchbox'),
     url(r'^search_result/$', views.search_result, name='search_result'),
     url(r'^(?P<pk>[^/]+)/$', views.LettersDetail.as_view(template_name='letters/letter_detail.html'), name="lettersdetail"),
     url(r'^about$', about, name="about"),

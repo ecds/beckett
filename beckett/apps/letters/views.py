@@ -21,8 +21,8 @@ class LettersDetail(DetailView):
 def about(request):
   return render(request, 'about.html')
 
-def searches(request):
-    return render_to_response('searches.html')
+def search(request):
+    return render_to_response('search.html')
 
 def search_result(request):
     if 'q' in request.GET and request.GET['q']:

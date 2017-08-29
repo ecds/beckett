@@ -1,16 +1,11 @@
 {% extends "base.html" %} {% block content %}
-<div class="row">
-<div class="col-md-12">
-  <h1 class="page-title">Letters from Samuel Beckett</h1>
 
-  <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" media="all" />
-  <script
-    src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
-    integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
-    crossorigin="anonymous"></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" media="all" />
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
 
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+
 <div class="row">
   <div class="col-md-3">
 
@@ -21,8 +16,8 @@
           <div class="col-md-12">
             <div class="search-filter-title">Keywords </div>
             <select id="select2" style="width: 100%;">
-              <option value="sf-recipient" selected="selected">Search keywords</option>
-            </select>
+          <option value="sf-recipient" selected="selected">Search keywords</option>
+        </select>
           </div>
         </div>
 
@@ -30,9 +25,9 @@
           <div class="col-md-12">
             <div class="search-filter-title">Search field </div>
             <select id="select2-search-field" class="selectpicker" style="width: 100%;">
-              <option value="recipients" selected="selected">Letter recipients</option>
-              <option value="place_sent">Place sent</option>
-            </select>
+          <option value="recipients" selected="selected">Letter recipients</option>
+          <option value="place_sent">Place sent</option>
+        </select>
           </div>
         </div>
 
@@ -46,11 +41,11 @@
       </form>
     </section>
 
-
   </div>
+  
   <div class="col-md-9">
     <section class="page-sections">
-    <div class="section-title">Results</div>
+      <div class="section-title">Results</div>
 
       <table id="example-table" class="table">
         <thead>
@@ -75,103 +70,76 @@
 
 </div>
 
-
 <script>
-var search_field = $("#select2-search-field").val();
+  // initialize datatables
+  $(document).ready(function() {
+    $('#example-table').DataTable({
+      "dom": '<"top"if>rt<"bottom"lp><"clear">',
+      "oLanguage": {
+        "sSearch": "Filter records:"
+      }
+    });
+  });
 
-$( "#select2-search-field" ).change(function() {
-  search_field = $("#select2-search-field").val();
-});
+  // choose a search field that is mapped in the db column
+  var search_field = $("#select2-search-field").val();
 
+  // on selection change update the query
+  $("#select2-search-field").change(function() {
+    search_field = $("#select2-search-field").val();
+  });
 
-$("#select2").select2({
-  ajax: {
-    url: "/api/search/", // search in the correct category
-    dataType: 'json',
-    delay: 250,
-    data: function (params) {
-      return {
-        term: params.term, // search term
-        field: search_field // search field
-      };
+  // perform select2 autocomplete search
+  $("#select2").select2({
+    ajax: {
+      url: "/api/search/", // search in the correct category
+      dataType: 'json',
+      delay: 250,
+      data: function(params) {
+        return {
+          term: params.term, // search term
+          field: search_field // search field
+        };
+      },
+      processResults: function(data, params) {
+        // parse the results into the format expected by Select2
+        // since we are using custom formatting functions we do not need to
+        // alter the remote JSON data, except to indicate that infinite
+        // scrolling can be used
+        params.page = params.page || 1;
+
+        return {
+          results: data,
+          pagination: {
+            more: (params.page * 30) < data.total_count
+          }
+        };
+      },
+      cache: false
     },
-    processResults: function (data, params) {
-      // parse the results into the format expected by Select2
-      // since we are using custom formatting functions we do not need to
-      // alter the remote JSON data, except to indicate that infinite
-      // scrolling can be used
-      params.page = params.page || 1;
-
-      return {
-        results: data,
-        pagination: {
-          more: (params.page * 30) < data.total_count
-        }
-      };
-    },
-    cache: false
-  },
-  escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
-  minimumInputLength: 3,
-  templateResult: formatRepo, // omitted for brevity, see the source of this page
-  templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
-});
-
-function formatRepo (repo) {
-      if (repo.loading) return repo.text;
-
-      var markup = "<div class='select2-result-repository clearfix'>" +
-        "<div class='select2-result-repository__avatar'></div>" +
-        "<div class='select2-result-repository__meta'>" +
-          "<div class='select2-result-repository__title'>" + repo.label + "<span class='badge pull-right'>" + repo.count + "</span> </div>";
-
+    escapeMarkup: function(markup) {
       return markup;
-    }
+    }, // let our custom formatter work
+    minimumInputLength: 3,
+    templateResult: formatRepo, // omitted for brevity, see the source of this page
+    templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
+  });
 
-    function formatRepoSelection (repo) {
-      return repo.label || repo.text;
-    }
+  function formatRepo(repo) {
+    if (repo.loading) return repo.text;
 
+    var markup = "<div class='select2-result-repository clearfix'>" +
+      "<div class='select2-result-repository__avatar'></div>" +
+      "<div class='select2-result-repository__meta'>" +
+      "<div class='select2-result-repository__title'>" + repo.label + "<span class='badge pull-right'>" + repo.count + "</span> </div>";
+
+    return markup;
+  }
+
+  function formatRepoSelection(repo) {
+    return repo.label || repo.text;
+  }
 
 </script>
-
-
-
-
-
-  <!-- <div class="ui-widget">
-    <label for="searchbox-recipient">Recipients: </label>
-    <input id="searchbox-recipient">
-  </div>
-  <script type="text/javascript">
-    $(document).ready(function() {
-      var location_input = $('input[id="searchbox-recipient"]');
-      location_input.autocomplete({
-        source: "/api/search/",
-        minLength: 2
-      });
-    });
-
-    //   keeps same width as box
-    jQuery.ui.autocomplete.prototype._resizeMenu = function() {
-      var ul = this.menu.element;
-      ul.outerWidth(this.element.outerWidth());
-    }
-  </script> -->
-
-  <!-- Initialize datatables -->
-  <script>
-    $(document).ready(function() {
-      $('#example-table').DataTable({
-        "dom": '<"top"if>rt<"bottom"lp><"clear">',
-        "oLanguage": {
-          "sSearch": "Filter records:"
-        }
-      });
-    });
-  </script>
-
-</div>
-</div>
 
 {% endblock %}
