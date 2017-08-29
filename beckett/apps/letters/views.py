@@ -33,18 +33,33 @@ def search_result(request):
     else:
         return HttpResponse('None Found.')
 
+# An API method that returns a JSON with filtered recipients and corresponding
+# occurrence count. This is consumed by select2 in the search filter to
+# fulfill autocomplete feature requirement
 def get_recipients(request):
-    q = request.GET.get('term', '')
-    letters = Letter.objects.filter(recipients_excel__icontains = q)
+    q = request.GET.get('term')
+    field = request.GET.get('field')
+    letters = []
     results = []
-    for letter in letters:
-        results.append(letter.recipients_excel)
-    categorized_letters = Counter(results)
-
     unique_results = []
-    for letter in letters:
-        if letter.recipients_excel not in unique_results:
-            unique_results.append(letter.recipients_excel)
+
+    if field == "recipients":
+        letters = Letter.objects.filter(recipients_excel__icontains = q)
+        for letter in letters:
+            results.append(letter.recipients_excel)
+        categorized_letters = Counter(results)
+        for letter in letters:
+            if letter.recipients_excel not in unique_results:
+                unique_results.append(letter.recipients_excel)
+
+    if field == "place_sent":
+        letters = Letter.objects.filter(place_sent__icontains = q)
+        for letter in letters:
+            results.append(letter.place_sent)
+        categorized_letters = Counter(results)
+        for letter in letters:
+            if letter.place_sent not in unique_results:
+                unique_results.append(letter.place_sent)
 
     json_collection = []
 

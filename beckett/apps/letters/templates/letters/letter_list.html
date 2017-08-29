@@ -11,35 +11,88 @@
 
   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+<div class="row">
+  <div class="col-md-3">
+
+    <section class="page-sections">
+      <form method="GET" action="">
+        <div class="section-title">Search Parameters</div>
+        <div class="row sf-sections">
+          <div class="col-md-12">
+            <div class="search-filter-title">Keywords </div>
+            <select id="select2" style="width: 100%;">
+              <option value="sf-recipient" selected="selected">Search keywords</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row sf-sections">
+          <div class="col-md-12">
+            <div class="search-filter-title">Search field </div>
+            <select id="select2-search-field" class="selectpicker" style="width: 100%;">
+              <option value="recipients" selected="selected">Letter recipients</option>
+              <option value="place_sent">Place sent</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row sf-sections">
+          <div class="col-md-12">
+            <button type="button" class="btn btn-primary">Update Search</button>
+            <button type="button" class="btn btn-secondary">Reset</button>
+          </div>
+        </div>
+
+      </form>
+    </section>
 
 
-<section class="page-sections">
-  <div class="section-title">Search Filters</div>
-  <div class="row">
-    <div class="col-md-6">
-      <div class="search-filter-title">Letter Recipients</div>
-      <select id="select2" style="width: 100%;">
-        <option value="3620194" selected="selected">Filter by letter recipients</option>
-      </select>
-    </div>
   </div>
-</section>
+  <div class="col-md-9">
+    <section class="page-sections">
+    <div class="section-title">Results</div>
 
+      <table id="example-table" class="table">
+        <thead>
+          <tr>
+            <th>Sent Date (DD-MM-YYYY)</th>
+            <th>Recipient(s)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for Letter in letter_list %}
+          <tr>
+            <td>
+              <a href="{% url 'lettering:lettersdetail' pk=Letter.letter_code %}">Letter sent on {{ Letter.day }}-{{ Letter.month }}-{{ Letter.year }}</a>
+            </td>
+            <td> to <i>{{ Letter.recipients_excel|safe }}</i></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+  </div>
 
-
-
+</div>
 
 
 <script>
+var search_field = $("#select2-search-field").val();
+
+$( "#select2-search-field" ).change(function() {
+  search_field = $("#select2-search-field").val();
+});
+
+
 $("#select2").select2({
   ajax: {
-    url: "/api/search/",
+    url: "/api/search/", // search in the correct category
     dataType: 'json',
     delay: 250,
     data: function (params) {
       return {
         term: params.term, // search term
-        page: params.page
+        field: search_field // search field
       };
     },
     processResults: function (data, params) {
@@ -84,28 +137,7 @@ function formatRepo (repo) {
 
 
 
-<section class="page-sections">
-<div class="section-title">Results</div>
 
-  <table id="example-table" class="table">
-    <thead>
-      <tr>
-        <th>Sent Date (DD-MM-YYYY)</th>
-        <th>Recipient(s)</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for Letter in letter_list %}
-      <tr>
-        <td>
-          <a href="{% url 'lettering:lettersdetail' pk=Letter.letter_code %}">Letter sent on {{ Letter.day }}-{{ Letter.month }}-{{ Letter.year }}</a>
-        </td>
-        <td> to <i>{{ Letter.recipients_excel|safe }}</i></td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-</section>
 
   <!-- <div class="ui-widget">
     <label for="searchbox-recipient">Recipients: </label>
@@ -130,7 +162,12 @@ function formatRepo (repo) {
   <!-- Initialize datatables -->
   <script>
     $(document).ready(function() {
-      $('#example-table').DataTable();
+      $('#example-table').DataTable({
+        "dom": '<"top"if>rt<"bottom"lp><"clear">',
+        "oLanguage": {
+          "sSearch": "Filter records:"
+        }
+      });
     });
   </script>
 
