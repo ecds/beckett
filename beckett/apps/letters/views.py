@@ -36,15 +36,6 @@ def search(request):
 
     return render(request, 'search.html', context)
 
-def search_result(request):
-    if 'q' in request.GET and request.GET['q']:
-        q = request.GET['q']
-        words = Letter.objects.filter(key_terms__icontains=q)
-        return render_to_response('search_result.html',
-            {'words': words, 'query': q})
-    else:
-        return HttpResponse('None Found.')
-
 # An API method that returns a JSON with filtered recipients and corresponding
 # occurrence count. This is consumed by select2 in the search filter to
 # fulfill autocomplete feature requirement
