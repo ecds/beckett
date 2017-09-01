@@ -6,39 +6,37 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 
-<div class="row">
-  <h1>Search Beckett Letters</h1>
-  <article class="intro">
-    The Letters of Samuel Beckett archive houses the transcriptions and translations of every known letter penned by the Irish writer Samuel Beckett. This project was born out of a desire to make the metadata and content of these letters accessible to researchers
-    and to the wider public. You can browse all letters or use the below search filter to locate letters relevant to your research.
-  </article>
+<h1>Search Beckett Letters</h1>
+<article class="intro">
+  The Letters of Samuel Beckett archive houses the transcriptions and translations of every known letter penned by the Irish writer Samuel Beckett. This project was born out of a desire to make the metadata and content of these letters accessible to researchers
+  and to the wider public. You can browse all letters or use the below search filter to locate letters relevant to your research.
+</article>
 
-  <section class="page-sections">
-    <form method="GET" action="/letters/search/" id="letter-search-form">
-    <div class="col-md-6 no-padding">
-      <select name="q" id="select2"></select>
-    </div>
+<section class="page-sections">
+  <form method="GET" action="/letters/search/" id="letter-search-form">
+  <div class="col-md-6 no-padding">
+    <select name="q" id="select2"></select>
+  </div>
 
-    <div class="col-md-6 no-padding">
-      <div class="search-filter-desc"> in search field </div>
-      <select name="field" form="letter-search-form" id="select2-search-field" class="selectpicker">
-        <option value="recipients" selected="selected">Letter recipients</option>
-        <option value="place_sent">Place sent</option>
-      </select>
-    </div>
-    <input id="search-keyword" form="letter-search-form" name="q" value="" type="hidden">
-    </form>
+  <div class="col-md-6 no-padding">
+    <div class="search-filter-desc"> in search field </div>
+    <select name="field" form="letter-search-form" id="select2-search-field" class="selectpicker">
+      <option value="recipients" selected="selected">Letter recipients</option>
+      <option value="place_sent">Place sent</option>
+    </select>
+  </div>
+  <input id="search-keyword" form="letter-search-form" name="q" value="" type="hidden">
+  </form>
 
-    <div class="col-md-12 no-padding">
-      <button class="btn btn-primary search-btn disabled" type="submit" form="letter-search-form" id="btn-search">Search</button>
-      <button type="button" class="btn btn-secondary" id="btn-reset">Reset</button>
-      <div class="inline"> or </div>
-      <a href="/letters/search/"><button type="button" class="btn btn-warning">Browse all letters</button></a>
-    </div>
+  <div class="col-md-12 no-padding">
+    <button class="btn btn-primary search-btn disabled" type="submit" form="letter-search-form" id="btn-search">Search</button>
+    <button type="button" class="btn btn-secondary" id="btn-reset">Reset</button>
+    <div class="inline"> or </div>
+    <a href="/letters/search/"><button type="button" class="btn btn-warning">Browse all letters</button></a>
+  </div>
 
-  </section>
+</section>
 
-</div>
 
 <script>
   // choose a search field that is mapped in the db column
