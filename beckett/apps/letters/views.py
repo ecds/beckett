@@ -26,7 +26,10 @@ def search(request):
 
     letter_list = Letter.objects.all()
     if query:
-        letter_list = letter_list.filter(recipients_excel__icontains=query)
+        if field == "recipients_excel":
+            letter_list = letter_list.filter(recipients_excel__icontains=query)
+        if field == "place_sent":
+            letter_list = letter_list.filter(place_sent__icontains=query)
 
     context = {
         "letter_list": letter_list,
