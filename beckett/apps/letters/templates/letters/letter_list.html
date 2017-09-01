@@ -7,86 +7,72 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 
 <div class="row">
-  <div class="col-md-3">
+  <h1>Search Beckett Letters</h1>
+  <article class="intro">
+    The Letters of Samuel Beckett archive houses the transcriptions and translations of every known letter penned by the Irish writer Samuel Beckett. This project was born out of a desire to make the metadata and content of these letters accessible to researchers
+    and to the wider public. You can browse all letters or use the below search filter to locate letters relevant to your research.
+  </article>
 
-    <section class="page-sections">
-      <form method="GET" action="">
-        <div class="section-title">Search Parameters</div>
-        <div class="row sf-sections">
-          <div class="col-md-12">
-            <div class="search-filter-title">Keywords </div>
-            <select id="select2" style="width: 100%;">
-          <option value="sf-recipient" selected="selected">Search keywords</option>
-        </select>
-          </div>
-        </div>
+  <section class="page-sections">
+    <form method="GET" action="/letters/search/" id="letter-search-form">
+    <div class="col-md-6 no-padding">
+      <select name="q" id="select2"></select>
+    </div>
 
-        <div class="row sf-sections">
-          <div class="col-md-12">
-            <div class="search-filter-title">Search field </div>
-            <select id="select2-search-field" class="selectpicker" style="width: 100%;">
-          <option value="recipients" selected="selected">Letter recipients</option>
-          <option value="place_sent">Place sent</option>
-        </select>
-          </div>
-        </div>
+    <div class="col-md-6 no-padding">
+      <div class="search-filter-desc"> in search field </div>
+      <select name="field" form="letter-search-form" id="select2-search-field" class="selectpicker">
+        <option value="recipients" selected="selected">Letter recipients</option>
+        <option value="place_sent">Place sent</option>
+      </select>
+    </div>
+    <input id="search-keyword" form="letter-search-form" name="q" value="" type="hidden">
+    </form>
 
-        <div class="row sf-sections">
-          <div class="col-md-12">
-            <button type="button" class="btn btn-primary">Update Search</button>
-            <button type="button" class="btn btn-secondary">Reset</button>
-          </div>
-        </div>
+    <div class="col-md-12 no-padding">
+      <button class="btn btn-primary search-btn disabled" type="submit" form="letter-search-form" id="btn-search">Search</button>
+      <button type="button" class="btn btn-secondary" id="btn-reset">Reset</button>
+      <div class="inline"> or </div>
+      <a href="/letters/search/"><button type="button" class="btn btn-warning">Browse all letters</button></a>
+    </div>
 
-      </form>
-    </section>
-
-  </div>
-  
-  <div class="col-md-9">
-    <section class="page-sections">
-      <div class="section-title">Results</div>
-
-      <table id="example-table" class="table">
-        <thead>
-          <tr>
-            <th>Sent Date (DD-MM-YYYY)</th>
-            <th>Recipient(s)</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for Letter in letter_list %}
-          <tr>
-            <td>
-              <a href="{% url 'lettering:lettersdetail' pk=Letter.letter_code %}">Letter sent on {{ Letter.day }}-{{ Letter.month }}-{{ Letter.year }}</a>
-            </td>
-            <td> to <i>{{ Letter.recipients_excel|safe }}</i></td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </section>
-  </div>
+  </section>
 
 </div>
 
 <script>
-  // initialize datatables
-  $(document).ready(function() {
-    $('#example-table').DataTable({
-      "dom": '<"top"if>rt<"bottom"lp><"clear">',
-      "oLanguage": {
-        "sSearch": "Filter records:"
-      }
-    });
-  });
-
   // choose a search field that is mapped in the db column
   var search_field = $("#select2-search-field").val();
 
   // on selection change update the query
+  $("#select2").change(function() {
+    $("#btn-search").removeClass("disabled");
+  });
+
+  // on selection change update the query
   $("#select2-search-field").change(function() {
     search_field = $("#select2-search-field").val();
+    $("#select2").empty().trigger('change');
+    $("#btn-search").addClass("disabled");
+    $("#btn-search").addClass("disabled");
+  });
+
+  // perform search
+  $( "#btn-search" ).click(function(event) {
+    event.preventDefault();
+    var label = $("#select2").select2('data')[0].label; // get the actual selected keyword
+    $("#search-keyword").val(label); // set the value in a hidden input element
+    $("#letter-search-form").submit(); // submit the form
+  });
+
+  // reset search
+  $( "#btn-reset" ).click(function(event) {
+    event.preventDefault();
+    $("#select2").empty().trigger('change'); // empty out the select2 for keyword
+    $("#select2-search-field").val('default'); // reset field dropdown
+    $("#select2-search-field").selectpicker("refresh"); // reset field dropdown
+    search_field = $("#select2-search-field").val();
+    $("#btn-search").addClass("disabled");
   });
 
   // perform select2 autocomplete search
@@ -115,14 +101,16 @@
           }
         };
       },
-      cache: false
+      cache: false,
+      ajaxCache: false,
     },
     escapeMarkup: function(markup) {
       return markup;
     }, // let our custom formatter work
-    minimumInputLength: 3,
+    minimumInputLength: 2,
     templateResult: formatRepo, // omitted for brevity, see the source of this page
-    templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
+    templateSelection: formatRepoSelection, // omitted for brevity, see the source of this page
+    placeholder: "Enter keyword here to search"
   });
 
   function formatRepo(repo) {
@@ -139,7 +127,6 @@
   function formatRepoSelection(repo) {
     return repo.label || repo.text;
   }
-
 </script>
 
 {% endblock %}

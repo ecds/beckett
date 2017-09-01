@@ -9,7 +9,6 @@ from django.http import HttpResponse
 import json
 from collections import Counter
 
-
 class LettersList(ListView):
     model = Letter
 
@@ -22,7 +21,20 @@ def about(request):
   return render(request, 'about.html')
 
 def search(request):
-    return render_to_response('search.html')
+    query = request.GET.get("q")
+    field = request.GET.get("field")
+
+    letter_list = Letter.objects.all()
+    if query:
+        letter_list = letter_list.filter(recipients_excel__icontains=query)
+
+    context = {
+        "letter_list": letter_list,
+        "request": request,
+        "result_count": len(letter_list)
+    }
+
+    return render(request, 'search.html', context)
 
 def search_result(request):
     if 'q' in request.GET and request.GET['q']:
