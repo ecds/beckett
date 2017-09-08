@@ -25,8 +25,9 @@ def search(request):
     field = request.GET.get("field")
 
     letter_list = Letter.objects.all()
+
     if query:
-        if field == "recipients_excel":
+        if field == "recipients":
             letter_list = letter_list.filter(recipients_excel__icontains=query)
         if field == "place_sent":
             letter_list = letter_list.filter(place_sent__icontains=query)
