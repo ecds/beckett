@@ -82,7 +82,11 @@ body {
 }
 
 #banner-image {
-    width: 20%;
+    width: 100%;
+}
+
+.navbar {
+  border: none;
 }
 
 div.page-header {
