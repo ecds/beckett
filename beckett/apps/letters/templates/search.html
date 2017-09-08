@@ -1,0 +1,55 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="row">
+  <div class="col-md-2">
+    <a href="/letters/">
+      <button type="button" class="btn btn-primary navigation-button">Back to Search</button>
+    </a>
+  </div>
+
+  <div class="col-md-10">
+    <h1 class="page-title">Letters from Samuel Beckett</h1>
+
+    <div class="result-summary">
+      {% if request.GET.q %}
+        Keyword <span class="emphasis">{{request.GET.q}}</span> in field <span class="emphasis">{{request.GET.field}}</span> has <span class="emphasis">{{result_count}}</span> result(s) in total.
+      {% else %}
+        Showing all <span class="emphasis">{{result_count}}</span> result(s).
+      {% endif %}
+    </div>
+
+    <table id="example-table" class="table">
+      <thead>
+        <tr>
+          <th>Sent Date (DD-MM-YYYY)</th>
+          <th>Recipient(s)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for Letter in letter_list %}
+        <tr>
+          <td>
+            <a href="{% url 'lettering:lettersdetail' pk=Letter.letter_code %}">Letter sent on {{ Letter.day }}-{{ Letter.month }}-{{ Letter.year }}</a>
+          </td>
+          <td> to <i>{{ Letter.recipients_excel|safe }}</i></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+<script>
+  // initialize datatables
+  $(document).ready(function() {
+    $('#example-table').DataTable({
+      // "dom": '<"top"if>rt<"bottom"lp><"clear">',
+      "oLanguage": {
+        "sSearch": "Filter within current results:"
+      }
+    });
+  });
+</script>
+
+{% endblock %}

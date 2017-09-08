@@ -1,415 +1,130 @@
-{% extends "base.html" %}
-{% block content %}
+{% extends "base.html" %} {% block content %}
 
-<div class="container">
-<div class="centering text-center">
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" media="all" />
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
 
-    
- 
-       
-<h1>Letters from Samuel Beckett</h1>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 
-<div class="panel-group browse " id="accordion" role="tablist" aria-multiselectable="true">
-   <div class="panel panel-default letter-list">
-    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-jan_1961" aria-expanded="true" aria-controls="collapse-jan_1961">
-    <div class="panel-heading" role="tab" id="jan_1961">
-      <h2 class="panel-title">   
-      January 1961
-      </h2>
-    </div>
-    </a>
-    <div id="collapse-jan_1961" class="panel-collapse collapse" role="tabpanel" aria-labelledby="jan_1961">
-      <div class="panel-body letter-list">
-  <table class="table table-bordered" data-sortable>
-    <thead>
-      <tr>
-        <th>Sent Date (DD-MM-YYYY)</th>
-        <th>Recipient(s)</th>
-        </tr>
-        </thead>
-        <tbody>
+<h1>Search Beckett Letters</h1>
+<article class="intro">
+  The Letters of Samuel Beckett archive houses the transcriptions and translations of every known letter penned by the Irish writer Samuel Beckett. This project was born out of a desire to make the metadata and content of these letters accessible to researchers
+  and to the wider public. You can browse all letters or use the below search filter to locate letters relevant to your research.
+</article>
 
-        {% for Letter in letter_list %}
-        {% if Letter.month == 1 or Letter.month == 0 %}
-        <tr>
-        <td>
-        <a href="{% url 'lettering:lettersdetail' pk=Letter.letter_code %}" class="list-group-item">Letter sent on {{ Letter.day }}-{{ Letter.month }}-{{ Letter.year }}   
-        </a></td>
-        <td> to  <i>{{ Letter.recipients_excel|safe }}</i></td>
-        </tr>{% endif %}{% endfor %}
-      </tbody></table>
-      </div>
-    </div>
+<section class="page-sections">
+  <form method="GET" action="/letters/search/" id="letter-search-form">
+  <div class="col-md-6 no-padding">
+    <select name="q" id="select2"></select>
   </div>
 
-
-
-<div class="panel panel-default letter-list">
-    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-feb_1961" aria-expanded="true" aria-controls="collapse-feb_1961">
-    <div class="panel-heading" role="tab" id="feb_1961">
-      <h2 class="panel-title">   
-      February 1961
-      </h2>
-    </div>
-    </a>
-    <div id="collapse-feb_1961" class="panel-collapse collapse" role="tabpanel" aria-labelledby="feb_1961">
-      <div class="panel-body letter-list">
-  <table class="table table-bordered" data-sortable>
-    <thead>
-      <tr>
-        <th>Sent Date (MM-DD-YYYY)</th>
-        <th>Recipient(s)</th>
-        </tr>
-        </thead>
-        <tbody>
-
-        {% for Letter in letter_list %}
-        {% if Letter.month == 2 %}
-        <tr>
-        <td>
-        <a href="{% url 'lettering:lettersdetail' pk=Letter.letter_code %}" class="list-group-item">Letter sent on {{ Letter.day }}-{{ Letter.month }}-{{ Letter.year }}   
-        </a></td>
-        <td> to  <i>{{ Letter.recipients_excel|safe }}</i></td>
-        </tr>{% endif %}{% endfor %}
-
-      </tbody></table>
-    </div>
+  <div class="col-md-6 no-padding">
+    <div class="search-filter-desc"> in search field </div>
+    <select name="field" form="letter-search-form" id="select2-search-field" class="selectpicker">
+      <option value="recipients" selected="selected">Letter recipients</option>
+      <option value="place_sent">Place sent</option>
+    </select>
   </div>
-</div>
+  <input id="search-keyword" form="letter-search-form" name="q" value="" type="hidden">
+  </form>
 
-<div class="panel panel-default letter-list">
-    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-mar_1961" aria-expanded="true" aria-controls="collapse-mar_1961">
-    <div class="panel-heading" role="tab" id="mar_1961">
-      <h2 class="panel-title">   
-      March 1961
-      </h2>
-    </div>
-    </a>
-    <div id="collapse-mar_1961" class="panel-collapse collapse" role="tabpanel" aria-labelledby="mar_1961">
-      <div class="panel-body letter-list">
-  <table class="table table-bordered" data-sortable>
-    <thead>
-      <tr>
-        <th>Sent Date (MM-DD-YYYY)</th>
-        <th>Recipient(s)</th>
-        </tr>
-        </thead>
-        <tbody>
-
-        {% for Letter in letter_list %}
-        {% if Letter.month == 3 %}
-        <tr>
-        <td>
-        <a href="{% url 'lettering:lettersdetail' pk=Letter.letter_code %}" class="list-group-item">Letter sent on {{ Letter.day }}-{{ Letter.month }}-{{ Letter.year }}   
-        </a></td>
-        <td> to  <i>{{ Letter.recipients_excel|safe }}</i></td>
-        </tr>{% endif %}{% endfor %}
-
-      </tbody></table>
-    </div>
+  <div class="col-md-12 no-padding">
+    <button class="btn btn-primary search-btn disabled" type="submit" form="letter-search-form" id="btn-search">Search</button>
+    <button type="button" class="btn btn-secondary" id="btn-reset">Reset</button>
+    <div class="inline"> or </div>
+    <a href="/letters/search/"><button type="button" class="btn btn-warning">Browse all letters</button></a>
   </div>
-</div>
+
+</section>
 
 
-<div class="panel panel-default letter-list">
-    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-apr_1961" aria-expanded="true" aria-controls="collapse-apr_1961">
-    <div class="panel-heading" role="tab" id="apr_1961">
-      <h2 class="panel-title">   
-      April 1961
-      </h2>
-    </div>
-    </a>
-    <div id="collapse-apr_1961" class="panel-collapse collapse" role="tabpanel" aria-labelledby="apr_1961">
-      <div class="panel-body letter-list">
-  <table class="table table-bordered" data-sortable>
-    <thead>
-      <tr>
-        <th>Sent Date (MM-DD-YYYY)</th>
-        <th>Recipient(s)</th>
-        </tr>
-        </thead>
-        <tbody>
+<script>
+  // choose a search field that is mapped in the db column
+  var search_field = $("#select2-search-field").val();
 
-        {% for Letter in letter_list %}
-        {% if Letter.month == 4 %}
-        <tr>
-        <td>
-        <a href="{% url 'lettering:lettersdetail' pk=Letter.letter_code %}" class="list-group-item">Letter sent on {{ Letter.day }}-{{ Letter.month }}-{{ Letter.year }}   
-        </a></td>
-        <td> to  <i>{{ Letter.recipients_excel|safe }}</i></td>
-        </tr>{% endif %}{% endfor %}
+  // on selection change update the query
+  $("#select2").change(function() {
+    $("#btn-search").removeClass("disabled");
+  });
 
-      </tbody></table>
-    </div>
-  </div>
-</div>
+  // on selection change update the query
+  $("#select2-search-field").change(function() {
+    search_field = $("#select2-search-field").val();
+    $("#select2").empty().trigger('change');
+    $("#btn-search").addClass("disabled");
+    $("#btn-search").addClass("disabled");
+  });
 
-<div class="panel panel-default letter-list">
-    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-may_1961" aria-expanded="true" aria-controls="collapse-may_1961">
-    <div class="panel-heading" role="tab" id="may_1961">
-      <h2 class="panel-title">   
-      May 1961
-      </h2>
-    </div>
-    </a>
-    <div id="collapse-may_1961" class="panel-collapse collapse" role="tabpanel" aria-labelledby="may_1961">
-      <div class="panel-body letter-list">
-  <table class="table table-bordered" data-sortable>
-    <thead>
-      <tr>
-        <th>Sent Date (MM-DD-YYYY)</th>
-        <th>Recipient(s)</th>
-        </tr>
-        </thead>
-        <tbody>
+  // perform search
+  $( "#btn-search" ).click(function(event) {
+    event.preventDefault();
+    var label = $("#select2").select2('data')[0].label; // get the actual selected keyword
+    $("#search-keyword").val(label); // set the value in a hidden input element
+    $("#letter-search-form").submit(); // submit the form
+  });
 
-        {% for Letter in letter_list %}
-        {% if Letter.month == 5 %}
-        <tr>
-        <td>
-        <a href="{% url 'lettering:lettersdetail' pk=Letter.letter_code %}" class="list-group-item">Letter sent on {{ Letter.day }}-{{ Letter.month }}-{{ Letter.year }}   
-        </a></td>
-        <td> to  <i>{{ Letter.recipients_excel|safe }}</i></td>
-        </tr>{% endif %}{% endfor %}
+  // reset search
+  $( "#btn-reset" ).click(function(event) {
+    event.preventDefault();
+    $("#select2").empty().trigger('change'); // empty out the select2 for keyword
+    $("#select2-search-field").val('default'); // reset field dropdown
+    $("#select2-search-field").selectpicker("refresh"); // reset field dropdown
+    search_field = $("#select2-search-field").val();
+    $("#btn-search").addClass("disabled");
+  });
 
-      </tbody></table>
-    </div>
-  </div>
-</div>
+  // perform select2 autocomplete search
+  $("#select2").select2({
+    ajax: {
+      url: "/api/search/", // search in the correct category
+      dataType: 'json',
+      delay: 250,
+      data: function(params) {
+        return {
+          term: params.term, // search term
+          field: search_field // search field
+        };
+      },
+      processResults: function(data, params) {
+        // parse the results into the format expected by Select2
+        // since we are using custom formatting functions we do not need to
+        // alter the remote JSON data, except to indicate that infinite
+        // scrolling can be used
+        params.page = params.page || 1;
 
-<div class="panel panel-default letter-list">
-    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-jun_1961" aria-expanded="true" aria-controls="collapse-jun_1961">
-    <div class="panel-heading" role="tab" id="jun_1961">
-      <h2 class="panel-title">   
-      June 1961
-      </h2>
-    </div>
-    </a>
-    <div id="collapse-jun_1961" class="panel-collapse collapse" role="tabpanel" aria-labelledby="jun_1961">
-      <div class="panel-body letter-list">
-  <table class="table table-bordered" data-sortable>
-    <thead>
-      <tr>
-        <th>Sent Date (MM-DD-YYYY)</th>
-        <th>Recipient(s)</th>
-        </tr>
-        </thead>
-        <tbody>
+        return {
+          results: data,
+          pagination: {
+            more: (params.page * 30) < data.total_count
+          }
+        };
+      },
+      cache: false,
+      ajaxCache: false,
+    },
+    escapeMarkup: function(markup) {
+      return markup;
+    }, // let our custom formatter work
+    minimumInputLength: 2,
+    templateResult: formatRepo, // omitted for brevity, see the source of this page
+    templateSelection: formatRepoSelection, // omitted for brevity, see the source of this page
+    placeholder: "Enter keyword here to search"
+  });
 
-        {% for Letter in letter_list %}
-        {% if Letter.month == 6 %}
-        <tr>
-        <td>
-        <a href="{% url 'lettering:lettersdetail' pk=Letter.letter_code %}" class="list-group-item">Letter sent on {{ Letter.day }}-{{ Letter.month }}-{{ Letter.year }}   
-        </a></td>
-        <td> to  <i>{{ Letter.recipients_excel|safe }}</i></td>
-        </tr>{% endif %}{% endfor %}
+  function formatRepo(repo) {
+    if (repo.loading) return repo.text;
 
-      </tbody></table>
-    </div>
-  </div>
-</div>
+    var markup = "<div class='select2-result-repository clearfix'>" +
+      "<div class='select2-result-repository__avatar'></div>" +
+      "<div class='select2-result-repository__meta'>" +
+      "<div class='select2-result-repository__title'>" + repo.label + "<span class='badge pull-right'>" + repo.count + "</span> </div>";
 
-<div class="panel panel-default letter-list">
-    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-jul_1961" aria-expanded="true" aria-controls="collapse-jul_1961">
-    <div class="panel-heading" role="tab" id="jul_1961">
-      <h2 class="panel-title">   
-      July 1961
-      </h2>
-    </div>
-    </a>
-    <div id="collapse-jul_1961" class="panel-collapse collapse" role="tabpanel" aria-labelledby="jul_1961">
-      <div class="panel-body letter-list">
-  <table class="table table-bordered" data-sortable>
-    <thead>
-      <tr>
-        <th>Sent Date (MM-DD-YYYY)</th>
-        <th>Recipient(s)</th>
-        </tr>
-        </thead>
-        <tbody>
+    return markup;
+  }
 
-        {% for Letter in letter_list %}
-        {% if Letter.month == 7 %}
-        <tr>
-        <td>
-        <a href="{% url 'lettering:lettersdetail' pk=Letter.letter_code %}" class="list-group-item">Letter sent on {{ Letter.day }}-{{ Letter.month }}-{{ Letter.year }}   
-        </a></td>
-        <td> to  <i>{{ Letter.recipients_excel|safe }}</i></td>
-        </tr>{% endif %}{% endfor %}
+  function formatRepoSelection(repo) {
+    return repo.label || repo.text;
+  }
+</script>
 
-      </tbody></table>
-    </div>
-  </div>
-</div>
-
-<div class="panel panel-default letter-list">
-    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-aug_1961" aria-expanded="true" aria-controls="collapse-aug_1961">
-    <div class="panel-heading" role="tab" id="aug_1961">
-      <h2 class="panel-title">   
-      August 1961
-      </h2>
-    </div>
-    </a>
-    <div id="collapse-aug_1961" class="panel-collapse collapse" role="tabpanel" aria-labelledby="aug_1961">
-      <div class="panel-body letter-list">
-  <table class="table table-bordered" data-sortable>
-    <thead>
-      <tr>
-        <th>Sent Date (MM-DD-YYYY)</th>
-        <th>Recipient(s)</th>
-        </tr>
-        </thead>
-        <tbody>
-
-        {% for Letter in letter_list %}
-        {% if Letter.month == 8 %}
-        <tr>
-        <td>
-        <a href="{% url 'lettering:lettersdetail' pk=Letter.letter_code %}" class="list-group-item">Letter sent on {{ Letter.day }}-{{ Letter.month }}-{{ Letter.year }}   
-        </a></td>
-        <td> to  <i>{{ Letter.recipients_excel|safe }}</i></td>
-        </tr>{% endif %}{% endfor %}
-
-      </tbody></table>
-    </div>
-  </div>
-</div>
-
-<div class="panel panel-default letter-list">
-    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-sep_1961" aria-expanded="true" aria-controls="collapse-sep_1961">
-    <div class="panel-heading" role="tab" id="sep_1961">
-      <h2 class="panel-title">   
-      September 1961
-      </h2>
-    </div>
-    </a>
-    <div id="collapse-sep_1961" class="panel-collapse collapse" role="tabpanel" aria-labelledby="sep_1961">
-      <div class="panel-body letter-list">
-  <table class="table table-bordered" data-sortable>
-    <thead>
-      <tr>
-        <th>Sent Date (MM-DD-YYYY)</th>
-        <th>Recipient(s)</th>
-        </tr>
-        </thead>
-        <tbody>
-
-        {% for Letter in letter_list %}
-        {% if Letter.month == 9 %}
-        <tr>
-        <td>
-        <a href="{% url 'lettering:lettersdetail' pk=Letter.letter_code %}" class="list-group-item">Letter sent on {{ Letter.day }}-{{ Letter.month }}-{{ Letter.year }}   
-        </a></td>
-        <td> to  <i>{{ Letter.recipients_excel|safe }}</i></td>
-        </tr>{% endif %}{% endfor %}
-
-      </tbody></table>
-    </div>
-  </div>
-</div>      
-
-<div class="panel panel-default letter-list">
-    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-oct_1961" aria-expanded="true" aria-controls="collapse-oct_1961">
-    <div class="panel-heading" role="tab" id="oct_1961">
-      <h2 class="panel-title">   
-      October 1961
-      </h2>
-    </div>
-    </a>
-    <div id="collapse-oct_1961" class="panel-collapse collapse" role="tabpanel" aria-labelledby="oct_1961">
-      <div class="panel-body letter-list">
-  <table class="table table-bordered" data-sortable>
-    <thead>
-      <tr>
-        <th>Sent Date (MM-DD-YYYY)</th>
-        <th>Recipient(s)</th>
-        </tr>
-        </thead>
-        <tbody>
-
-        {% for Letter in letter_list %}
-        {% if Letter.month == 10 %}
-        <tr>
-        <td>
-        <a href="{% url 'lettering:lettersdetail' pk=Letter.letter_code %}" class="list-group-item">Letter sent on {{ Letter.day }}-{{ Letter.month }}-{{ Letter.year }}   
-        </a></td>
-        <td> to  <i>{{ Letter.recipients_excel|safe }}</i></td>
-        </tr>{% endif %}{% endfor %}
-
-      </tbody></table>
-    </div>
-  </div>
-</div>
-
-<div class="panel panel-default letter-list">
-    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-nov_1961" aria-expanded="true" aria-controls="collapse-nov_1961">
-    <div class="panel-heading" role="tab" id="nov_1961">
-      <h2 class="panel-title">   
-      November 1961
-      </h2>
-    </div>
-    </a>
-    <div id="collapse-nov_1961" class="panel-collapse collapse" role="tabpanel" aria-labelledby="nov_1961">
-      <div class="panel-body letter-list">
-  <table class="table table-bordered" data-sortable>
-    <thead>
-      <tr>
-        <th>Sent Date (MM-DD-YYYY)</th>
-        <th>Recipient(s)</th>
-        </tr>
-        </thead>
-        <tbody>
-
-        {% for Letter in letter_list %}
-        {% if Letter.month == 11 %}
-        <tr>
-        <td>
-        <a href="{% url 'lettering:lettersdetail' pk=Letter.letter_code %}" class="list-group-item">Letter sent on {{ Letter.day }}-{{ Letter.month }}-{{ Letter.year }}   
-        </a></td>
-        <td> to  <i>{{ Letter.recipients_excel|safe }}</i></td>
-        </tr>{% endif %}{% endfor %}
-
-      </tbody></table>
-    </div>
-  </div>
-</div>
-
-<div class="panel panel-default letter-list">
-    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-dec_1961" aria-expanded="true" aria-controls="collapse-dec_1961">
-    <div class="panel-heading" role="tab" id="dec_1961">
-      <h2 class="panel-title">   
-      December 1961
-      </h2>
-    </div>
-    </a>
-    <div id="collapse-dec_1961" class="panel-collapse collapse" role="tabpanel" aria-labelledby="dec_1961">
-      <div class="panel-body letter-list">
-  <table class="table table-bordered" data-sortable>
-    <thead>
-      <tr>
-        <th>Sent Date (MM-DD-YYYY)</th>
-        <th>Recipient(s)</th>
-        </tr>
-        </thead>
-        <tbody>
-
-        {% for Letter in letter_list %}
-        {% if Letter.month == 12 %}
-        <tr>
-        <td>
-        <a href="{% url 'lettering:lettersdetail' pk=Letter.letter_code %}" class="list-group-item">Letter sent on {{ Letter.day }}-{{ Letter.month }}-{{ Letter.year }}   
-        </a></td>
-        <td> to  <i>{{ Letter.recipients_excel|safe }}</i></td>
-        </tr>{% endif %}{% endfor %}
-
-      </tbody></table>
-    </div>
-  </div>
-</div>
-
-
-</div><!--panel-group-browse-->
-</div>
-</div>
 {% endblock %}

@@ -12,8 +12,8 @@ class LetterSearchForm(forms.Form):
         """Custom form validation."""
         cleaned_data = self.cleaned_data
 
-        keyword = cleaned_data.get('keyword')    
-      
+        keyword = cleaned_data.get('keyword')
+
         #Validate at least one term has been entered
         #if not title and not author and not keyword:
         if not keyword:

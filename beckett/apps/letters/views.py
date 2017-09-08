@@ -6,6 +6,8 @@ from beckett.apps.letters.forms import LetterSearchForm
 from django.core.paginator import Paginator, InvalidPage, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponse
+import json
+from collections import Counter
 
 class LettersList(ListView):
     model = Letter
@@ -18,85 +20,66 @@ class LettersDetail(DetailView):
 def about(request):
   return render(request, 'about.html')
 
-#def searchbox(request):
-#    "Search letters"
-#    form = LetterSearchForm(request.GET)
-#    response_code = None
-#    context = {'searchbox': form}
-#    search_opts = {}
-#    number_of_results = 20
-#      
-#    if form.is_valid():
-#        if 'keyword' in form.cleaned_data and form.cleaned_data['keyword']:
-#            search_opts['primary_language'] = '%s' % form.cleaned_data['keyword']
-#                
-#        letters = Letter.objects.only("id", "primary_language", "year", "month", "day", "key_terms").filter(**search_opts)
-#
-#        searchbox_paginator = Paginator(letters, number_of_results)
-#        
-#        try:
-#            page = int(request.GET.get('page', '1'))
-#        except ValueError:
-#            page = 1
-#        # If page request (9999) is out of range, deliver last page of results.
-#        try:
-#            searchbox_page = searchbox_paginator.page(page)
-#        except (EmptyPage, InvalidPage):
-#            searchbox_page = searchbox_paginator.page(paginator.num_pages)
-#
-#        context['letters'] = letters
-#        context['letters_paginated'] = searchbox_page
-#        context['keyword'] = form.cleaned_data['keyword']
-#           
-#        response = render_to_response('search_results.html', context, context_instance=RequestContext(request))
-#    #no search conducted yet, default form
-#        
-#    else:
-#        response = render(request, 'search.html', {"searchbox": form}, context_instance=RequestContext(request))
-#       
-#    if response_code is not None:
-#        response.status_code = response_code
-#    return response
+def search(request):
+    query = request.GET.get("q")
+    field = request.GET.get("field")
 
+    letter_list = Letter.objects.all()
 
-def searches(request):
-    return render_to_response('searches.html')
+    if query:
+        if field == "recipients":
+            letter_list = letter_list.filter(recipients_excel__icontains=query)
+        if field == "place_sent":
+            letter_list = letter_list.filter(place_sent__icontains=query)
 
-def search_result(request):
-    if 'q' in request.GET and request.GET['q']:
-        q = request.GET['q']
-        words = Letter.objects.filter(key_terms__icontains=q)
-        return render_to_response('search_result.html',
-            {'words': words, 'query': q})
-    else:
-        return HttpResponse('None Found.')
-    
-    
-    
-#def searchtext(request):
-#    if 'q' in request.GET and request.GET['q']:
-#        q = request.GET['q']
-#        key_terms = Letter.objects.all()
-#        return render(request, 'search_results.html',
-#            {'key_terms': key_terms, 'query': q})
-#    else:
-#        return HttpResponse('Please submit a search term.')
-    
+    context = {
+        "letter_list": letter_list,
+        "request": request,
+        "result_count": len(letter_list)
+    }
 
+    return render(request, 'search.html', context)
 
-#def letter_display(request, doc_id):
-#    "Display the contents of a single letter."
-#    if 'keyword' in request.GET:
-#        search_terms = request.GET['keyword']
-#        url_params = '?' + urlencode({'keyword': search_terms})
-#        filter = {'highlight': search_terms}    
-#    else:
-#        url_params = ''
-#        filter = {}
-#        search_terms = None
-#    try:              
-#        letter = Letter.objects.filter(**filter).get(id__exact=doc_id)
-#        format = letter.xsl_transform(filename=os.path.join(settings.BASE_DIR, '..', 'yjallen_app', 'xslt', 'form.xsl'))
-#        return render_to_response('letter_display.html', {'letter': letter, 'format': format.serialize(), 'search_terms': search_terms}, context_instance=RequestContext(request))
-#    except DoesNotExist:
-#        raise Http404
+# An API method that returns a JSON with filtered recipients and corresponding
+# occurrence count. This is consumed by select2 in the search filter to
+# fulfill autocomplete feature requirement
+def get_search_autocomplete(request):
+    q = request.GET.get('term')
+    field = request.GET.get('field')
+    letters = []
+    results = []
+    unique_results = []
+
+    if field == "recipients":
+        letters = Letter.objects.filter(recipients_excel__icontains = q)
+        for letter in letters:
+            results.append(letter.recipients_excel)
+        categorized_letters = Counter(results)
+        for letter in letters:
+            if letter.recipients_excel not in unique_results:
+                unique_results.append(letter.recipients_excel)
+
+    if field == "place_sent":
+        letters = Letter.objects.filter(place_sent__icontains = q)
+        for letter in letters:
+            results.append(letter.place_sent)
+        categorized_letters = Counter(results)
+        for letter in letters:
+            if letter.place_sent not in unique_results:
+                unique_results.append(letter.place_sent)
+
+    json_collection = []
+
+    counter = 1
+    for result in unique_results:
+        json_object = {}
+        json_object["id"] = counter
+        json_object["label"] = result
+        json_object["count"] = categorized_letters[result]
+        json_collection.append(json_object)
+        counter += 1
+
+    data = json.dumps(json_collection)
+
+    mimetype = 'application/json'
+    return HttpResponse(data, mimetype)

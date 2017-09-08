@@ -1,10 +1,94 @@
 body {
   background-color: #FFFFF8 !important;
-    font-family: et-book, Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
+    font-family: "Proxima Nova", et-book, Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
 }
 
+#select2 {
+  width: 100%;
+}
+.selectpicker {
+  width: 100%;
+}
+.intro {
+  font-size: 1.6rem;
+}
+.inline {
+  display: inline-block;
+  margin-right: 1em;
+}
 
- 
+.select2-container .select2-selection--single {
+  height: 34px !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+  line-height: 34px !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow b {
+  margin-top: 0 !important;
+}
+
+.no-padding {
+  padding: 15px 0;
+}
+
+.result-summary {
+  margin: 2rem 0;
+  font-size: 1.5rem;
+  background: #fff3cd;
+}
+
+.navigation-button {
+  margin: 2.5rem 0;
+}
+
+.emphasis {
+  font-weight: 600;
+  /*background-color: #fff3cd;*/
+}
+
+.sf-sections {
+  margin: 2rem -15px;
+}
+
+.dataTables_info, .dataTables_length {
+  float: left;
+}
+
+.btn {
+  margin-right: 1rem;
+}
+.page-sections {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.section-title {
+  font-size: 2rem;
+  /*font-weight: 600;*/
+  /*margin-bottom: 1rem;*/
+}
+
+.search-filter-desc {
+  margin: 0 1rem ;
+  display: inline-block;
+  /*margin-bottom: 1rem;*/
+}
+
+.page-title {
+  font-size: 4rem;
+  font-weight: 600;
+}
+
+#banner-image {
+    width: 100%;
+}
+
+.navbar {
+  border: none;
+}
+
 div.page-header {
     text-align:center;
     padding:0px 0px 0px;
@@ -12,7 +96,7 @@ div.page-header {
 }
 
 div.page-header img{
-    margin: 0 auto;  
+    margin: 0 auto;
 }
 
 div.page-header {
@@ -33,11 +117,7 @@ div.person_profile {
   font-family: et-book, Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
 }
 
-.letter-list {
-  background-color: #FFFFF8; 
-}
 
-.list-group-item {
-  background-color: #FFFFF8;
-  border-color: #639caf;
+footer {
+  margin: 30px 15px;
 }
