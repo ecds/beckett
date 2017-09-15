@@ -41,12 +41,15 @@ def search(request):
             query  = query.split(' ')
             first_name = query[0]
             last_name = query[1]
+
             people = Person.objects.filter(last_name__icontains = last_name,
         first_name__icontains = first_name)
-            for person in people:
-                letters = letter_list.filter(people__profile_id = person.profile_id)
 
-            
+            profile_ids = [] # Colleciton of profile_ids that are of interest
+            for person in people:
+                profile_ids.append(person.profile_id)
+
+            letter_list = letter_list.filter(people__profile_id__in=profile_ids)
 
     context = {
         "letter_list": letter_list,
@@ -96,7 +99,7 @@ def get_search_autocomplete(request):
     if field == "people":
 
         people = Person.objects.filter(Q(last_name__icontains = q)|
-        Q(first_name__icontains = q))  
+        Q(first_name__icontains = q))
 
         for person in people:
             name  = person.first_name + ' ' + person.last_name
