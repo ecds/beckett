@@ -62,11 +62,14 @@ class Person(models.Model):
     uri = models.URLField(blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
 
+    @property
     def natural_key(self):
         return (self.first_name, self.last_name)
 
     def __unicode__(self):
         return u'%s, %s' % (self.last_name, self.first_name)
+
+
 
     class Meta:
         verbose_name_plural = u'People'
