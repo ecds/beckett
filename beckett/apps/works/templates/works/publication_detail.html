@@ -11,25 +11,40 @@
 <div class="container">
 <div class="centering text-center">
 
-        <h1>{{ object.first_name }}{% if object.last_name %} {{ object.last_name }}{% endif %}{% if object.gender %} ({{ object.gender }}) {% endif %}</h1>
+        <h1>{{ object.title|safe }}</h1>
 
 <div class="container">
 
   <table class="table table-bordered">
      <tbody>
      <tr>
-        <td><b>Biographical Dates: </b></td>
-        <td>{{ object.bio_dates }}</td>
+        <td><b>Director:</b></td>
+        <td>{{ object.director }}</td>
      </tr>
     <tr>
-    	<td><b>Description:</b> </td>
-    	<td><div align="left">{{ object.description|safe }}</div></td>
+    	<td><b>Theatre:</b> </td>
+    	<td>{{ object.theatre }}</div></td>
     </tr>
     <tr>
-    	<td><b>Related Letters - Mentioned: </b></td>
-    	<td>{% for item2 in object.manypeople.all %} 
-            {{item.2}}
-            <a href="{% url 'lettering:lettersdetail' item2.id %}">{{ item2.day }}-{{ item2.month }}-19{{ item2.year }}
+    	<td><b>City:</b></td>
+    	<td>{{object.city}}</td>
+    </tr>
+    <tr>
+    	<td><b>Date:</b></td>
+    	<td>{{object.date}}</td>
+    </tr>
+     <tr>
+        <td><b>Actors:</b></td>
+        <td>{{object.actors}}</td>
+    </tr>
+     <tr>
+        <td><b>Notes:</b></td>
+        <td>{{object.notes}}</td>
+    </tr>
+    <tr>
+        <td><b>Related Letters:</b></td>
+        <td>{% for item in object.manyproductions.all %}
+            <a href="{% url 'lettering:lettersdetail' item.id %}">{{ item.day }}-{{ item.month }}-19{{ item.year }}
             </a> |   
             {% endfor %}</td>
     </tr>

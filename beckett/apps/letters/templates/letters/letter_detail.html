@@ -20,35 +20,77 @@
   <table class="table table-bordered">
      <tbody>
         <td><b>Recipient(s): </b></td>
-        <td>{{object.recipients_excel|safe}}</td>
+        <td>{{object.reg_recipient|safe}}</td>
       </tr>
            <tr>
         <td><b>Physical Description: </b></td>
-        <td>{{ object.physical_description }}</td>
-      </tr>
-      <tr>
-        <td><b>Leaves or Sides: </b></td>
-        <td>{{ object.leaves_sides }}</td>
+        <td>{{ object.physical_description }} {{object.leaves}}/{{object.sides}}</td>
       </tr>
       <tr>
         <td><b>Place Written: </b></td>
-        <td>{{ object.place_written }}</td>
+        <td>{% if object.reg_place_written != '' %}
+              {{object.reg_place_written}}
+              {% else %}
+          {{ object.addressed_from_actual }}
+          {% endif %}
+        </td>
       </tr>
             <tr>
         <td><b>Place Sent: </b></td>
-        <td>{{ object.place_sent }}</td>
+        <td>{% if object.reg_place_sent != '' %}
+              {{object.reg_place_sent}}
+              {% else %}
+          {{ object.addressed_to_actual }}
+          {% endif %}
+        </td>
+      </tr>
+      <tr>
+        <td><b>Envelope: </b></td>
+        <td>{{ object.envelope }}</td>
+      </tr>
+      <tr>
+        <td><b>Postmark: </b></td>
+        <td>{{ object.postmark }}</td>
       </tr>
       <tr>
         <td><b>Repository: </b></td>
-        <td>{{ object.repository_excel }}</td>
+        <td>{{ object.repository }}</td>
       </tr>
-            <tr>
+      {% if object.second_repository != '' %}
+      <tr>
+        <td><b>Second Repository: </b></td>
+        <td>{{ object.second_repository }}</td>
+      </tr>
+      {% endif %}
+      <tr>
+        <td><b>Public? </b></td>
+        <td>{{ object.public }}</td>
+      </tr>
+      <tr>
+        <td><b>Collection: </b></td>
+        <td>{{ object.collection }}</td>
+      </tr>
+      <tr>
+        <td><b>Primary Language: </b></td>
+        <td>{{ object.primary_language }}</td>
+      </tr>
+      <tr>
+        <td><b>Place previously publication: </b></td>
+        <td>{{ object.place_prev_published }}</td>
+      </tr>
+      <tr>
+        <td><b>Verified? </b></td>
+        <td>{{ object.verified }}</td>
+      </tr>
+      
+
+     <!--        <tr>
         <td><b>Repositories: </b> </td>
         <td><ul style="list-style-type: none">
           {% for name3 in object.repository.all %} 
 <li><a href="{% url 'geo:repodetail' name3.id %}">
 {{ name3.name }}</a>{% endfor %}</li></td>
-      </tr>
+      </tr> -->
       <tr>
         {% if object.people.count > 0 %}
         <td><b>Person(s) Mentioned: </b></td>
@@ -77,6 +119,77 @@
 {% endif %}
       </tr>
 
+      <tr>
+        {% if object.productions.count > 0 %}    
+        <td><b>Production(s) Mentioned: </b></td>
+        <td><ul style="list-style-type: none">
+          {% for name2 in object.productions.all %} 
+<li><a href="{% url 'works:productiondetail' name2.profile_id %}">{{ name2.title|safe }}</a></li>{% endfor %}</ul></td>
+{% endif %}
+      </tr>
+
+            <tr>
+        {% if object.publications.count > 0 %}    
+        <td><b>Publication(s) Mentioned: </b></td>
+        <td><ul style="list-style-type: none">
+          {% for name2 in object.publications.all %} 
+<li><a href="{% url 'works:publicationdetail' name2.profile_id %}">{{ name2.title|safe }}</a></li>{% endfor %}</ul></td>
+{% endif %}
+      </tr>
+
+        <tr>
+        {% if object.directing.count > 0 %}    
+        <td><b>Directing Mentioned: </b></td>
+        <td><ul style="list-style-type: none">
+          {% for name2 in object.directing.all %} 
+<li><a href="{% url 'works:directingdetail' name2.profile_id %}">{{ name2.title|safe }}</a></li>{% endfor %}</ul></td>
+{% endif %}
+      </tr>
+
+      <tr>
+        {% if object.writing.count > 0 %}    
+        <td><b>Writing Mentioned: </b></td>
+        <td><ul style="list-style-type: none">
+          {% for name2 in object.writing.all %} 
+<li><a href="{% url 'works:writingdetail' name2.profile_id %}">{{ name2.title|safe }}</a></li>{% endfor %}</ul></td>
+{% endif %}
+      </tr>
+
+      <tr>
+        {% if object.translating.count > 0 %}    
+        <td><b>Translating Mentioned: </b></td>
+        <td><ul style="list-style-type: none">
+          {% for name2 in object.translating.all %} 
+<li><a href="{% url 'works:translatingdetail' name2.profile_id %}">{{ name2.work|safe }}</a></li>{% endfor %}</ul></td>
+{% endif %}
+      </tr>
+
+      <tr>
+        {% if object.reading.count > 0 %}    
+        <td><b>Reading Mentioned: </b></td>
+        <td><ul style="list-style-type: none">
+          {% for name2 in object.reading.all %} 
+<li><a href="{% url 'works:readingdetail' name2.profile_id %}">{{ name2.book|safe }}</a></li>{% endfor %}</ul></td>
+{% endif %}
+      </tr>
+
+<tr>
+        {% if object.attendance.count > 0 %}    
+        <td><b>Event Attendance Mentioned: </b></td>
+        <td><ul style="list-style-type: none">
+          {% for name2 in object.attendance.all %} 
+<li><a href="{% url 'events:attendancedetail' name2.profile_id %}">{{ name2.title|safe }}</a></li>{% endfor %}</ul></td>
+{% endif %}
+      </tr>
+
+<tr>
+        {% if object.public_events.count > 0 %}    
+        <td><b>Public Events Mentioned: </b></td>
+        <td><ul style="list-style-type: none">
+          {% for name2 in object.public_events.all %} 
+<li><a href="{% url 'events:public_event_detail' name2.profile_id %}">{{ name2.title|safe }}</a></li>{% endfor %}</ul></td>
+{% endif %}
+      </tr>
 
     </tbody>
     </table>

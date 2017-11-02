@@ -12,25 +12,51 @@ from django.utils.html import format_html
 class Letter(models.Model):
     'Letters sent by Samuel Beckett'
 
-    'Basic Info'
-    letter_code = models.CharField(max_length=100, primary_key=True)
-    year = models.IntegerField(blank=True, null=True, validators=[MinValueValidator(0),MaxValueValidator(2000)])
-    month = models.IntegerField(blank=True, null=True, validators=[MinValueValidator(0),MaxValueValidator(12)])
+    'Big Sam'
+    id = models.IntegerField(primary_key=True)
+    letter_code = models.CharField(max_length=100, blank=True, null=True)
     day = models.IntegerField(blank=True, null=True, validators=[MinValueValidator(0),MaxValueValidator(31)])
-    primary_language = models.CharField(max_length=255, blank=True, null=True)
-
+    month = models.IntegerField(blank=True, null=True, validators=[MinValueValidator(0),MaxValueValidator(12)])
+    year = models.IntegerField(blank=True, null=True, validators=[MinValueValidator(0),MaxValueValidator(2000)])
+    addressed_from_actual = models.CharField(max_length=255, blank=True, null=True)
+    reg_place_written = models.CharField(max_length=255, blank=True, null=True)
+    reg_place_written_city = models.CharField(max_length=255, blank=True, null=True)
+    reg_place_written_country = models.CharField(max_length=255, blank=True, null=True)
+    reg_place_written_second_city = models.CharField(max_length=255, blank=True, null=True)
     physical_description = models.CharField(max_length=255, blank=True, null=True)
-    leaves_sides = models.CharField(max_length=255, blank=True, null=True)
+    # autograph_or_type = models.CharField(max_length=255, blank=True, null=True)
+    # document_type = models.CharField(max_length=255, blank=True, null=True)
+    # signed_or_initialed = models.CharField(max_length=255, blank=True, null=True)
+    phys_descr_detail = models.CharField(max_length=255, blank=True, null=True)
+    physDes_notes = models.CharField(max_length=255, blank=True, null=True)
+    leaves  = models.CharField(max_length=255, blank=True, null=True)
+    sides = models.CharField(max_length=255, blank=True, null=True)
     envelope = models.CharField(max_length=255, blank=True, null=True)
     postmark = models.CharField(max_length=255, blank=True, null=True)
-    place_written = models.CharField(max_length=255, blank=True, null=True)
-    place_sent = models.CharField(max_length=255, blank=True, null=True)
-    recipients_excel = tinymce_models.HTMLField(blank=True, null=True, help_text="excel from Excel database")
-    repository_excel = tinymce_models.HTMLField(blank=True, null=True, help_text="excel from Excel database")
-    repository = models.ManyToManyField(Repository, blank=True)
+    addressed_to_actual = models.CharField(max_length=255, blank=True, null=True)
+    reg_recipient = models.CharField(max_length=255, blank=True, null=True)
+    reg_place_sent = models.CharField(max_length=255, blank=True, null=True)
+    reg_place_sent_city = models.CharField(max_length=255, blank=True, null=True)
+    reg_place_sent_country = models.CharField(max_length=255, blank=True, null=True)
+    additional = models.CharField(max_length=255, blank=True, null=True)
+    repository = models.CharField(max_length=255, blank=True, null=True)
+    public = models.CharField(max_length=255, blank=True, null=True)
+    collection = models.CharField(max_length=255, blank=True, null=True)
+    repository_information = models.CharField(max_length=255, blank=True, null=True)
+    second_repository = models.CharField(max_length=255, blank=True, null=True)
+    second_public = models.CharField(max_length=255, blank=True, null=True)
+    owner_rights = models.CharField(max_length=255, blank=True, null=True)
+    primary_language = models.CharField(max_length=255, blank=True, null=True)
+    file = models.CharField(max_length=255, blank=True, null=True)
+    sender = models.CharField(max_length=255, blank=True, null=True)
+    place_prev_published = models.CharField(max_length=255, blank=True, null=True)
+    verified = models.CharField(max_length=255, blank=True, null=True)
+
+
 
  
     'Linked Data Fields'
+    repository_linked = models.ManyToManyField(Repository, blank=True, related_name='manyrespositories')
     recipients = models.ManyToManyField(Person, blank=True, related_name='manyrecipients')
     people = models.ManyToManyField(Person, blank=True, related_name='manypeople')
     places = models.ManyToManyField(Place, blank=True, related_name='manyplaces')

@@ -28,6 +28,7 @@ urlpatterns = patterns('',
     url(r'^letters/', include('beckett.apps.letters.urls', namespace="lettering")),
     url(r'^place/', include('beckett.apps.geo.urls', namespace="geo")),
     url(r'^events/', include('beckett.apps.events.urls', namespace="events")),
+    url(r'^works/', include('beckett.apps.works.urls', namespace="works")),
     url(r'^api/search/', views.get_search_autocomplete),
 
 #    url(r'^(?P<doc_id>[^/]+)$', views.letter_display, name="letter_display"),

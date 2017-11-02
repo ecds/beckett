@@ -11,21 +11,36 @@
 <div class="container">
 <div class="centering text-center">
 
-        <h1>{{ object.name }}</h1>
+        <h1>{{ object.title|safe }}</h1>
 
 <div class="container">
 
   <table class="table table-bordered">
      <tbody>
+     <tr>
+        <td><b>Translator:</b></td>
+        <td>{{ object.translator }}</td>
+     </tr>
     <tr>
-      <td><b>Description:</b> </td>
-      <td><div align="left">{{ object.description|safe }}</div></td>
+    	<td><b>Theatre:</b> </td>
+    	<td>{{ object.theatre }}</div></td>
     </tr>
     <tr>
-      <td><b>Related Letters - Mentioned: </b></td>
-      <td>{% for item2 in object.manyplaces.all %} 
-            {{item.2}}
-            <a href="{% url 'lettering:lettersdetail' item2.id %}">{{ item2.day }}-{{ item2.month }}-19{{ item2.year }}
+    	<td><b>Place/Publisher/Date:</b></td>
+    	<td>{{object.place_pub_date}}</td>
+    </tr>
+    <tr>
+    	<td><b>Pages:</b></td>
+    	<td>{{object.pages}}</td>
+    </tr>
+     <tr>
+        <td><b>Item, if collection:</b></td>
+        <td>{{object.item}}</td>
+    </tr>
+    <tr>
+        <td><b>Related Letters:</b></td>
+        <td>{% for item in object.manypublications.all %}
+            <a href="{% url 'lettering:lettersdetail' item.id %}">{{ item.day }}-{{ item.month }}-19{{ item.year }}
             </a> |   
             {% endfor %}</td>
     </tr>

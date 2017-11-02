@@ -1,8 +1,9 @@
 from django.db import models
+from tinymce import models as tinymce_models
 
 from beckett.apps.people.models import Person
 
-# Worksff
+# Works
 class ProductionManager(models.Manager):
     def get_by_natural_key(self, title):
         return self.get(title=title)
@@ -14,9 +15,12 @@ class Production(models.Model):
     objects = ProductionManager()
     # django requires list of tuple for field choices
     profile_id = models.IntegerField(primary_key=True)
-    title = models.CharField(max_length=255, blank=True, null=True)
-    authors = models.ManyToManyField(Person, blank=True)
-    directors = models.ManyToManyField(Person, related_name="Production_directors", blank=True)
+    title = models.TextField(blank=True, null=True)
+    director = models.TextField(blank=True, null=True)
+    theatre = models.TextField(blank=True, null=True)
+    city = models.TextField(blank=True, null=True)
+    date = models.TextField(blank=True, null=True)
+    actors = models.TextField(blank=True, null=True)
     notes = models.TextField(blank=True, null=True, verbose_name = "Description or Notes")
 
     def natural_key(self):
@@ -40,8 +44,11 @@ class Publication(models.Model):
     # django requires list of tuple for field choices
 
     profile_id = models.IntegerField(primary_key=True)
-    title = models.CharField(max_length=255, blank=True, null=True)
-    authors = models.ManyToManyField(Person, blank=True)
+    title = models.TextField(blank=True, null=True)
+    translator = models.TextField(blank=True, null=True)
+    place_pub_date = models.TextField(blank=True, null=True)
+    #pages = models.CharField(max_length=255, blank=True, null=True)
+    item = models.TextField(blank=True, null=True)
     notes = models.TextField(blank=True, null=True, verbose_name = "Description or Notes")
 
     def natural_key(self):
@@ -64,8 +71,8 @@ class Writing(models.Model):
     # django requires list of tuple for field choices
 
     profile_id = models.IntegerField(primary_key=True)
-    title = models.CharField(max_length=255, blank=True, null=True)
-    authors = models.ManyToManyField(Person, blank=True)
+    title = models.TextField(blank=True, null=True)
+    authors = models.TextField(blank=True, null=True)
     notes = models.TextField(blank=True, null=True, verbose_name = "Description or Notes")
 
     def natural_key(self):
@@ -88,8 +95,8 @@ class Directing(models.Model):
     # django requires list of tuple for field choices
 
     profile_id = models.IntegerField(primary_key=True)
-    title = models.CharField(max_length=255, blank=True, null=True)
-    authors = models.ManyToManyField(Person, blank=True)
+    title = models.TextField(blank=True, null=True)
+    authors = models.TextField(blank=True, null=True)
     notes = models.TextField(blank=True, null=True, verbose_name = "Description or Notes")
 
     def natural_key(self):
@@ -113,8 +120,10 @@ class Translating(models.Model):
     # django requires list of tuple for field choices
 
     profile_id = models.IntegerField(primary_key=True)
-    title = models.CharField(max_length=255, blank=True, null=True)
-    authors = models.ManyToManyField(Person, blank=True)
+    work = models.TextField(blank=True, null=True)
+    language = models.TextField(blank=True, null=True)
+    translator = models.TextField(blank=True, null=True)
+    translated_title = models.TextField(blank=True, null=True)
     notes = models.TextField(blank=True, null=True, verbose_name = "Description or Notes")
 
     def natural_key(self):
@@ -124,7 +133,7 @@ class Translating(models.Model):
         return self.title
 
     class Meta:
-        ordering = ['title']
+        ordering = ['work']
 
 class ReadingManager(models.Manager):
     def get_by_natural_key(self, title):
@@ -137,9 +146,9 @@ class Reading(models.Model):
     # django requires list of tuple for field choices
 
     profile_id = models.IntegerField(primary_key=True)
-    title = models.CharField(max_length=255, blank=True, null=True)
-    authors = models.ManyToManyField(Person, blank=True)
-    notes = models.TextField(blank=True, null=True, verbose_name = "Description or Notes")
+    author = models.TextField(blank=True, null=True)
+    book = models.TextField(blank=True, null=True)
+    publication = models.TextField(blank=True, null=True)
 
     def natural_key(self):
         return (self.title,)
@@ -148,6 +157,6 @@ class Reading(models.Model):
         return self.title
 
     class Meta:
-        ordering = ['title']
+        ordering = ['book']
 
 

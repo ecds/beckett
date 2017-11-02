@@ -38,8 +38,10 @@ class Attendance(models.Model):
     # django requires list of tuple for field choices
 
     profile_id = models.IntegerField(primary_key=True)
+    thing = models.CharField(max_length=255, blank=True, null=True)
     title = models.CharField(max_length=255, blank=True, null=True)
-    authors = models.ManyToManyField(Person, blank=True)
+    place_date = models.CharField(max_length=255, blank=True, null=True)
+    attends_with = models.CharField(max_length=255, blank=True, null=True)
     notes = models.TextField(blank=True, null=True, verbose_name = "Description or Notes")
 
     def natural_key(self):
@@ -49,7 +51,7 @@ class Attendance(models.Model):
         return self.title
 
     class Meta:
-        ordering = ['title']
+        ordering = ['thing']
 
 class Public_eventManager(models.Manager):
     def get_by_natural_key(self, title):
@@ -62,15 +64,15 @@ class Public_event(models.Model):
     # django requires list of tuple for field choices
 
     profile_id = models.IntegerField(primary_key=True)
-    title = models.CharField(max_length=255, blank=True, null=True)
-    authors = models.ManyToManyField(Person, blank=True)
+    event = models.CharField(max_length=255, blank=True, null=True)
+    date = models.CharField(max_length=255, blank=True, null=True)
     notes = models.TextField(blank=True, null=True, verbose_name = "Description or Notes")
 
     def natural_key(self):
-        return (self.title,)
+        return (self.event,)
 
     def __unicode__(self):
-        return self.title
+        return self.event
 
     class Meta:
-        ordering = ['title']
+        ordering = ['event']

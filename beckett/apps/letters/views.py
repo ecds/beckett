@@ -33,11 +33,11 @@ def search(request):
 
     if query:
         if field == "recipients":
-            letter_list = letter_list.filter(recipients_excel__icontains=query)
+            letter_list = letter_list.filter(reg_recipient__icontains=query)
         if field == "place_sent":
-            letter_list = letter_list.filter(place_sent__icontains=query)
+            letter_list = letter_list.filter(reg_place_sent__icontains=query)
         if field == "repository":
-            letter_list = letter_list.filter(repository_excel__icontains=query)
+            letter_list = letter_list.filter(repository__icontains=query)
         # if field == "people":
         #     letter_list = letter_list.filter(Q(people__last_name__icontains = query)| Q(people__first_name__icontains = query))
         if field == "people":
@@ -163,13 +163,13 @@ def get_search_autocomplete(request):
     unique_results = []
 
     if field == "recipients":
-        letters = Letter.objects.filter(recipients_excel__icontains = q)
+        letters = Letter.objects.filter(reg_recipient__icontains = q)
         for letter in letters:
-            results.append(letter.recipients_excel)
+            results.append(letter.reg_recipient)
         categorized_letters = Counter(results)
         for letter in letters:
-            if letter.recipients_excel not in unique_results:
-                unique_results.append(letter.recipients_excel)
+            if letter.reg_recipient not in unique_results:
+                unique_results.append(letter.reg_recipient)
 
     if field == "place_sent":
         letters = Letter.objects.filter(place_sent__icontains = q)
@@ -181,13 +181,13 @@ def get_search_autocomplete(request):
                 unique_results.append(letter.place_sent)
 
     if field == "repository":
-        letters = Letter.objects.filter(repository_excel__icontains = q)
+        letters = Letter.objects.filter(repository__icontains = q)
         for letter in letters:
-            results.append(letter.repository_excel)
+            results.append(letter.repository)
         categorized_letters = Counter(results)
         for letter in letters:
-            if letter.repository_excel not in unique_results:
-                unique_results.append(letter.repository_excel)
+            if letter.repository not in unique_results:
+                unique_results.append(letter.repository)
 
     if field == "people":
 

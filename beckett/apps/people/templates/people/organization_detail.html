@@ -25,7 +25,7 @@
       <td><b>Related Letters - Mentioned: </b></td>
       <td>{% for item2 in object.manyorganizations.all %} 
             {{item.2}}
-            <a href="{% url 'lettering:lettersdetail' item2.letter_code %}">{{ item2.day }}-{{ item2.month }}-19{{ item2.year }}
+            <a href="{% url 'lettering:lettersdetail' item2.id %}">{{ item2.day }}-{{ item2.month }}-19{{ item2.year }}
             </a> |   
             {% endfor %}</td>
     </tr>

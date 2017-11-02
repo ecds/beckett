@@ -29,9 +29,9 @@
         {% for Letter in letter_list %}
         <tr>
           <td>
-            <a href="{% url 'lettering:lettersdetail' pk=Letter.letter_code %}">Letter sent on {{ Letter.day }}-{{ Letter.month }}-{{ Letter.year }}</a>
+            <a href="{% url 'lettering:lettersdetail' pk=Letter.id %}">Letter sent on {{ Letter.day }}-{{ Letter.month }}-{{ Letter.year }}</a>
           </td>
-          <td> to <i>{{ Letter.recipients_excel|safe }}</i></td>
+          <td> to <i>{{ Letter.reg_recipient|safe }}</i></td>
         </tr>
         {% endfor %}
       </tbody>

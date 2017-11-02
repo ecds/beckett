@@ -14,8 +14,8 @@ class Organization(models.Model):
     # django requires list of tuple for field choices
 
     profile_id = models.IntegerField(primary_key=True)
-    name = models.CharField(max_length=255)
-    description = models.TextField(blank=True)
+    name = models.CharField(max_length=255, blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
 
 
     def natural_key(self):
@@ -47,9 +47,9 @@ class Person(models.Model):
     # Current Fields
     profile_id = models.IntegerField(primary_key=True)
     first_name = models.CharField(max_length=100, blank=True, null=True)
-    last_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100, blank=True, null=True)
     bio_dates = models.CharField(max_length=100, blank=True, null=True)
-    description = models.TextField(blank=True)
+    description = models.TextField(blank=True, null=True)
     VIAF_reference = models.URLField(blank=True, null=True, help_text="VIAF Permalink")
 
     # Other Fields
@@ -73,7 +73,7 @@ class Person(models.Model):
 
     class Meta:
         verbose_name_plural = u'People'
-        unique_together = ('first_name', 'last_name')
+        #unique_together = ('first_name', 'last_name')
         ordering = ['last_name', 'first_name']
 
 class PersonResource(models.Model):
