@@ -187,7 +187,7 @@
         <td><b>Public Events Mentioned: </b></td>
         <td><ul style="list-style-type: none">
           {% for name2 in object.public_events.all %} 
-<li><a href="{% url 'events:public_event_detail' name2.profile_id %}">{{ name2.title|safe }}</a></li>{% endfor %}</ul></td>
+<li><a href="{% url 'events:public_event_detail' name2.profile_id %}">{{ name2.event|safe }}</a></li>{% endfor %}</ul></td>
 {% endif %}
       </tr>
 

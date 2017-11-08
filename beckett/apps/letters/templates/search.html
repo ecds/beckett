@@ -12,7 +12,7 @@
 
     <div class="result-summary">
       {% if request.GET.q %}
-        Keyword <span class="emphasis">{{request.GET.q}}</span> in field <span class="emphasis">{{request.GET.field}}</span> has <span class="emphasis">{{result_count}}</span> result(s) in total.
+        Keyword <span class="emphasis">{{request.GET.q|safe}}</span> in field <span class="emphasis">{{request.GET.field}}</span> has <span class="emphasis">{{result_count}}</span> result(s) in total.
       {% else %}
         Showing all <span class="emphasis">{{result_count}}</span> result(s).
       {% endif %}
@@ -23,6 +23,7 @@
         <tr>
           <th>Sent Date (DD-MM-YYYY)</th>
           <th>Recipient(s)</th>
+          <th>Repository</th>
         </tr>
       </thead>
       <tbody>
@@ -32,6 +33,7 @@
             <a href="{% url 'lettering:lettersdetail' pk=Letter.id %}">Letter sent on {{ Letter.day }}-{{ Letter.month }}-{{ Letter.year }}</a>
           </td>
           <td> to <i>{{ Letter.reg_recipient|safe }}</i></td>
+          <td> held at <i>{{Letter.repository|safe}}</i></td>
         </tr>
         {% endfor %}
       </tbody>

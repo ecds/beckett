@@ -42,4 +42,17 @@
 
 </div>
 </div>
+
+<script>
+  // initialize datatables
+  $.noConflict();
+  $(document).ready(function() {
+    $('#example-table').DataTable({
+      // "dom": '<"top"if>rt<"bottom"lp><"clear">',
+      "oLanguage": {
+        "sSearch": "Filter within current results:"
+      }
+    });
+  });
+</script>
 {% endblock %}

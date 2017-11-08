@@ -109,7 +109,7 @@ def search(request):
             letter_list = letter_list.filter(writing__profile_id__in=profile_ids)
 
         if field == "translating":
-            translating = Translating.objects.filter(title__icontains = query)
+            translating = Translating.objects.filter(work__icontains = query)
 
             profile_ids = [] # Colleciton of profile_ids that are of interest
             for t in translating:
@@ -118,7 +118,7 @@ def search(request):
             letter_list = letter_list.filter(translating__profile_id__in=profile_ids)
 
         if field == "reading":
-            reading = Reading.objects.filter(title__icontains = query)
+            reading = Reading.objects.filter(book__icontains = query)
 
             profile_ids = [] # Colleciton of profile_ids that are of interest
             for r in reading:
@@ -136,7 +136,7 @@ def search(request):
             letter_list = letter_list.filter(attendance__profile_id__in=profile_ids)
 
         if field == "public_events":
-            public_events = Public_event.objects.filter(title__icontains = query)
+            public_events = Public_event.objects.filter(event__icontains = query)
 
             profile_ids = [] # Colleciton of profile_ids that are of interest
             for event in public_events:
@@ -172,13 +172,13 @@ def get_search_autocomplete(request):
                 unique_results.append(letter.reg_recipient)
 
     if field == "place_sent":
-        letters = Letter.objects.filter(place_sent__icontains = q)
+        letters = Letter.objects.filter(reg_place_sent__icontains = q)
         for letter in letters:
-            results.append(letter.place_sent)
+            results.append(letter.reg_place_sent)
         categorized_letters = Counter(results)
         for letter in letters:
-            if letter.place_sent not in unique_results:
-                unique_results.append(letter.place_sent)
+            if letter.reg_place_sent not in unique_results:
+                unique_results.append(letter.reg_place_sent)
 
     if field == "repository":
         letters = Letter.objects.filter(repository__icontains = q)
@@ -256,7 +256,7 @@ def get_search_autocomplete(request):
 
     if field == "publications":
 
-        publications = Production.objects.filter(title__icontains = q)
+        publications = Publication.objects.filter(title__icontains = q)
 
         for publication in publications:
             letters = Letter.objects.filter(publications__profile_id = publication.profile_id)
@@ -301,33 +301,33 @@ def get_search_autocomplete(request):
 
     if field == "translating":
 
-        translating = Translating.objects.filter(title__icontains = q)
+        translating = Translating.objects.filter(work__icontains = q)
 
         for t in translating:
             letters = Letter.objects.filter(translating__profile_id = t.profile_id)
             for letter in letters:
-                results.append(t.title)
+                results.append(t.work)
         categorized_letters = Counter(results)
         for t in translating:
             letters = Letter.objects.filter(translating__profile_id = t.profile_id)
             for letter in letters:
-                if t.title not in unique_results:
-                    unique_results.append(t.title)
+                if t.work not in unique_results:
+                    unique_results.append(t.work)
 
     if field == "reading":
 
-        reading = Reading.objects.filter(title__icontains = q)
+        reading = Reading.objects.filter(book__icontains = q)
 
         for r in reading:
             letters = Letter.objects.filter(reading__profile_id = r.profile_id)
             for letter in letters:
-                results.append(r.title)
+                results.append(r.book)
         categorized_letters = Counter(results)
         for r in reading:
             letters = Letter.objects.filter(reading__profile_id = r.profile_id)
             for letter in letters:
-                if r.title not in unique_results:
-                    unique_results.append(r.title)
+                if r.book not in unique_results:
+                    unique_results.append(r.book)
 
     if field == "attendance":
 
@@ -346,18 +346,18 @@ def get_search_autocomplete(request):
 
     if field == "public_events":
 
-        public_events = Public_event.objects.filter(title__icontains = q)
+        public_events = Public_event.objects.filter(event__icontains = q)
 
         for event in public_events:
             letters = Letter.objects.filter(public_events__profile_id = event.profile_id)
             for letter in letters:
-                results.append(event.title)
+                results.append(event.event)
         categorized_letters = Counter(results)
         for event in public_events:
             letters = Letter.objects.filter(public_events__profile_id = event.profile_id)
             for letter in letters:
-                if event.title not in unique_results:
-                    unique_results.append(event.title)
+                if event.event not in unique_results:
+                    unique_results.append(event.event)
 
 
     json_collection = []
