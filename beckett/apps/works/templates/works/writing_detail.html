@@ -26,16 +26,30 @@
     	<td>{{ object.notes }}</div></td>
     </tr>
     </tr>
-    <tr>
-        <td><b>Related Letters:</b></td>
-        <td>{% for item in object.manywritings.all %}
-            <a href="{% url 'lettering:lettersdetail' item.id %}">{{ item.day }}-{{ item.month }}-19{{ item.year }}
-            </a> |   
-            {% endfor %}</td>
-    </tr>
-
+    
     </tbody>
 </table>
+
+<h2 style="font-size:1.75em;">Mentioned in Letters</h2>
+    <table id="example-table" class="table">
+            <thead><th>Sent Date (DD-MM-YYYY)</th>
+                <th>Recipient(s)</th>
+                <th>Repository</th></thead>
+                <tbody>
+        {% for item in object.manywritings.all %}
+        <tr>
+            <td>
+<!--span for sorting purposes only-->
+            <span style="display:none;">{{item.year}}{{item.month_padded}}{{item.day_padded}}</span>
+              <a href="{% url 'lettering:lettersdetail' item.id %}">{{ item.day }}-{{ item.month }}-19{{ item.year }}
+            </a></td>
+            <td>{{item.reg_recipient}}</td>
+            <td>{{item.repository}}</td>
+        </tr>  
+            {% endfor %}</td>
+    </tbody>
+</table>
+
 </div>
 
 

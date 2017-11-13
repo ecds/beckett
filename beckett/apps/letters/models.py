@@ -90,8 +90,13 @@ class Letter(models.Model):
     }
         return month_dict[self.month]
 
+    @property
+    def month_padded(self):
+        return str(self.month).zfill(2)
 
-
+    @property
+    def day_padded(self):
+        return str(self.day).zfill(2)
 
     
     def recipient_list(self):

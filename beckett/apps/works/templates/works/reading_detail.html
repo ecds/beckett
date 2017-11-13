@@ -35,7 +35,10 @@
                 <tbody>
         {% for item in object.manyreadings.all %}
         <tr>
-            <td><a href="{% url 'lettering:lettersdetail' item.id %}">{{ item.day }}-{{ item.month }}-19{{ item.year }}
+            <td>
+<!--span for sorting purposes only-->
+            <span style="display:none;">{{item.year}}{{item.month_padded}}{{item.day_padded}}</span>
+              <a href="{% url 'lettering:lettersdetail' item.id %}">{{ item.day }}-{{ item.month }}-19{{ item.year }}
             </a></td>
             <td>{{item.reg_recipient}}</td>
             <td>{{item.repository}}</td>
