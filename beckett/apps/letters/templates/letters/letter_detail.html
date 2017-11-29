@@ -24,15 +24,20 @@
       </tr>
            <tr>
         <td><b>Physical Description: </b></td>
-        <td>{{ object.physical_description }} {{object.leaves}}/{{object.sides}}</td>
+        <td>{{ object.physical_description }}, {{object.leaves}}/{{object.sides}}</td>
       </tr>
       <tr>
         <td><b>Place Written: </b></td>
-        <td>{% if object.reg_place_written != '' %}
-              {{object.reg_place_written}}
-              {% else %}
-          {{ object.addressed_from_actual }}
+        <td>
+          {% if object.reg_place_written != ''%}
+            {{object.reg_place_written}} 
           {% endif %}
+          {% if object.reg_place_written_city != ''%}
+            {{object.reg_place_written_city}} 
+          {% endif %}
+          {% if reg_place_written_country != ''%}
+            {{reg_place_written_country}}
+          {% endif %}        
         </td>
       </tr>
             <tr>
@@ -63,7 +68,7 @@
       </tr>
       {% endif %}
       <tr>
-        <td><b>Public? </b></td>
+        <td><b>Public, Corporate or Private: </b></td>
         <td>{{ object.public }}</td>
       </tr>
       <tr>
@@ -75,12 +80,8 @@
         <td>{{ object.primary_language }}</td>
       </tr>
       <tr>
-        <td><b>Place previously publication: </b></td>
+        <td><b>Previous Publication: </b></td>
         <td>{{ object.place_prev_published }}</td>
-      </tr>
-      <tr>
-        <td><b>Verified? </b></td>
-        <td>{{ object.verified }}</td>
       </tr>
       
 
