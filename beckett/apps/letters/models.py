@@ -102,8 +102,8 @@ class Letter(models.Model):
     def recipient_list(self):
         return "; ".join(['%s %s' % (r.first_name, r.last_name) for r in self.recipients.all()])
 
-    def recipients_html(self):
-        return format_html(self.recipients_excel)
+    # def recipients_html(self):
+    #     return format_html(self.recipients_excel)
 
     class Meta: 
         ordering = ['year', 'month', 'day']

@@ -27,7 +27,7 @@ class Production(models.Model):
         return (self.title,)
 
     def __unicode__(self):
-        return self.title
+        return self.title or u''
 
     class Meta:
         ordering = ['title']
@@ -55,7 +55,7 @@ class Publication(models.Model):
         return (self.title,)
 
     def __unicode__(self):
-        return self.title
+        return self.title or u''
 
     class Meta:
         ordering = ['title']
@@ -79,7 +79,7 @@ class Writing(models.Model):
         return (self.title,)
 
     def __unicode__(self):
-        return self.title
+        return self.title or u''
 
     class Meta:
         ordering = ['title']
@@ -103,15 +103,15 @@ class Directing(models.Model):
         return (self.title,)
 
     def __unicode__(self):
-        return self.title
+        return self.title or u''
 
     class Meta:
         ordering = ['title']
 
 
 class TranslatingManager(models.Manager):
-    def get_by_natural_key(self, title):
-        return self.get(title=title)
+    def get_by_natural_key(self, work):
+        return self.get(work=work)
 
 
 class Translating(models.Model):
@@ -127,17 +127,17 @@ class Translating(models.Model):
     notes = models.TextField(blank=True, null=True, verbose_name = "Description or Notes")
 
     def natural_key(self):
-        return (self.title,)
+        return (self.work)
 
     def __unicode__(self):
-        return self.title
+        return self.work or u''
 
     class Meta:
         ordering = ['work']
 
 class ReadingManager(models.Manager):
-    def get_by_natural_key(self, title):
-        return self.get(title=title)
+    def get_by_natural_key(self, book):
+        return self.get(book=book)
 
 
 class Reading(models.Model):
@@ -151,10 +151,10 @@ class Reading(models.Model):
     publication = models.TextField(blank=True, null=True)
 
     def natural_key(self):
-        return (self.title,)
+        return (self.book)
 
     def __unicode__(self):
-        return self.title
+        return self.book or u''
 
     class Meta:
         ordering = ['book']
